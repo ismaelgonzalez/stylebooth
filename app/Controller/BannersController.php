@@ -12,7 +12,7 @@ class BannersController extends AppController {
 
 	public $paginate = array(
 		'conditions' => array(
-			'status' => 1
+			'Banner.status' => 1
 		),
 		'limit' => 10,
 		'order' => array(
@@ -21,6 +21,13 @@ class BannersController extends AppController {
 	);
 
 	public function index() {
-		echo __FILE__;
+		$this->set('title_for_layout', 'Lista de Banners');
+
+		$banners = $this->paginate('Banner');
+		$this->set('banners', $banners);
+	}
+
+	public function add() {
+
 	}
 }

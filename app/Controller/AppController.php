@@ -32,4 +32,15 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 	public $components = array('DebugKit.Toolbar');
+
+	public function beforeFilter() {
+		$this->set('pageHeader', $this->name);
+		$action = ucfirst($this->action);
+		if ( $action == 'Index') {
+			$sectionTitle = 'Lista de ' . $this->name;
+		} else {
+			$sectionTitle = $action . ' ' . $this->name;
+		}
+		$this->set('sectionTitle', $sectionTitle);
+	}
 }

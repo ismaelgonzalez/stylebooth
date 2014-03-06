@@ -88,3 +88,11 @@ body {
     display: inline-block;
     border-radius: 50%;
 }
+
+/*
+ - Form stuff here
+*/
+.my-label {
+	float:left;
+	margin-left:10px;
+}
