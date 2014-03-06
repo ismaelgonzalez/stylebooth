@@ -69,7 +69,7 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 		<div class="col-sm-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
 				<li class="active"><a href="#">Dashboard</a></li>
-				<li><a href="#">Banners</a></li>
+				<li><a href="/banners">Banners</a></li>
 				<li><a href="#">Cupones</a></li>
 				<li><a href="#">Outfits</a></li>
 				<li><a href="#">Blogs</a></li>
