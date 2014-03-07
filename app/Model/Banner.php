@@ -2,7 +2,7 @@
 class Banner extends AppModel{
 	public $name = 'Banner';
 	public $useTable = 'banners';
-	public $actsAs = array('Uploadable');
+	public $actsAs = array('Upload');
 
 	public $validate = array(
 		'link' => array(
@@ -21,7 +21,7 @@ class Banner extends AppModel{
 
 	public function beforeSave() {
 		parent::beforeSave();
-		echo __CLASS__.' '.__FUNCTION__;
+
 		if (!empty($this->data[$this->alias]['banner_date'])) {
 			$this->data[$this->alias]['banner_date'] = date("Y-m-d", strtotime($this->data[$this->alias]['banner_date']));
 		} else {
@@ -30,12 +30,8 @@ class Banner extends AppModel{
 
 		$this->data[$this->alias]['status'] = 1;
 
-		$image_name = $this->uploadPic($this->data, 'banners');
-
+		$image_name = $this->uploadPic('banners');
 		$this->data[$this->alias]['image'] = $image_name;
-		print_r($this->data);
-		exit();
 		return true;
-
 	}
 }

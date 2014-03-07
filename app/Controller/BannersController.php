@@ -6,7 +6,7 @@ class BannersController extends AppController {
 
 	public $components = array('Session');
 
-	public $helpers = array('Paginator', 'Js');
+	public $helpers = array('Paginator', 'Js', 'Status');
 
 	public $layout = "admin";
 
@@ -16,7 +16,8 @@ class BannersController extends AppController {
 		),
 		'limit' => 10,
 		'order' => array(
-			'Banner.banner_date' => 'DESC'
+			'Banner.banner_date' => 'DESC',
+			'Banner.id' => 'DESC'
 		)
 	);
 
@@ -42,5 +43,14 @@ class BannersController extends AppController {
 
 			return $this->redirect('/banners/index');
 		}
+	}
+
+	public function edit($id) {
+		$banner = $this->Banner->findById($id);
+		$this->set('banner', $banner);
+	}
+
+	public function delete($id) {
+
 	}
 }

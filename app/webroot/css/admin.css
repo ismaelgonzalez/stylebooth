@@ -96,3 +96,8 @@ body {
 	float:left;
 	margin-left:10px;
 }
+
+.delete {
+	color: red;
+	cursor: pointer;
+}
