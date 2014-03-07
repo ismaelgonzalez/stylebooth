@@ -47,10 +47,53 @@ class BannersController extends AppController {
 
 	public function edit($id) {
 		$banner = $this->Banner->findById($id);
-		$this->set('banner', $banner);
+
+		if ($banner) {
+			$this->set('banner', $banner);
+		} else {
+			$this->Session->setFlash('No existe banner con este ID :(', 'default', array('class'=>'alert alert-danger'));
+
+			return $this->redirect('/banners/index');
+		}
+
+		if (!empty($this->data)) {
+			if (empty($this->data['Banner']['image']['name'])) {
+				unset($this->request->data['Banner']['image']);
+			}
+			if (!$this->Banner->save($this->request->data)) {
+				$this->Session->setFlash('No se pudo guardar el banner :S', 'default', array('class'=>'alert alert-danger'));
+
+				return false;
+			}
+
+			$this->Session->setFlash('Se edit&oacute; el nuevo Banner!', 'default', array('class'=>'alert alert-success'));
+
+			return $this->redirect('/banners/index');
+		}
 	}
 
 	public function delete($id) {
+		$this->autoRender = false;
+		$banner = $this->Banner->find('first', array(
+			'conditions' => array(
+				'Banner.id' => $id
+			),
+			'fields' => array(
+				'Banner.id',
+				'Banner.status'
+			)
+		));
 
+		if ($banner) {
+			$banner['Banner']['status'] = 0;
+			$this->Banner->save($banner);
+			$this->Session->setFlash('Se desactiv&oacute; el banner con exito!', 'default', array('class'=>'alert alert-success'));
+
+			return $this->redirect('/banners/index');
+		} else {
+			$this->Session->setFlash('No existe banner con este ID :(', 'default', array('class'=>'alert alert-danger'));
+
+			return $this->redirect('/banners/index');
+		}
 	}
 }

@@ -34,10 +34,14 @@ echo $this->Form->input('type', array(
 	'default' => $banner['Banner']['type']
 ));
 echo $this->Form->input('image', array(
-	'label' => array('text' => 'Imagen', 'class' => 'control-label my-label col-lg-2'),
+	'label' => array('text' => 'Banner Nuevo', 'class' => 'control-label my-label col-lg-2'),
 	'class' => 'form-control',
 	'type' => 'file',
 	'between' => '<div class="col-lg-4">',
+));//application/x-shockwave-flash
+echo $this->Form->input('old_image', array(
+	'type' => 'hidden',
+	'default' => $banner['Banner']['image']
 ));//application/x-shockwave-flash
 ?>
 <div class="form-group">
@@ -54,7 +58,7 @@ echo $this->Form->input('link', array(
 echo $this->Form->input('banner_date', array(
 	'type' => 'text',
 	'label' => array('text' => 'Fecha de Publicaci&oacute;n', 'class' => 'control-label my-label col-lg-2'),
-	'default' => date('d-m-Y', strtotime($banner['Banner']['id']))
+	'default' => date('d-m-Y', strtotime($banner['Banner']['banner_date']))
 ));
 
 echo "<div class='form-group col-lg-5'>";

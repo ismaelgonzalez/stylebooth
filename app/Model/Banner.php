@@ -28,10 +28,13 @@ class Banner extends AppModel{
 			$this->data[$this->alias]['banner_date'] = date("Y-m-d");
 		}
 
-		$this->data[$this->alias]['status'] = 1;
+		$this->data[$this->alias]['status'] = isset($this->data[$this->alias]['status']) ? $this->data[$this->alias]['status'] : 1;
 
-		$image_name = $this->uploadPic('banners');
-		$this->data[$this->alias]['image'] = $image_name;
+		if(!empty($this->data[$this->alias]['image']['name'])){
+			$image_name = $this->uploadPic('banners');
+			$this->data[$this->alias]['image'] = $image_name;
+		}
+
 		return true;
 	}
 }
