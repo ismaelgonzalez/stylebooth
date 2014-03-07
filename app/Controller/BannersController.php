@@ -28,6 +28,19 @@ class BannersController extends AppController {
 	}
 
 	public function add() {
+		$this->set('title_for_layout', 'Agregar Banners');
 
+		if (!empty($this->data)) {
+			$this->Banner->create();
+			if (!$this->Banner->save($this->data)) {
+				$this->Session->setFlash('No se pudo guardar el banner :S', 'default', array('class'=>'alert alert-danger'));
+
+				return false;
+			}
+
+			$this->Session->setFlash('Se agreg&oacute; el nuevo Banner!', 'default', array('class'=>'alert alert-success'));
+
+			return $this->redirect('/banners/index');
+		}
 	}
 }

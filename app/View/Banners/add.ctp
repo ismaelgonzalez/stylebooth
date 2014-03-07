@@ -19,14 +19,14 @@ echo $this->Form->Create('Banner',
 			'label' => array('class' => 'col-lg-2 control-label'),
 			'between' => '<div class="col-lg-2">',
 			'after' => '</div>',
-			'error' => array('attributes' => array('wrap' => 'span', 'class' => 'help-inline')),
+			'error' => array('attributes' => array('wrap' => 'div', 'class' => 'alert alert-danger')),
 		)
 	)
 );
 echo $this->Form->input('type', array(
 		'label' => array('text' => 'Posición', 'class' => 'control-label my-label col-lg-2'),
 		'options' => array($type),
-		'empty' => array('-- Elige una posición --'),
+		'empty' => array('' => '-- Elige una posición --'),
 		'class' => 'form-control'
 ));
 echo $this->Form->input('image', array(
