@@ -14,6 +14,10 @@ echo $this->Form->Create('Coupon',
 		)
 	)
 );
+echo $this->Form->input('title', array(
+	'label' => array('text' => 'Nombre', 'class' => 'control-label my-label col-lg-2'),
+	'class' => 'form-control',
+));
 echo $this->Form->input('product_id', array(
 	'label' => array('text' => 'Producto', 'class' => 'control-label my-label col-lg-2'),
 	'options' => array($products),
@@ -21,7 +25,7 @@ echo $this->Form->input('product_id', array(
 	'class' => 'form-control'
 ));
 echo $this->Form->input('discount_percentage', array(
-	'label' => array('text' => 'Descuento', 'class' => 'control-label my-label col-lg-2'),
+	'label' => array('text' => 'Descuento (%)', 'class' => 'control-label my-label col-lg-2'),
 	'class' => 'form-control',
 ));
 echo $this->Form->input('number_coupons', array(

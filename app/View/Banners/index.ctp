@@ -23,7 +23,7 @@
 			<td><?php echo $this->Status->getPosition($b['Banner']['type']); ?></td>
 			<td><?php echo $b['Banner']['image']; ?></td>
 			<td><?php echo $b['Banner']['link']; ?></td>
-			<td><?php echo date('d/m/Y', strtotime($b['Banner']['banner_date'])); ?></td>
+			<td><?php echo date('d/M/Y', strtotime($b['Banner']['banner_date'])); ?></td>
 			<td><?php echo $this->Status->getStatus($b['Banner']['status']); ?></td>
 			<td>
 				<a href="/banners/edit/<?php echo $b['Banner']['id']; ?>"><i class="icon-edit" data-toggle="tooltip" title="Editar Banner"></i></a> |

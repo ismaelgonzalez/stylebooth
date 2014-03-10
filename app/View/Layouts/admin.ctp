@@ -56,15 +56,15 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 		<!-- SIDEBAR -->
 		<div class="col-sm-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
-				<li class="active"><a href="/">Dashboard</a></li>
-				<li><a href="/banners">Banners</a></li>
-				<li><a href="/coupons">Cupones</a></li>
-				<li><a href="#">Outfits</a></li>
-				<li><a href="#">Blogs</a></li>
-				<li><a href="#">Noticias</a></li>
-				<li><a href="#">Productos</a></li>
-				<li><a href="#">Tiendas</a></li>
-				<li><a href="#">Usuarios</a></li>
+				<li <?php if (isset($page) && $page == 'home') { echo "class='active'"; } ?>><a href="/">Dashboard</a></li>
+				<li <?php if ($this->params['controller'] == 'banners') { echo "class='active'"; } ?>><a href="/banners">Banners</a></li>
+				<li <?php if ($this->params['controller'] == 'coupons') { echo "class='active'"; } ?>><a href="/coupons">Cupones</a></li>
+				<li <?php if ($this->params['controller'] == 'outfits') { echo "class='active'"; } ?>><a href="/outfits">Outfits</a></li>
+				<li <?php if ($this->params['controller'] == 'blogs') { echo "class='active'"; } ?>><a href="#">Blogs</a></li>
+				<li <?php if ($this->params['controller'] == 'noticias') { echo "class='active'"; } ?>><a href="#">Noticias</a></li>
+				<li <?php if ($this->params['controller'] == 'products') { echo "class='active'"; } ?>><a href="#">Productos</a></li>
+				<li <?php if ($this->params['controller'] == 'stores') { echo "class='active'"; } ?>><a href="#">Tiendas</a></li>
+				<li <?php if ($this->params['controller'] == 'users') { echo "class='active'"; } ?>><a href="#">Usuarios</a></li>
 			</ul>
 		</div>
 		<!-- SIDEBAR -->

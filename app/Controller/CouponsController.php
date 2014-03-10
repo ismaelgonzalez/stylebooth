@@ -22,7 +22,7 @@ class CouponsController extends AppController {
 	);
 
 	public function index() {
-		$this->set('title_for_layout', 'Lista de Cupones');
+		$this->set('title_for_layout', 'Administrar Cupones');
 
 		$coupons = $this->paginate('Coupon');
 		$this->set('coupons', $coupons);
@@ -36,24 +36,27 @@ class CouponsController extends AppController {
 		if (!empty($this->data)) {
 			$this->Coupon->create();
 			if (!$this->Coupon->save($this->data)) {
-				$this->Session->setFlash('No se pudo guardar el banner :S', 'default', array('class'=>'alert alert-danger'));
+				$this->Session->setFlash('No se pudo guardar el cupon :S', 'default', array('class'=>'alert alert-danger'));
 
 				return false;
 			}
 
-			$this->Session->setFlash('Se agreg&oacute; el nuevo Coupon!', 'default', array('class'=>'alert alert-success'));
+			$this->Session->setFlash('Se agreg&oacute; el nuevo Cupon!', 'default', array('class'=>'alert alert-success'));
 
 			return $this->redirect('/coupons/index');
 		}
 	}
 
 	public function edit($id) {
-		$banner = $this->Coupon->findById($id);
+		$this->set('title_for_layout', 'Editar Cupones');
+		$coupon = $this->Coupon->findById($id);
 
-		if ($banner) {
-			$this->set('banner', $banner);
+		if ($coupon) {
+			$this->set('coupon', $coupon);
+			$products = $this->Product->find('list');
+			$this->set('products', $products);
 		} else {
-			$this->Session->setFlash('No existe banner con este ID :(', 'default', array('class'=>'alert alert-danger'));
+			$this->Session->setFlash('No existe cupon con este ID :(', 'default', array('class'=>'alert alert-danger'));
 
 			return $this->redirect('/coupons/index');
 		}
@@ -63,12 +66,12 @@ class CouponsController extends AppController {
 				unset($this->request->data['Coupon']['image']);
 			}
 			if (!$this->Coupon->save($this->request->data)) {
-				$this->Session->setFlash('No se pudo guardar el banner :S', 'default', array('class'=>'alert alert-danger'));
+				$this->Session->setFlash('No se pudo guardar el cupon :S', 'default', array('class'=>'alert alert-danger'));
 
 				return false;
 			}
 
-			$this->Session->setFlash('Se edit&oacute; el nuevo Coupon!', 'default', array('class'=>'alert alert-success'));
+			$this->Session->setFlash('Se edit&oacute; el Cupon!', 'default', array('class'=>'alert alert-success'));
 
 			return $this->redirect('/coupons/index');
 		}
@@ -76,7 +79,7 @@ class CouponsController extends AppController {
 
 	public function delete($id) {
 		$this->autoRender = false;
-		$banner = $this->Coupon->find('first', array(
+		$coupon = $this->Coupon->find('first', array(
 			'conditions' => array(
 				'Coupon.id' => $id
 			),
@@ -86,14 +89,14 @@ class CouponsController extends AppController {
 			)
 		));
 
-		if ($banner) {
-			$banner['Coupon']['status'] = 0;
-			$this->Coupon->save($banner);
-			$this->Session->setFlash('Se desactiv&oacute; el banner con exito!', 'default', array('class'=>'alert alert-success'));
+		if ($coupon) {
+			$coupon['Coupon']['status'] = 0;
+			$this->Coupon->save($coupon);
+			$this->Session->setFlash('Se desactiv&oacute; el cupon con exito!', 'default', array('class'=>'alert alert-success'));
 
 			return $this->redirect('/coupons/index');
 		} else {
-			$this->Session->setFlash('No existe banner con este ID :(', 'default', array('class'=>'alert alert-danger'));
+			$this->Session->setFlash('No existe cupon con este ID :(', 'default', array('class'=>'alert alert-danger'));
 
 			return $this->redirect('/coupons/index');
 		}

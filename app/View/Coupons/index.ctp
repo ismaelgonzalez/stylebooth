@@ -22,14 +22,14 @@ if (sizeof($coupons) < 1) {
 			<? foreach($coupons as $c) { ?>
 		<tr>
 			<td><?php echo $c['Coupon']['product_id']; ?></td>
-			<td><?php echo $b['Coupon']['discount_percentage']; ?></td>
-			<td><?php echo date('d/m/Y', strtotime($b['Coupon']['start_date'])); ?></td>
-			<td><?php echo date('d/m/Y', strtotime($b['Coupon']['end_date'])); ?></td>
-			<td><?php echo $b['Coupon']['number_coupons']; ?></td>
-			<td><?php echo $this->Status->getStatus($b['Coupon']['status']); ?></td>
+			<td><?php echo $c['Coupon']['discount_percentage']; ?></td>
+			<td><?php echo date('d/M/Y', strtotime($c['Coupon']['start_date'])); ?></td>
+			<td><?php echo date('d/M/Y', strtotime($c['Coupon']['end_date'])); ?></td>
+			<td><?php echo $c['Coupon']['number_coupons']; ?></td>
+			<td><?php echo $this->Status->getStatus($c['Coupon']['status']); ?></td>
 			<td>
-				<a href="/coupons/edit/<?php echo $b['Coupon']['id']; ?>"><i class="icon-edit" data-toggle="tooltip" title="Editar Cupon"></i></a> |
-				<i class="icon-remove-sign delete" onclick="borrar(<?php echo $b['Coupon']['id']; ?>)" data-toggle="tooltip" title="Desactivar Cupon"></i>
+				<a href="/coupons/edit/<?php echo $c['Coupon']['id']; ?>"><i class="icon-edit" data-toggle="tooltip" title="Editar Cupon"></i></a> |
+				<i class="icon-remove-sign delete" onclick="borrar(<?php echo $c['Coupon']['id']; ?>)" data-toggle="tooltip" title="Desactivar Cupon"></i>
 			</td>
 		</tr>
 			<?php } ?>
