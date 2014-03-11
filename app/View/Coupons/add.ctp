@@ -1,3 +1,6 @@
+<script src="/js/chosen.jquery.js"></script>
+<link rel="stylesheet" href="/css/chosen.css">
+<link rel="stylesheet" href="/css/chosen.bootstrap.css">
 <?php
 echo $this->Form->Create('Coupon',
 	array(
@@ -50,5 +53,6 @@ echo $this->Form->end();
 	$(function () {
 		$('#CouponStartDate').datepicker({dateFormat:'dd-mm-yy'});
 		$('#CouponEndDate').datepicker({dateFormat:'dd-mm-yy'});
+		$('#CouponProductId').chosen({allow_single_deselect: true, autocomplete: true});
 	});
 </script>

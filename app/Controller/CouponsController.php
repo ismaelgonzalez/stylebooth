@@ -25,6 +25,7 @@ class CouponsController extends AppController {
 		$this->set('title_for_layout', 'Administrar Cupones');
 
 		$coupons = $this->paginate('Coupon');
+		//echo '<pre>'; print_r($coupons); exit();
 		$this->set('coupons', $coupons);
 	}
 

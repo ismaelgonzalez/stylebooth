@@ -9,6 +9,7 @@ if (sizeof($coupons) < 1) {
 	<table class="table table-striped table-hover">
 		<thead>
 		<tr>
+			<th>Titulo</th>
 			<th>Producto</th>
 			<th>Descuento</th>
 			<th>Comienzo de Promoción</th>
@@ -21,7 +22,8 @@ if (sizeof($coupons) < 1) {
 		<tbody>
 			<? foreach($coupons as $c) { ?>
 		<tr>
-			<td><?php echo $c['Coupon']['product_id']; ?></td>
+			<td><?php echo $c['Coupon']['title']; ?></td>
+			<td><?php echo $c['Product']['name']; ?></td>
 			<td><?php echo $c['Coupon']['discount_percentage']; ?></td>
 			<td><?php echo date('d/M/Y', strtotime($c['Coupon']['start_date'])); ?></td>
 			<td><?php echo date('d/M/Y', strtotime($c['Coupon']['end_date'])); ?></td>
