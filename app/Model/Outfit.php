@@ -2,30 +2,33 @@
 class Outfit extends AppModel{
 	public $name = 'Outfit';
 	public $useTable = 'outfits';
+	public $actsAs = array('Upload');
 
 	public $validate = array(
-		/*'title' => array(
+		'name' => array(
 			'required' => array(
 				'rule' => 'notEmpty',
 				'message' => 'El Nombre es requerido',
 			),
 		),
-		'product_id' => array(
+		'image' => array(
 			'required' => array(
 				'rule' => 'notEmpty',
-				'message' => 'El Producto es requerido',
+				'message' => 'La imagen es requerida',
 			),
-		),
-		'number_coupons' => array(
-			'required' => array(
-				'rule' => 'naturalNumber',
-				'message' => 'El número de cupones disponibles tiene que ser por lo menos 1',
-			),
-		),                   */
+		)
 	);
 
 	public function beforeSave() {
 		parent::beforeSave();
+
+		$this->data[$this->alias]['status'] = isset($this->data[$this->alias]['status']) ? $this->data[$this->alias]['status'] : 1;
+
+		if(!empty($this->data[$this->alias]['image']['name'])){
+			$image_name = $this->uploadPic('outfits');
+			$this->data[$this->alias]['image'] = $image_name;
+		}
+
 		return true;
 	}
 }
