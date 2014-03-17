@@ -1,8 +1,6 @@
-<ul>
-	<li>mostrar products_categories</li>
-	<li>on change escoger producto de esa categoria</li>
-	<li>al guardar, guardar record en outfit_products</li>
-</ul>
+<script src="/js/chosen.jquery.js"></script>
+<link rel="stylesheet" href="/css/chosen.css">
+<link rel="stylesheet" href="/css/chosen.bootstrap.css">
 <?php
 echo $this->Form->Create('Outfit',
 	array(
@@ -31,8 +29,12 @@ echo $this->Form->input('image', array(
 	'between' => '<div class="col-lg-4">',
 ));
 
-echo "<hr>";
-echo "<h4>Productos para el Outfit</h4>";
+//echo "<hr>";
+echo "<div class='well'>
+<div class='row hidden' id='accepted_products'>
+	<input type='hidden' name='data[OutfitProducts][OutfitId]' id='OutfitProductsOutfitId' value=''>
+</div>
+<h4>Productos para el Outfit</h4>";
 echo $this->Form->input('product_category_id', array(
 	'label' => array('text' => 'Categoría', 'class' => 'control-label my-label col-lg-2'),
 	'class' => 'form-control col-lg-3',
@@ -44,21 +46,64 @@ echo $this->Form->input('product_id', array(
 	'class' => 'form-control col-lg-3',
 	'empty' => array('' => '-- Elige un Producto --'),
 ));
-echo $this->Form->button("Agregar Producto", array(
+echo $this->Form->button("Agregar Producto al Outfit", array(
 	'class' => 'btn btn-info',
-	'type' => 'button'
+	'type'  => 'button',
+	'id'    => 'AddProduct'
 ));
-
+echo "</div>";
 echo "<div class='form-group col-lg-5'>";
-echo $this->Form->submit('Enviar', array('formnovalidate' => true, 'class' => 'btn btn-success pull-right'));
+echo $this->Form->submit('Enviar', array('formnovalidate' => true, 'class' => 'btn btn-success'));
 echo "</div>";
 echo $this->Form->end();
 ?>
-<div class="form-group hidden">
-	<label for="OutfitProduct" class="control-label my-label col-lg-2">Producto</label>
-	<div class="col-lg-3">
-		<select name="data[Outfit][product_id]" class="form-control col-lg-3" id="OutfitProduct">
-			<option value="">-- Elige un Producto --</option>
-		</select>
-	</div>
-</div>
+
+<script type="text/javascript">
+	$(function () {
+		$('#OutfitProductCategoryId').change(function (){
+			var catid = $(this).val();
+			$.ajax({
+				type:    "POST",
+				url:     "/outfits/getproducts/"+catid,
+				success: function(html) {
+
+					$('#OutfitProductId')
+						.empty()
+						.append(html)
+						.chosen({allow_single_deselect: true, autocomplete: true})
+						.trigger('chosen:updated');
+
+				}
+			});
+		});
+
+		$("#AddProduct").click(function(){
+			var product_id = $('#OutfitProductId').val();
+			$.ajax({
+				type:    "POST",
+				url:     "/products/getbyid/"+product_id,
+				success: function(html) {
+					$("#accepted_products").append(html).fadeIn().removeClass('hidden');
+					var op = $("#OutfitProductsOutfitId").val();
+					$("#OutfitProductsOutfitId").val(function(e, val) {
+						return val + (val ? ',' : '') + product_id
+					});
+				}
+			});
+		});
+	});
+
+	function delProd(prod_id){
+		$("#prod_"+prod_id).remove();
+		var arrProd = $("#OutfitProductsOutfitId").val().split(',');
+
+		for (i=0; i<arrProd.length; i++) {
+			if (arrProd[i] == prod_id) {
+				arrProd.splice(i, 1);
+			}
+		}
+
+		$('#OutfitProductsOutfitId').val(arrProd.toString());
+}
+
+</script>

@@ -18,6 +18,13 @@ class Product extends AppModel{
 		),*/
 	);
 
+	public $hasMany = array(
+		'OutfitProduct' => array(
+			'className' => 'OutfitProduct',
+			'foreignKey' => 'product_id'
+		)
+	);
+
 	public function beforeSave() {
 		parent::beforeSave();
 

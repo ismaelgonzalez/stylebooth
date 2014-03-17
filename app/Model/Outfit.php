@@ -11,11 +11,12 @@ class Outfit extends AppModel{
 				'message' => 'El Nombre es requerido',
 			),
 		),
-		'image' => array(
-			'required' => array(
-				'rule' => 'notEmpty',
-				'message' => 'La imagen es requerida',
-			),
+	);
+
+	public $hasMany = array(
+		'OutfitProduct' => array(
+			'className' => 'OutfitProduct',
+			'foreignKey' => 'outfit_id'
 		)
 	);
 
@@ -29,6 +30,9 @@ class Outfit extends AppModel{
 			$this->data[$this->alias]['image'] = $image_name;
 		}
 
+		/*echo "<pre>".__CLASS__.__FUNCTION__;
+		print_r($this->data);
+		exit();*/
 		return true;
 	}
 }
