@@ -60,8 +60,8 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 				<li <?php if ($this->params['controller'] == 'banners') { echo "class='active'"; } ?>><a href="/banners">Banners</a></li>
 				<li <?php if ($this->params['controller'] == 'coupons') { echo "class='active'"; } ?>><a href="/coupons">Cupones</a></li>
 				<li <?php if ($this->params['controller'] == 'outfits') { echo "class='active'"; } ?>><a href="/outfits">Outfits</a></li>
-				<li <?php if ($this->params['controller'] == 'blogs') { echo "class='active'"; } ?>><a href="#">Blogs</a></li>
-				<li <?php if ($this->params['controller'] == 'noticias') { echo "class='active'"; } ?>><a href="#">Noticias</a></li>
+				<li <?php if ($this->params['controller'] == 'blogs') { echo "class='active'"; } ?>><a href="/blogs/index/b">Blogs</a></li>
+				<li <?php if ($this->params['controller'] == 'noticias') { echo "class='active'"; } ?>><a href="/noticias/index/n">Noticias</a></li>
 				<li <?php if ($this->params['controller'] == 'products') { echo "class='active'"; } ?>><a href="#">Productos</a></li>
 				<li <?php if ($this->params['controller'] == 'stores') { echo "class='active'"; } ?>><a href="#">Tiendas</a></li>
 				<li <?php if ($this->params['controller'] == 'users') { echo "class='active'"; } ?>><a href="#">Usuarios</a></li>
