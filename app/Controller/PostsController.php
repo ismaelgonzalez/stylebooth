@@ -35,6 +35,9 @@ class PostsController extends AppController
 
 		$this->set('posts', $posts);
 		$this->set('type', $type);
+	}
+
+	public function add(){
 
 	}
 }

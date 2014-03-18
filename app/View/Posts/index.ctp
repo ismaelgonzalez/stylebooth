@@ -9,25 +9,20 @@ if (sizeof($posts) < 1) {
 	<table class="table table-striped table-hover">
 		<thead>
 		<tr>
-			<th>Posicion</th>
-			<th>Imagen</th>
-			<th>Link</th>
-			<th>Fecha de Banner</th>
+			<th>Titulo</th>
+			<th>Fecha de Publicación</th>
 			<th>Status</th>
-			<th>&nbsp;</th>
 		</tr>
 		</thead>
 		<tbody>
-			<? foreach($banners as $b) { ?>
+			<? foreach($posts as $p) { ?>
 		<tr>
-			<td><?php echo $this->Status->getPosition($b['Banner']['type']); ?></td>
-			<td><?php echo $b['Banner']['image']; ?></td>
-			<td><?php echo $b['Banner']['link']; ?></td>
-			<td><?php echo date('d/M/Y', strtotime($b['Banner']['banner_date'])); ?></td>
-			<td><?php echo $this->Status->getStatus($b['Banner']['status']); ?></td>
+			<td><?php echo $p['Post']['title']; ?></td>
+			<td><?php echo date('d/M/Y', strtotime($p['Post']['post_date'])); ?></td>
+			<td><?php echo $this->Status->getStatus($p['Post']['status']); ?></td>
 			<td>
-				<a href="/banners/edit/<?php echo $b['Banner']['id']; ?>"><i class="icon-edit" data-toggle="tooltip" title="Editar Banner"></i></a> |
-				<i class="icon-remove-sign delete" onclick="borrar(<?php echo $b['Banner']['id']; ?>)" data-toggle="tooltip" title="Desactivar Banner"></i>
+				<a href="/posts/edit/<?php echo $p['Post']['id']; ?>"><i class="icon-edit" data-toggle="tooltip" title="Editar Post"></i></a> |
+				<i class="icon-remove-sign delete" onclick="borrar(<?php echo $p['Post']['id']; ?>)" data-toggle="tooltip" title="Desactivar Post"></i>
 			</td>
 		</tr>
 			<?php } ?>
@@ -35,7 +30,7 @@ if (sizeof($posts) < 1) {
 	</table>
 </div>
 <?php } ?>
-<div id="deleteBanner" class="modal fade">
+<div id="deletePost" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -43,12 +38,12 @@ if (sizeof($posts) < 1) {
 				<h4 class="modal-title">Stylebooth Admin</h4>
 			</div>
 			<div class="modal-body">
-				<p>Estas Seguro que quieres borrar este banner?</p>
+				<p>Estas Seguro que quieres borrar este Post?</p>
 				<input id="deleteID" value="" type="hidden">
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-				<button id="confirmDelete" type="button" class="btn btn-danger">Desactivar Banner</button>
+				<button id="confirmDelete" type="button" class="btn btn-danger">Desactivar Post</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
@@ -59,13 +54,13 @@ if (sizeof($posts) < 1) {
 
 		$("#confirmDelete").click(function() {
 			var id = $("#deleteID").val();
-			$("#deleteBanner").modal('hide');
-			window.open('/banners/delete/'+id, '_parent');
+			$("#deletePost").modal('hide');
+			window.open('/posts/delete/'+id, '_parent');
 		});
 	});
 
-	function borrar(album_id) {
-		$("#deleteID").val(album_id);
-		$("#deleteBanner").modal('show');
+	function borrar(post_id) {
+		$("#deleteID").val(post_id);
+		$("#deletePost").modal('show');
 	}
 </script>
