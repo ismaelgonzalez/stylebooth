@@ -17,7 +17,16 @@ class ProductHelper extends AppHelper
 	public function outfit_thumbnail($outfit, $thumb_size){
 		$div = "<div class='thumbnail col-md-2' style='margin-left:10px'>
 			<img src='/files/outfits/".$outfit['Outfit']['image']."' alt='".$outfit['Outfit']['name']."' width='".$thumb_size."' class='img-thumbnail'>
-			<p class='text-center'><small>Imagen de outfit actual</small></p>
+			<p class='text-center'><small>Imagen actual del outfit</small></p>
+		</div>";
+
+		echo $div;
+	}
+
+	public function post_thumbnail($post, $thumb_size){
+		$div = "<div class='thumbnail col-md-2' style='margin-left:10px'>
+			<img src='/files/posts/".$post['Post']['image']."' alt='".$post['Post']['title']."' width='".$thumb_size."' class='img-thumbnail'>
+			<p class='text-center'><small>Imagen actual del post</small></p>
 		</div>";
 
 		echo $div;

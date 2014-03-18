@@ -1,4 +1,4 @@
-<h3><a href="/posts/add">Agregar <?php if ($type == 'b') { echo 'un Post de Blog Nuevo'; } else { echo 'un Post de Noticias Nuevo'; } ?></a></h3>
+<h3><a href="/posts/add/<?php echo $type; ?>">Agregar <?php if ($type == 'b') { echo 'un Post de Blog Nuevo'; } else { echo 'un Post de Noticias Nuevo'; } ?></a></h3>
 <?php
 if (sizeof($posts) < 1) {
 	echo "<h4>Por el momento no tenemos posts en el sistema.</h4>";
@@ -21,8 +21,8 @@ if (sizeof($posts) < 1) {
 			<td><?php echo date('d/M/Y', strtotime($p['Post']['post_date'])); ?></td>
 			<td><?php echo $this->Status->getStatus($p['Post']['status']); ?></td>
 			<td>
-				<a href="/posts/edit/<?php echo $p['Post']['id']; ?>"><i class="icon-edit" data-toggle="tooltip" title="Editar Post"></i></a> |
-				<i class="icon-remove-sign delete" onclick="borrar(<?php echo $p['Post']['id']; ?>)" data-toggle="tooltip" title="Desactivar Post"></i>
+				<a href="/posts/edit/<?php echo $p['Post']['id']."/".$p['Post']['type']; ?>"><i class="icon-edit" data-toggle="tooltip" title="Editar Post"></i></a> |
+				<i class="icon-remove-sign delete" onclick="borrar(<?php echo $p['Post']['id']; ?>, '<?php echo $p['Post']['type']; ?>')" data-toggle="tooltip" title="Desactivar Post"></i>
 			</td>
 		</tr>
 			<?php } ?>
@@ -40,6 +40,7 @@ if (sizeof($posts) < 1) {
 			<div class="modal-body">
 				<p>Estas Seguro que quieres borrar este Post?</p>
 				<input id="deleteID" value="" type="hidden">
+				<input id="deleteType" value="" type="hidden">
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -54,13 +55,15 @@ if (sizeof($posts) < 1) {
 
 		$("#confirmDelete").click(function() {
 			var id = $("#deleteID").val();
+			var type = $("#deleteType").val();
 			$("#deletePost").modal('hide');
-			window.open('/posts/delete/'+id, '_parent');
+			window.open('/posts/delete/'+id+'/'+type, '_parent');
 		});
 	});
 
-	function borrar(post_id) {
+	function borrar(post_id, type) {
 		$("#deleteID").val(post_id);
+		$("#deleteType").val(type);
 		$("#deletePost").modal('show');
 	}
 </script>

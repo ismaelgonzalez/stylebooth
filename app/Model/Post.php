@@ -31,7 +31,7 @@ class Post extends AppModel
 
 		$this->data[$this->alias]['status'] = isset($this->data[$this->alias]['status']) ? $this->data[$this->alias]['status'] : 1;
 
-		if(!empty($this->data[$this->alias]['image']['name'])){
+		if (!empty($this->data[$this->alias]['image']['name'])) {
 			$image_name = $this->uploadPic('posts');
 			$this->data[$this->alias]['image'] = $image_name;
 		}
