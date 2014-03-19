@@ -91,7 +91,7 @@ class PostsController extends AppController
 				return false;
 			}
 
-			$this->Session->setFlash('Se agreg&oacute; el nuevo post!', 'default', array('class'=>'alert alert-success'));
+			$this->Session->setFlash('Se edito el post!', 'default', array('class'=>'alert alert-success'));
 
 			if (lcfirst($this->data['Post']['type']) == 'b') {
 				return $this->redirect('/blogs/index/b');

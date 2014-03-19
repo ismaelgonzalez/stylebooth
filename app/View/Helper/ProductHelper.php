@@ -31,4 +31,13 @@ class ProductHelper extends AppHelper
 
 		echo $div;
 	}
+
+	public function store_thumbnail($store, $thumb_size){
+		$div = "<div class='thumbnail col-md-2' style='margin-left:10px'>
+			<img src='/files/stores/".$store['Store']['image']."' alt='".$store['Store']['name']."' width='".$thumb_size."' class='img-thumbnail'>
+			<p class='text-center'><small>Logo de la Tienda</small></p>
+		</div>";
+
+		echo $div;
+	}
 }
