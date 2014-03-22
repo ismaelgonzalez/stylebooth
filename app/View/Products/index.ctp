@@ -31,6 +31,13 @@ if (sizeof($products) < 1) {
 		</tr>
 			<?php } ?>
 		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="4">
+					<?php echo $this->paginator->numbers(); ?>
+				</td>
+			</tr>
+		</tfoot>
 	</table>
 </div>
 <?php } ?>

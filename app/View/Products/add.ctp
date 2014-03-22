@@ -71,13 +71,11 @@ echo $this->Form->input('price', array(
 			<div class="panel panel-default panel-info">
 				<div class="panel-heading">Estilos</div>
 				<div class="panel-body">
-					<?php foreach ($styles as $key => $value) { ?>
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" class="checkbox" name="data[ProductStyle][style_id]" id="ProductStyleStyleId" value="<?php echo $key; ?>"><?php echo $value; ?>
-						</label>
-					</div>
-					<?php } ?>
+					<?php
+						echo $this->Form->select('ProductStyle.style_id', $styles, array(
+							'multiple' => 'checkbox'
+						));
+					?>
 				</div>
 			</div>
 		</div>
@@ -85,13 +83,11 @@ echo $this->Form->input('price', array(
 			<div class="panel panel-default panel-info">
 				<div class="panel-heading">Piel y Cabello</div>
 				<div class="panel-body">
-					<?php foreach ($skin_hair_types as $key => $value) { ?>
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" class="checkbox" name="data[ProductsSkinHairType][skin_hair_type_id]" id="ProductsSkinHairTypeSkinHairTypeId" value="<?php echo $key; ?>"><?php echo $value; ?>
-						</label>
-					</div>
-					<?php } ?>
+					<?php
+					echo $this->Form->select('ProductsSkinHairType.skin_hair_type_id', $skin_hair_types, array(
+						'multiple' => 'checkbox'
+					));
+					?>
 				</div>
 			</div>
 		</div>
@@ -99,13 +95,11 @@ echo $this->Form->input('price', array(
 			<div class="panel panel-default panel-info">
 				<div class="panel-heading">Cuerpo</div>
 				<div class="panel-body">
-					<?php foreach ($body_types as $key => $value) { ?>
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" class="checkbox" name="data[ProductsBodyType][body_type_id]" id="ProductsBodyTypeBodyTypeId" value="<?php echo $key; ?>"><?php echo $value; ?>
-						</label>
-					</div>
-					<?php } ?>
+					<?php
+					echo $this->Form->select('ProductsBodyType.body_type_id', $body_types, array(
+						'multiple' => 'checkbox'
+					));
+					?>
 				</div>
 			</div>
 		</div>
@@ -118,7 +112,7 @@ echo $this->Form->input('price', array(
 					<?php foreach($talla as $t) { ?>
 					<div class="checkbox">
 						<label>
-							<input type="checkbox" class="checkbox" name="data[ProductSize][size]" id="ProductSizeSize" value="<?php echo $t; ?>"><?php echo ucwords($t); ?>
+							<input type="checkbox" class="checkbox" name="data[ProductSize][size][]" id="ProductSizeSize" value="<?php echo $t; ?>"><?php echo ucwords($t); ?>
 						</label>
 					</div>
 					<?php } ?>
@@ -132,7 +126,7 @@ echo $this->Form->input('price', array(
 					<?php foreach($calzado as $c) { ?>
 					<div class="checkbox">
 						<label>
-							<input type="checkbox" class="checkbox" name="data[ProductSize][size]" id="ProductSizeSize" value="<?php echo $c; ?>"><?php echo ucwords($c); ?>
+							<input type="checkbox" class="checkbox" name="data[ProductSize][size][]" id="ProductSizeSize" value="<?php echo $c; ?>"><?php echo ucwords($c); ?>
 						</label>
 					</div>
 					<?php } ?>
