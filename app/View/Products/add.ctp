@@ -1,3 +1,6 @@
+<script src="/js/chosen.jquery.js"></script>
+<link rel="stylesheet" href="/css/chosen.css">
+<link rel="stylesheet" href="/css/chosen.bootstrap.css">
 <?php
 $talla = array(
 	'chica',
@@ -42,12 +45,14 @@ echo $this->Form->input('store_id', array(
 	'class' => 'form-control',
 	'options' => array($stores),
 	'empty' => array('' => '-- Elige una Tienda --'),
+	'between' => '<div class="col-lg-4">'
 ));
 echo $this->Form->input('products_categories_id', array(
 	'label' => array('text' => 'Categoría del Producto', 'class' => 'control-label my-label col-lg-2'),
 	'class' => 'form-control',
 	'options' => array($product_categories),
 	'empty' => array('' => '-- Elige una Categoría --'),
+	'between' => '<div class="col-lg-4">'
 ));
 echo $this->Form->input('name', array(
 	'label' => array('text' => 'Nombre', 'class' => 'control-label my-label col-lg-2'),
@@ -141,3 +146,8 @@ echo $this->Form->submit('Enviar', array('formnovalidate' => true, 'class' => 'b
 echo "</div>";
 echo $this->Form->end();
 ?>
+<script type="text/javascript">
+	$(function (){
+		$('#ProductStoreId').chosen({allow_single_deselect: true, autocomplete: true});
+	});
+</script>
