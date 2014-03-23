@@ -49,4 +49,13 @@ class ProductHelper extends AppHelper
 
 		echo $div;
 	}
+
+	public function avatar_thumbnail($user, $thumb_size){
+		$div = "<div class='thumbnail col-md-2' style='margin-left:10px'>
+			<img src='/files/users/".$user['User']['image']."' alt='avatar de usuario' width='".$thumb_size."' class='img-thumbnail'>
+			<p class='text-center'><small>Avatar del Usuario</small></p>
+		</div>";
+
+		echo $div;
+	}
 }

@@ -1,7 +1,7 @@
 <h3><a href="/stores/add/">Agregar Tiendas</a></h3>
 <?php
 if (sizeof($stores) < 1) {
-	echo "<h4>Por el momento no tenemos posts en el sistema.</h4>";
+	echo "<h4>Por el momento no tenemos tiendas en el sistema.</h4>";
 } else {
 	?>
 

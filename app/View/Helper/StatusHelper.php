@@ -65,4 +65,21 @@ class StatusHelper extends AppHelper {
 
 		return $badge;
 	}
+
+	/*
+		 *This function returns a bagde for the store zone
+		 */
+	public function getRole($role){
+		$badge = '';
+		switch ($role) {
+			case 'admin':
+				$badge = "<span class='label label-primary'>Admin</span>";
+				break;
+			case 'user':
+				$badge = "<span class='label label-warning'>Usuario</span>";
+				break;
+		}
+
+		return $badge;
+	}
 }
