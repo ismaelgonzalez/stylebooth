@@ -48,6 +48,7 @@ class AppController extends Controller {
 
 		$this->Auth->allow(array('display', 'login'));
 		$this->Auth->flash['params']['class'] = 'alert alert-danger';
+		$this->Auth->autoRedirect = false;
 
 		$session_user = $this->Session->read('Auth.User');
 		if ($session_user) {

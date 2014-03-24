@@ -35,7 +35,16 @@
 	Router::connect('/blogs/index/*', array('controller' => 'posts', 'action' => 'index'));
 //Noticias
 	Router::connect('/noticias/index/*', array('controller' => 'posts', 'action' => 'index'));
-
+//admin
+	Router::connect('/admin/*', array('controller' => 'stylebooth', 'action' => 'dashboard'));
+	Router::connect(
+		'/mi_booth/:user_id',
+		array('controller' => 'stylebooth', 'action' => 'my_booth'),
+		array(
+			'pass' => array('user_id'),
+			'user_id' => '[0-9]+'
+		)
+	);
 /**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.

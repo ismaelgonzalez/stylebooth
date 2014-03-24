@@ -39,12 +39,14 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/">Stylebooth Admin</a>
+			<a class="navbar-brand" href="/admin">Stylebooth Admin</a>
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">Dashboard</a></li>
-				<li><a href="#">Profile</a></li>
+				<li><a href="/">Volver a Stylebooth</a></li>
+				<li><a href="/admin">Dashboard</a></li>
+				<li><a href="/users/edit/<?php echo $logged_user['id']; ?>">Hola <?php echo $logged_user['first_name'] . ' ' . $logged_user['last_name']; ?></a></li>
+				<li><a href="/users/logout">Salir</a></li>
 			</ul>
 		</div>
 	</div>
