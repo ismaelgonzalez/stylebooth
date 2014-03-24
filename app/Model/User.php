@@ -1,4 +1,6 @@
 <?php
+App::uses('AuthComponent', 'Controller/Component');
+
 class User extends AppModel
 {
 	public $name = 'User';
@@ -50,6 +52,10 @@ class User extends AppModel
 		parent::beforeSave();
 
 		$this->data[$this->alias]['status'] = isset($this->data[$this->alias]['status']) ? $this->data[$this->alias]['status'] : 1;
+
+		if(!empty($this->data[$this->alias]['password'])) {
+			$this->data[$this->alias]['password'] = AuthComponent::password($this->data[$this->alias]['password']);
+		}
 
 		if (!empty($this->data[$this->alias]['image']['name'])) {
 			$image_name = $this->uploadPic('users');

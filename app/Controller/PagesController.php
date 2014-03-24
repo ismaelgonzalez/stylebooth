@@ -37,7 +37,15 @@ class PagesController extends AppController {
  */
 	public $uses = array();
 
-/**
+	public function isAuthorized($user){
+		if ($user) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
  * Displays a view
  *
  * @param mixed What page to display
@@ -46,7 +54,11 @@ class PagesController extends AppController {
  *	or MissingViewException in debug mode.
  */
 	public function display() {
-		$this->layout = 'admin';
+
+		if (!$this->Auth->user('id')) {
+			return $this->redirect('/users/login');
+		}
+
 		$path = func_get_args();
 
 		$count = count($path);

@@ -3,7 +3,33 @@ class UsersController extends AppController
 {
 	public $uses = array('User');
 
-	public $components = array('Session');
+	public $components = array(
+		'Session',
+		'Auth' => array(
+			'authorize' => array('Controller'),
+			'authenticate' => array(
+				'Form' => array(
+					'fields' => array(
+						'username' => 'email',
+						'password' => 'password'
+					),
+				),
+			),
+		),
+	);
+
+	public function beforeFilter() {
+		parent::beforeFilter();
+		$this->Auth->allow('login', 'logout');
+	}
+
+	public function isAuthorized($user) {
+		if ($this->action === 'add' || $this->action === 'delete') {
+			return parent::isAuthorized($user);
+		}
+
+		return true;
+	}
 
 	public $helpers = array('Paginator', 'Js', 'Status', 'Product');
 
@@ -78,7 +104,7 @@ class UsersController extends AppController
 				return false;
 			}
 
-			$this->Session->setFlash('Se agreg&oacute; al nuevo Usuario!', 'default', array('class'=>'alert alert-success'));
+			$this->Session->setFlash('Se editó al Usuario!', 'default', array('class'=>'alert alert-success'));
 
 			return $this->redirect('/users/index');
 		}
@@ -110,14 +136,25 @@ class UsersController extends AppController
 	}
 
 	public function login(){
+		$this->layout = 'login';
 
+		if($this->request->is('post')) {
+			if ($this->Auth->login()) {
+
+				return $this->redirect($this->Auth->redirect());
+			}
+			$this->Session->setFlash(__('Email o passowrd incorrectos, por favor intente de nuevo.'), 'default', array('class' => 'alert alert-danger'));
+		}
+
+		$this->set('title_for_layout', 'Accesa a tu cuenta');
 	}
 
 	public function logout(){
-
+		$this->autoRender = false;
+		return $this->redirect($this->Auth->logout());
 	}
 
-	public function cupones_generados($id){
+	public function cupones($id){
 		$this->autoRender = false;
 		echo __FUNCTION__;
 	}

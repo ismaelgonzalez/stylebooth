@@ -32,7 +32,7 @@ if (sizeof($users) < 1) {
 			<td>
 				<a href="/users/edit/<?php echo $u['User']['id']; ?>"><i class="icon-edit" data-toggle="tooltip" title="Editar Usuario"></i></a> |
 				<i class="icon-remove-sign delete" onclick="borrar(<?php echo $u['User']['id']; ?>)" data-toggle="tooltip" title="Desactivar Usuario"></i> |
-				<a href="/users/cupones_generados/<?php echo $u['User']['id']; ?>"><i class="icon-tags" data-toggle="tooltip" title="Ver Cupones del Usuario"></i></a> |
+				<a href="/users/cupones/<?php echo $u['User']['id']; ?>"><i class="icon-tags" data-toggle="tooltip" title="Ver Cupones del Usuario"></i></a> |
 				<a href="/users/stats/<?php echo $u['User']['id']; ?>"><i class="icon-bar-chart" data-toggle="tooltip" title="Ver Stats del Usuario"></i></a>
 			</td>
 		</tr>
