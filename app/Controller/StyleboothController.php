@@ -1,13 +1,13 @@
 <?php
 class StyleboothController extends AppController
 {
-	public $uses = array();
+	public $uses = array('Banner');
 
 	public $components = array(
 		'Session',
 	);
 
-	public $helpers = array('Paginator', 'Js');
+	public $helpers = array('Paginator', 'Js', 'Banner');
 
 	public function beforeFilter() {
 		parent::beforeFilter();
@@ -27,7 +27,7 @@ class StyleboothController extends AppController
 	}
 
 	public function index(){
-
+		$this->getBanners();
 	}
 
 	public function dashboard(){
@@ -41,5 +41,17 @@ class StyleboothController extends AppController
 		$this->autoRender = false;
 		echo __FUNCTION__;
 		var_dump($user_id);
+	}
+
+	private function getBanners(){
+		$bannerTop   = $this->Banner->findByType('U');
+		$bannerDown  = $this->Banner->findByType('D');
+		$bannerLeft  = $this->Banner->findByType('L');
+		$bannerRight = $this->Banner->findByType('R');
+
+		$this->set('bannerTop', $bannerTop);
+		$this->set('bannerDown', $bannerDown);
+		$this->set('bannerLeft', $bannerLeft);
+		$this->set('bannerRight', $bannerRight);
 	}
 }

@@ -1,0 +1,13 @@
+body {
+
+	background: url(wallpaperad.jpg);
+	background-repeat:no-repeat;
+	background-attachment:fixed;
+	background-position:center;
+	font-family: 'Cinzel', serif;
+
+}
+a:link {color:#F92672;}      /* unvisited link */
+a:visited {color:#F92672;}  /* visited link */
+a:hover {color:#F92672;}  /* mouse over link */
+a:active {color:#F92672;}  /* selected link */
