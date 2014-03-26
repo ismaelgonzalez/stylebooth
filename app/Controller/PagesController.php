@@ -54,11 +54,6 @@ class PagesController extends AppController {
  *	or MissingViewException in debug mode.
  */
 	public function display() {
-
-		if (!$this->Auth->user('id')) {
-			return $this->redirect('/users/login');
-		}
-
 		$path = func_get_args();
 
 		$count = count($path);

@@ -140,8 +140,12 @@ class UsersController extends AppController
 
 		if($this->request->is('post')) {
 			if ($this->Auth->login()) {
-
-				return $this->redirect($this->Auth->redirect());
+				if ($this->Auth->User('role') === 'admin') {
+					return $this->redirect('/admin');
+				} elseif ($this->Auth->User('role') === 'user') {
+					return $this->redirect('/mi_booth/' . $this->Auth->User('id'));
+				}
+				//return $this->redirect($this->Auth->redirect());
 			}
 			$this->Session->setFlash(__('Email o passowrd incorrectos, por favor intente de nuevo.'), 'default', array('class' => 'alert alert-danger'));
 		}
