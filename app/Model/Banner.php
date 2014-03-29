@@ -37,4 +37,14 @@ class Banner extends AppModel{
 
 		return true;
 	}
+
+	/*public function beforeFind($query){
+		parent::beforeFind($query);
+		$query['conditions'] = array(
+			'status' => 1,
+			'banner_date <= ' => date('Y-m-d')
+		);
+
+		return $query;
+	}*/
 }

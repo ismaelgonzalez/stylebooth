@@ -45,6 +45,12 @@
 			'user_id' => '[0-9]+'
 		)
 	);
+
+//FILTER URL's
+	Router::connect('/filter1/*', array('controller' => 'stylebooth', 'action' => 'filter1'));
+	Router::connect('/filter2/*', array('controller' => 'stylebooth', 'action' => 'filter2'));
+	Router::connect('/filter3/*', array('controller' => 'stylebooth', 'action' => 'filter3'));
+	Router::connect('/filter4/*', array('controller' => 'stylebooth', 'action' => 'filter4'));
 /**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.

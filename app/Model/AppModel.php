@@ -33,4 +33,12 @@ class AppModel extends Model {
 	public function beforeSave() {
 
 	}
+
+	function getLastQuery()
+	{
+		$dbo = $this->getDatasource();
+		$logs = $dbo->getLog();
+		$lastLog = end($logs['log']);
+		return $lastLog['query'];
+	}
 }

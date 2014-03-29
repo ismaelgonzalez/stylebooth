@@ -1,41 +1,20 @@
-<?php
-/**
- *
- *
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @package       app.View.Layouts
- * @since         CakePHP(tm) v 0.10.0.1076
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
-
-$cakeDescription = __d('cake_dev', 'Stylebooth');
-?>
 <!DOCTYPE html>
 <html>
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		<?php echo $cakeDescription ?>:
 		<?php echo $title_for_layout; ?>
 	</title>
 	<?php
-		echo $this->Html->meta('icon');
-		echo $this->Html->css('bootstrap.min');
-		echo $this->Html->css('bootstrap-theme.min');
-		echo $this->Html->css('jquery-ui-1.10.4.custom.min');
-		echo $this->Html->css('stylebooth');
+	echo $this->Html->meta('icon');
+	echo $this->Html->css('bootstrap.min');
+	echo $this->Html->css('bootstrap-theme.min');
+	echo $this->Html->css('jquery-ui-1.10.4.custom.min');
+	echo $this->Html->css('stylebooth');
 
-		echo $this->fetch('meta');
-		echo $this->fetch('css');
-		echo $this->fetch('script');
+	echo $this->fetch('meta');
+	echo $this->fetch('css');
+	echo $this->fetch('script');
 	?>
 	<link href='http://fonts.googleapis.com/css?family=Cinzel' rel='stylesheet' type='text/css'>
 	<link rel='icon' href='favicon.ico'>
@@ -59,9 +38,6 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 				<li><br /><br /><a href="/blogs/lista/b">Blog</a></li>
 				<li><br /><br /><a href="/stores/lista">Tiendas</a></li>
 			</ul>
-			<?php if (!empty($logged_user['id'])) { ?>
-			<a href="/mi_booth/<?php echo $logged_user['id']; ?>">Hola <?php echo $logged_user['first_name'] . ' ' . $logged_user['last_name']; ?></a>
-			<?php } else { ?>
 			<form class="navbar-form navbar-right" role="form" action="/users/login" id="UserLoginForm" method="post">
 				<br /><br />
 				<div class="form-group">
@@ -76,7 +52,6 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 					<br />Entrar con faceook <div class="fb-login-button" data-max-rows="1" data-size="icon" data-show-faces="false" data-auto-logout-link="false"></div>
 				</div>
 			</form>
-			<?php } ?>
 		</div><!--/.nav-collapse -->
 	</div>
 </div>
@@ -91,7 +66,14 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 				<?php echo $this->fetch('content'); ?>
 			</div>
 		</div>
-		<div class="col-md-2"  id="banner2" ><br /><div id="bannerRight"><?php $this->Banner->getBanner($bannerRight); ?></div>
+		<div class="col-md-2"  id="banner2" >
+			<br /><br /><br /><br /><br /><br /><br /><br /><br />
+			<a href="#" style="text-decoration: underline; font-size: 14px;">
+				Registrate aqui para obtener cupones de descuentos en los resultados de tus productos</a>
+			<br /><br /> O Entra con faceook
+			<div class="fb-login-button" data-max-rows="1" data-size="icon" data-show-faces="false" data-auto-logout-link="false"></div>
+			<br /><br />
+		</div>
 		</div>
 	</div>
 	<div class="container" style="background-color: #FFFFFF;">
@@ -103,18 +85,18 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 			</div>
 		</div>
 	</div>
-<?php
+	<?php
 	echo $this->Html->script('jquery-1.11.0.min');
 	echo $this->Html->script('jquery-ui-1.10.4.custom.min');
 	echo $this->Html->script('bootstrap.min');
-?>
+	?>
 	<!-- Facebooklogin thing -->
 	<div id="fb-root"></div>
 	<script>(function(d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0];
 		if (d.getElementById(id)) return;
 		js = d.createElement(s); js.id = id;
-		js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1420689908181928";
+		js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=217858254898594";
 		fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));</script>
 	<!-- end facebook login -->
