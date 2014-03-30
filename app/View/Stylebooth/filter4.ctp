@@ -170,5 +170,5 @@
 	</div>
 </div>
 <ul class="pager">
-	<li><a href="   filter3.php ">Anterior</a></li>
+	<li><a href="/filter3">Anterior</a></li>
 </ul>

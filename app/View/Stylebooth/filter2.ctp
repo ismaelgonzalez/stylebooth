@@ -1,82 +1,22 @@
+<form id="frmFilter2" method="post" role="form">
 <br />
 <h4>Selecciona la persona que mayor corresponda a tu piel y cabello</h4>
 <br />
-<div class="row">
+	<?php foreach ($skin_hair_types as $sk) { ?>
 	<div class="col-md-3">
-		<div class="thumbnail">
-			<a href="/filter3"> <img src="/files/skin_hair_types/imagecara.jpg" alt="..."></a>
+		<div>
+			<a class="thumbnail" href="#" onclick="setSkinHairType(<?php echo $sk['SkinHairType']['id']; ?>)"><img src="/files/skin_hair_types/<?php if ($sk['SkinHairType']['image']) { echo $sk['SkinHairType']['image']; } else { echo 'imagecara.jpg'; } ?>" alt="<?php echo $sk['SkinHairType']['name']; ?>"></a>
 		</div>
 	</div>
-	<div class="col-md-3">
-		<div class="thumbnail">
-			<a href="/filter3"> <img src="/files/skin_hair_types/imagecara.jpg" alt="..."></a>
-
-		</div>
-	</div>
-	<div class="col-md-3">
-		<div class="thumbnail">
-			<a href="/filter3"> <img src="/files/skin_hair_types/imagecara.jpg" alt="..."></a>
-
-		</div>
-	</div>
-	<div class="col-md-3">
-		<div class="thumbnail">
-			<a href="/filter3"> <img src="/files/skin_hair_types/imagecara.jpg" alt="..."></a>
-
-		</div>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-3">
-		<div class="thumbnail">
-			<a href="/filter3"> <img src="/files/skin_hair_types/imagecara.jpg" alt="..."></a>
-		</div>
-	</div>
-	<div class="col-md-3">
-		<div class="thumbnail">
-			<a href="/filter3"> <img src="/files/skin_hair_types/imagecara.jpg" alt="..."></a>
-
-		</div>
-	</div>
-	<div class="col-md-3">
-		<div class="thumbnail">
-			<a href="/filter3"> <img src="/files/skin_hair_types/imagecara.jpg" alt="..."></a>
-
-		</div>
-	</div>
-	<div class="col-md-3">
-		<div class="thumbnail">
-			<a href="/filter3"> <img src="/files/skin_hair_types/imagecara.jpg" alt="..."></a>
-
-		</div>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-3">
-		<div class="thumbnail">
-			<a href="/filter3"> <img src="/files/skin_hair_types/imagecara.jpg" alt="..."></a>
-		</div>
-	</div>
-	<div class="col-md-3">
-		<div class="thumbnail">
-			<a href="/filter3"> <img src="/files/skin_hair_types/imagecara.jpg" alt="..."></a>
-
-		</div>
-	</div>
-	<div class="col-md-3">
-		<div class="thumbnail">
-			<a href="/filter3"> <img src="/files/skin_hair_types/imagecara.jpg" alt="..."></a>
-
-		</div>
-	</div>
-	<div class="col-md-3">
-		<div class="thumbnail">
-			<a href="/filter3"> <img src="/files/skin_hair_types/imagecara.jpg" alt="..."></a>
-
-		</div>
-	</div>
-</div>
-
+	<?php } ?>
 	<ul class="pager">
 		<li><a href="/filter1">Anterior</a></li>
 	</ul>
+</form>
+<script type="text/javascript">
+	function setSkinHairType(id) {
+		var action = "/filter3/" + id;
+		$("#frmFilter2").attr('action', action)
+			.submit();
+	}
+</script>

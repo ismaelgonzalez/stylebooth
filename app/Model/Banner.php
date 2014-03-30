@@ -19,7 +19,7 @@ class Banner extends AppModel{
 		),
 	);
 
-	public function beforeSave() {
+	public function beforeSave($options=array()) {
 		parent::beforeSave();
 
 		if (!empty($this->data[$this->alias]['banner_date'])) {

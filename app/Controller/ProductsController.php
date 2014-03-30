@@ -21,6 +21,11 @@ class ProductsController extends AppController
 		)
 	);
 
+	public function beforeFilter() {
+		parent::beforeFilter();
+		$this->Auth->allow('lista');
+	}
+
 	public function getbyid($product_id){
 		$this->autoRender = false;
 		$this->Product->recursive = -1;
@@ -271,5 +276,10 @@ class ProductsController extends AppController
 
 			return $this->redirect('/products/index');
 		}
+	}
+
+	public function lista(){
+		echo __CLASS__ . ' ' . __FUNCTION__;
+		$this->layout = 'default';
 	}
 }

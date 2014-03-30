@@ -2,7 +2,7 @@
 class ProductSkinHairType extends AppModel
 {
 	public $name = 'ProductSkinHairType';
-	public $useTable = 'product_skin_hair_types';
+	public $useTable = 'products_skin_hair_types';
 
 	public $belongsTo = array(
 		'SkinHairType' => array(

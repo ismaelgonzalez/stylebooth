@@ -29,13 +29,17 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 	<?php
 		echo $this->Html->meta('icon');
 		echo $this->Html->css('bootstrap.min');
-		echo $this->Html->css('bootstrap-theme.min');
+		//echo $this->Html->css('bootstrap-theme.min');
 		echo $this->Html->css('jquery-ui-1.10.4.custom.min');
 		echo $this->Html->css('stylebooth');
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
+
+		echo $this->Html->script('jquery-1.11.0.min');
+		echo $this->Html->script('jquery-ui-1.10.4.custom.min');
+		echo $this->Html->script('bootstrap.min');
 	?>
 	<link href='http://fonts.googleapis.com/css?family=Cinzel' rel='stylesheet' type='text/css'>
 	<link rel='icon' href='favicon.ico'>
@@ -103,11 +107,6 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 			</div>
 		</div>
 	</div>
-<?php
-	echo $this->Html->script('jquery-1.11.0.min');
-	echo $this->Html->script('jquery-ui-1.10.4.custom.min');
-	echo $this->Html->script('bootstrap.min');
-?>
 	<!-- Facebooklogin thing -->
 	<div id="fb-root"></div>
 	<script>(function(d, s, id) {
