@@ -2,7 +2,7 @@
 class Product extends AppModel{
 	public $name = 'Product';
 	public $useTable = 'products';
-	public $actsAs = array('Upload');
+	public $actsAs = array('Upload', 'Containable');
 
 	public $validate = array(
 		'products_categories_id' => array(

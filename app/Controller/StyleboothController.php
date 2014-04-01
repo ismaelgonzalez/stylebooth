@@ -1,7 +1,7 @@
 <?php
 class StyleboothController extends AppController
 {
-	public $uses = array('Banner', 'Style', 'SkinHairType', 'BodyType');
+	public $uses = array('Banner', 'Style', 'SkinHairType', 'BodyType', 'Product', 'Outfit');
 
 	public $components = array(
 		'Session',
@@ -91,6 +91,68 @@ class StyleboothController extends AppController
 		}
 
 		//get related outfits from session data
+		$visit = $this->Session->read('Visit');
+
+		debug($visit);
+
+		$budget = null;
+		if (!strstr($visit['budget'], 'cualquier')) {
+			if (strstr($visit['budget'], 'menos')) {
+				$budget = "Product.price <= 500";
+			} elseif (strstr($visit['budget'], 'mas')) {
+				$budget = "Product.price >= 2000";
+			} else {
+				$values = split("_", $visit['budget']);
+				$budget = "Product.price BETWEEN '" . $values[0] . "' AND '". $values[1] . "'";
+			}
+		}
+
+		$query = "SELECT Product.*"
+		. " FROM products Product LEFT JOIN product_styles s ON Product.id = s.product_id"
+		. " LEFT JOIN products_skin_hair_types sht ON Product.id = sht.product_id"
+		. " LEFT JOIN products_body_types bt ON Product.id = bt.product_id"
+		. " LEFT JOIN product_sizes z ON Product.id = z.product_id"
+		. " WHERE s.style_id = " . $visit['style']
+		. " AND sht.skin_hair_type_id = " . $visit['skin_hair_type']
+		. " AND bt.body_type_id = " . $visit['body_type'];
+
+		if (!empty($visit['size']) && !empty($visit['foot_size'])) {
+			$query .= " AND (z.size = '" . $visit['size'] . "' OR z.size = '" . $visit['foot_size'] . "')";
+		}
+
+		if ($budget) {
+			$query .= ' AND ' . $budget;
+		}
+
+		debug($query);
+		$products = $this->Product->query($query);
+
+		$arr_products = array();
+		foreach ($products as $p) {
+			$arr_products[] = $p['Product']['id'];
+		}
+
+		$outfits = $this->Outfit->find('all', array(
+			'conditions' => array(
+				'OutfitProduct.product_id' => $arr_products
+			)
+		));
+
+		debug($outfits);
+
+		/*$products = $this->Product->find('all', array(
+			'conditions' => array(
+				'Product.status' => 1,
+			),
+			'contain' => array(
+				'ProductStyle' => array('conditions' => array('ProductStyle.style_id' => $visit['style'])),
+			),
+		));*/
+
+		$this->set('products', $products);
+
+		debug($products);
+
 		//save session data to users_stats
 		//get products from related outfits
 		//build breadcrumbs
