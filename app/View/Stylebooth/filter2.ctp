@@ -12,11 +12,12 @@
 	<ul class="pager">
 		<li><a href="/filter1">Anterior</a></li>
 	</ul>
+	<input type="hidden" id="skin_hair_type" name="skin_hair_type" value="">
 </form>
 <script type="text/javascript">
 	function setSkinHairType(id) {
-		var action = "/filter3/" + id;
-		$("#frmFilter2").attr('action', action)
+		$('#skin_hair_type').val(id);
+		$("#frmFilter2").attr('action', '/filter3')
 			.submit();
 	}
 </script>

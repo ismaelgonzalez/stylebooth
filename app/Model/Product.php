@@ -48,8 +48,8 @@ class Product extends AppModel{
 			'className' => 'ProductsBodyType',
 			'foreignKey' => 'product_id'
 		),
-		'ProductsSkinHairType' => array(
-			'className' => 'ProductsSkinHairType',
+		'ProductSkinHairType' => array(
+			'className' => 'ProductSkinHairType',
 			'foreignKey' => 'product_id'
 		),
 	);

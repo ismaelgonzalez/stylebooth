@@ -1,7 +1,7 @@
 <?php
 class StyleboothController extends AppController
 {
-	public $uses = array('Banner', 'Style', 'SkinHairType', 'BodyType', 'Product', 'Outfit');
+	public $uses = array('Banner', 'Style', 'SkinHairType', 'BodyType', 'Product', 'Outfit', 'OutfitProduct');
 
 	public $components = array(
 		'Session',
@@ -35,28 +35,21 @@ class StyleboothController extends AppController
 		$this->set('styles', $styles);
 	}
 
-	public function filter1($style_id = null){
-
+	public function filter1(){
 		$this->getBanners();
 
-		$style = $this->Session->read('Visit.style');
-
-		if (empty($style)) {
-			$this->Session->write('Visit.style', $style_id);
+		if (!empty($this->data)) {
+			$this->Session->write('Visit.style', $this->data['style_id']);
 		}
 	}
 
-	public function filter2($budget = null, $size = null, $foot_size = null){
+	public function filter2(){
 		$this->getBanners();
 
-		$b = $this->Session->read('Visit.budget');
-		$s = $this->Session->read('Visit.size');
-		$f = $this->Session->read('Visit.foot_size');
-
-		if (empty($b) || empty($s) || empty($f)) {
-			$this->Session->write('Visit.budget', $budget);
-			$this->Session->write('Visit.size', $size);
-			$this->Session->write('Visit.foot_size', $foot_size);
+		if (!empty($this->data)) {
+			$this->Session->write('Visit.budget', $this->data['budget']);
+			$this->Session->write('Visit.size', $this->data['size']);
+			$this->Session->write('Visit.foot_size', $this->data['foot_size']);
 		}
 
 		$this->SkinHairType->recursive = -1;
@@ -65,13 +58,11 @@ class StyleboothController extends AppController
 		$this->set('skin_hair_types', $skin_hair_types);
 	}
 
-	public function filter3($skin_hair_type = null){
+	public function filter3(){
 		$this->getBanners();
 
-		$sk = $this->Session->read('Visit.skin_hair_type');
-
-		if (empty($sk)) {
-			$this->Session->write('Visit.skin_hair_type', $skin_hair_type);
+		if (!empty($this->data)) {
+			$this->Session->write('Visit.skin_hair_type', $this->data['skin_hair_type']);
 		}
 
 		$this->BodyType->recursive = -1;
@@ -80,20 +71,16 @@ class StyleboothController extends AppController
 		$this->set('body_types', $body_types);
 	}
 
-	public function filter4($body_type = null){
+	public function filter4(){
 		$this->layout = 'filter4_layout';
 		$this->getBanners();
 
-		$bt = $this->Session->read('Visit.body_type');
-
-		if (empty($bt)) {
-			$this->Session->write('Visit.body_type', $body_type);
+		if (!empty($this->data)) {
+			$this->Session->write('Visit.body_type', $this->data['body_type']);
 		}
 
 		//get related outfits from session data
 		$visit = $this->Session->read('Visit');
-
-		debug($visit);
 
 		$budget = null;
 		if (!strstr($visit['budget'], 'cualquier')) {
@@ -107,54 +94,78 @@ class StyleboothController extends AppController
 			}
 		}
 
-		$query = "SELECT Product.*"
-		. " FROM products Product LEFT JOIN product_styles s ON Product.id = s.product_id"
-		. " LEFT JOIN products_skin_hair_types sht ON Product.id = sht.product_id"
-		. " LEFT JOIN products_body_types bt ON Product.id = bt.product_id"
-		. " LEFT JOIN product_sizes z ON Product.id = z.product_id"
-		. " WHERE s.style_id = " . $visit['style']
-		. " AND sht.skin_hair_type_id = " . $visit['skin_hair_type']
-		. " AND bt.body_type_id = " . $visit['body_type'];
-
-		if (!empty($visit['size']) && !empty($visit['foot_size'])) {
-			$query .= " AND (z.size = '" . $visit['size'] . "' OR z.size = '" . $visit['foot_size'] . "')";
-		}
-
-		if ($budget) {
-			$query .= ' AND ' . $budget;
-		}
-
-		debug($query);
-		$products = $this->Product->query($query);
-
-		$arr_products = array();
-		foreach ($products as $p) {
-			$arr_products[] = $p['Product']['id'];
-		}
-
-		$outfits = $this->Outfit->find('all', array(
-			'conditions' => array(
-				'OutfitProduct.product_id' => $arr_products
-			)
-		));
-
-		debug($outfits);
-
-		/*$products = $this->Product->find('all', array(
+		$products = $this->Product->find('all', array(
 			'conditions' => array(
 				'Product.status' => 1,
+				$budget,
 			),
 			'contain' => array(
-				'ProductStyle' => array('conditions' => array('ProductStyle.style_id' => $visit['style'])),
+				'ProductStyle' => array(
+					'conditions' => array(
+						'ProductStyle.style_id' => $visit['style'],
+						'not' => array(
+							'ProductStyle.style_id' => null,
+						),
+					),
+				),
+				'ProductSkinHairType' => array(
+					'conditions' => array(
+						'ProductSkinHairType.skin_hair_type_id' => $visit['skin_hair_type'],
+					),
+				),
+				'ProductsBodyType' => array(
+					'conditions' => array(
+						'ProductsBodyType.body_type_id' => $visit['body_type'],
+					),
+				),
+				'ProductSize' => array(
+					'conditions' => array(
+						'OR' => array(
+							'ProductSize.size' => $visit['size'],
+							'ProductSize.size' => $visit['foot_size'],
+						),
+					),
+				),
+				'Store',
 			),
-		));*/
+		));
+
+		$product_ids = array();
+		foreach ($products as $p) {
+			$product_ids[] = $p['Product']['id'];
+		}
+
+		$product_ids = array_unique($product_ids);
+
+		$this->OutfitProduct->recursive = -1;
+		$outfit_products = $this->OutfitProduct->find('all', array(
+			'conditions' => array(
+				'OutfitProduct.product_id' => $product_ids,
+			),
+		));
+
+		$outfit_ids = array();
+		foreach ($outfit_products as $op) {
+			$outfit_ids[] = $op['OutfitProduct']['outfit_id'];
+		}
+
+		$outfit_ids = array_unique($outfit_ids);
+
+		//search all outfits from set of id's
+		$this->Outfit->recursive = -1;
+		$outfits = $this->Outfit->find('all', array(
+			'conditions' => array(
+				'Outfit.id' => $outfit_ids,
+			),
+		));
 
 		$this->set('products', $products);
+		$this->set('outfits', $outfits);
 
-		debug($products);
+		$this->getFilterNames($visit['style'], $visit['skin_hair_type'], $visit['body_type']);
 
 		//save session data to users_stats
-		//get products from related outfits
+
 		//build breadcrumbs
 		//if signed in remove data from right column
 	}
@@ -182,5 +193,19 @@ class StyleboothController extends AppController
 		$this->set('bannerDown', $bannerDown);
 		$this->set('bannerLeft', $bannerLeft);
 		$this->set('bannerRight', $bannerRight);
+	}
+
+	private function getFilterNames($style_id, $skin_hair_type_id, $body_type_id) {
+		$this->Style->recursive = -1;
+		$this->SkinHairType->recursive = -1;
+		$this->BodyType->recursive = -1;
+
+		$style = $this->Style->findById($style_id);
+		$skin  = $this->SkinHairType->findById($skin_hair_type_id);
+		$body  = $this->BodyType->findById($body_type_id);
+
+		$this->set('style', $style);
+		$this->set('skin', $skin);
+		$this->set('body', $body);
 	}
 }

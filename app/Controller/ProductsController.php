@@ -23,7 +23,7 @@ class ProductsController extends AppController
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('lista');
+		$this->Auth->allow('lista', 'test');
 	}
 
 	public function getbyid($product_id){
@@ -281,5 +281,26 @@ class ProductsController extends AppController
 	public function lista(){
 		echo __CLASS__ . ' ' . __FUNCTION__;
 		$this->layout = 'default';
+	}
+
+	public function test(){
+		$this->autoRender = false;
+		/*$this->Product->contain(array(
+			'ProductStyle' => array(
+				'conditions' => array(
+					'ProductStyle.style_id' => '2'
+				)
+			)
+		));*/
+		$products = $this->Product->find('all', array(
+			'contain' => array(
+				'ProductStyle' => array(
+					'conditions' => array(
+						'ProductStyle.style_id' => '2'
+					),
+				),
+			),
+		));
+		debug($products);
 	}
 }

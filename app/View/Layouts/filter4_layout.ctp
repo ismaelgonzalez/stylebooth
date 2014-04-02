@@ -66,6 +66,7 @@
 				<?php echo $this->fetch('content'); ?>
 			</div>
 		</div>
+		<?php if (empty($logged_user['id'])) { ?>
 		<div class="col-md-2"  id="banner2" >
 			<br /><br /><br /><br /><br /><br /><br /><br /><br />
 			<a href="#" style="text-decoration: underline; font-size: 14px;">
@@ -74,8 +75,8 @@
 			<div class="fb-login-button" data-max-rows="1" data-size="icon" data-show-faces="false" data-auto-logout-link="false"></div>
 			<br /><br />
 		</div>
-		</div>
-	</div>
+		<?php } ?>
+</div>
 	<div class="container" style="background-color: #FFFFFF;">
 		<div class="row" align="center">
 			<div class="col-md-12">

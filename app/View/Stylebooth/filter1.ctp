@@ -100,7 +100,7 @@
 			if ($foot_size == '') {
 				$foot_size = 'cualquier talla calzado';
 			}
-			var action = "/filter2/" + $budget + "/" + $size + "/" + $foot_size;
+			var action = "/filter2";
 
 			$("#frmFilter1").attr('action', action)
 				.submit();

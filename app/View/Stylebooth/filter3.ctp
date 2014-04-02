@@ -16,11 +16,12 @@
 		<li><a href="/filter2">Anterior</a></li>
 	</ul>
 </div>
+	<input type="hidden" id="body_type" name="body_type" value="">
 </form>
 <script type="text/javascript">
 	function setBodyType(id) {
-		var action = "/filter4/" + id;
-		$("#frmFilter3").attr('action', action)
+		$('#body_type').val(id);
+		$("#frmFilter3").attr('action', '/filter4')
 			.submit();
 	}
 </script>
