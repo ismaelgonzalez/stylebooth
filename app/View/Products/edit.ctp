@@ -100,9 +100,9 @@ echo $this->Form->input('price', array(
 				<div class="panel-heading">Piel y Cabello</div>
 				<div class="panel-body">
 					<?php
-					echo $this->Form->select('ProductsSkinHairType.skin_hair_type_id', $skin_hair_types, array(
+					echo $this->Form->select('ProductSkinHairType.skin_hair_type_id', $skin_hair_types, array(
 						'multiple' => 'checkbox',
-						'default' => $this->Checkbox->getChecked($product['ProductsSkinHairType'], 'skin_hair_type_id'),
+						'default' => $this->Checkbox->getChecked($product['ProductSkinHairType'], 'skin_hair_type_id'),
 					));
 					?>
 				</div>

@@ -2,7 +2,7 @@
 class ProductsController extends AppController
 {
 	public $uses = array('Product', 'ProductsCategory', 'Store', 'Style', 'SkinHairType', 'BodyType',
-		'ProductStyle', 'ProductsSkinHairType', 'ProductsBodyType', 'ProductSize'
+		'ProductStyle', 'ProductsSkinHairType', 'ProductsBodyType', 'ProductSize', 'Banner'
 	);
 
 	public $components = array('Session');
@@ -23,7 +23,7 @@ class ProductsController extends AppController
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('lista', 'test');
+		$this->Auth->allow('lista', 'detail');
 	}
 
 	public function getbyid($product_id){
@@ -283,24 +283,32 @@ class ProductsController extends AppController
 		$this->layout = 'default';
 	}
 
-	public function test(){
-		$this->autoRender = false;
-		/*$this->Product->contain(array(
-			'ProductStyle' => array(
-				'conditions' => array(
-					'ProductStyle.style_id' => '2'
-				)
-			)
-		));*/
-		$products = $this->Product->find('all', array(
-			'contain' => array(
-				'ProductStyle' => array(
-					'conditions' => array(
-						'ProductStyle.style_id' => '2'
-					),
-				),
-			),
-		));
-		debug($products);
+	public function detail($id){
+		$product = $this->Product->findById($id);
+
+		if (empty($product)) {
+			$this->Session->setFlash('No existe producto con este ID :(', 'default', array('class'=>'alert alert-danger'));
+
+			return $this->redirect('/');
+		}
+
+		$this->getBanners();
+		$this->layout = 'default';
+		$this->set('title_for_layout', 'Detalle de ' . $product['Product']['name']);
+		$this->set('product', $product);
+
+		debug($product);
+	}
+
+	private function getBanners(){
+		$bannerTop   = $this->Banner->find('first', array('conditions' => array('type' => 'U', 'status' => 1, 'banner_date <=' => date('Y-m-d')), 'order' => array('banner_date' => 'desc')));
+		$bannerDown  = $this->Banner->find('first', array('conditions' => array('type' => 'D', 'status' => 1, 'banner_date <=' => date('Y-m-d')), 'order' => array('banner_date' => 'desc')));
+		$bannerLeft  = $this->Banner->find('first', array('conditions' => array('type' => 'L', 'status' => 1, 'banner_date <=' => date('Y-m-d')), 'order' => array('banner_date' => 'desc')));
+		$bannerRight = $this->Banner->find('first', array('conditions' => array('type' => 'R', 'status' => 1, 'banner_date <=' => date('Y-m-d')), 'order' => array('banner_date' => 'desc')));
+
+		$this->set('bannerTop', $bannerTop);
+		$this->set('bannerDown', $bannerDown);
+		$this->set('bannerLeft', $bannerLeft);
+		$this->set('bannerRight', $bannerRight);
 	}
 }

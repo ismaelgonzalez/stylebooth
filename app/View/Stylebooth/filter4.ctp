@@ -27,8 +27,10 @@
 </div>
 <br />
 <div class="row">
-	<?php foreach ($products as $p) { ?>
-	<div class="col-md-3">
+	<?php
+	foreach ($products as $p) {
+	?>
+	<div class="col-md-4">
 		<div class="thumbnail">
 			<a href="/products/detail/<?php echo $p['Product']['id']; ?>"> <img style="min-height:210px;height:210px;" src="/files/products/<?php echo $p['Product']['image']; ?>" alt="<?php echo $p['Product']['name']; ?>"></a>
 			<div class="caption">

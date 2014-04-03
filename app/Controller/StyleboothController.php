@@ -1,7 +1,7 @@
 <?php
 class StyleboothController extends AppController
 {
-	public $uses = array('Banner', 'Style', 'SkinHairType', 'BodyType', 'Product', 'Outfit', 'OutfitProduct');
+	public $uses = array('Banner', 'Style', 'SkinHairType', 'BodyType', 'Product', 'Outfit', 'OutfitProduct', 'UserStat');
 
 	public $components = array(
 		'Session',
@@ -147,6 +147,7 @@ class StyleboothController extends AppController
 		$outfit_ids = array();
 		foreach ($outfit_products as $op) {
 			$outfit_ids[] = $op['OutfitProduct']['outfit_id'];
+			//$this->Outfit->getOutfitPrice($op['OutfitProduct']['outfit_id']);
 		}
 
 		$outfit_ids = array_unique($outfit_ids);
@@ -165,9 +166,35 @@ class StyleboothController extends AppController
 		$this->getFilterNames($visit['style'], $visit['skin_hair_type'], $visit['body_type']);
 
 		//save session data to users_stats
+		$user = $this->Session->read('Auth.User');
+		if (empty($user)){
+			$user['id'] = 0;
+		}
 
-		//build breadcrumbs
-		//if signed in remove data from right column
+		$us = $this->UserStat->find('first', array(
+			'conditions' => array(
+				'UserStat.user_id'    => $user['id'],
+				'UserStat.stat_date'  => date('Y-m-d'),
+				'UserStat.ip_address' => $this->request->clientIp(),
+			),
+		));
+
+		if (empty($us)) {
+			$this->UserStat->create();
+			$userStat['UserStat'] = array(
+				'product_size'             => $visit['size'],
+				'product_foot_size'        => $visit['foot_size'],
+				'products_styles'          => $visit['style'],
+				'products_skin_hair_types' => $visit['skin_hair_type'],
+				'products_body_types'      => $visit['body_type'],
+				'product_budget'           => $visit['budget'],
+				'user_id'                  => $user['id'],
+				'stat_date'                => date('Y-m-d'),
+				'ip_address'               => $this->request->clientIp(),
+			);
+
+			$this->UserStat->save($userStat);
+		}
 	}
 
 	public function dashboard(){

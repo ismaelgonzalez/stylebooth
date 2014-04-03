@@ -2,7 +2,7 @@
 
 class OutfitsController extends AppController
 {
-	public $uses = array('Outfit', 'OutfitProduct', 'Product', 'ProductsCategory');
+	public $uses = array('Outfit', 'OutfitProduct', 'Product', 'ProductsCategory', 'Banner');
 
 	public $components = array('Session');
 
@@ -19,6 +19,11 @@ class OutfitsController extends AppController
 			'Coupon.id' => 'DESC'
 		)
 	);
+
+	public function beforeFilter() {
+		parent::beforeFilter();
+		$this->Auth->allow('detail');
+	}
 
 	public function index() {
 		$this->set('title_for_layout', 'Administrar Outfits');
@@ -175,5 +180,35 @@ class OutfitsController extends AppController
 		}
 
 		echo $options;
+	}
+
+	public function detail($id) {
+		$outfit = $this->Outfit->findById($id);
+
+		if (empty($outfit)) {
+			$this->Session->setFlash('No existe outfit con este ID :(', 'default', array('class'=>'alert alert-danger'));
+
+			return $this->redirect('/');
+		}
+
+		$this->getBanners();
+		$this->layout = 'default';
+		$this->set('title_for_layout', 'Detalle de ' . $outfit['Outfit']['name']);
+
+		$this->set('outfit', $outfit);
+
+		debug($outfit);
+	}
+
+	private function getBanners(){
+		$bannerTop   = $this->Banner->find('first', array('conditions' => array('type' => 'U', 'status' => 1, 'banner_date <=' => date('Y-m-d')), 'order' => array('banner_date' => 'desc')));
+		$bannerDown  = $this->Banner->find('first', array('conditions' => array('type' => 'D', 'status' => 1, 'banner_date <=' => date('Y-m-d')), 'order' => array('banner_date' => 'desc')));
+		$bannerLeft  = $this->Banner->find('first', array('conditions' => array('type' => 'L', 'status' => 1, 'banner_date <=' => date('Y-m-d')), 'order' => array('banner_date' => 'desc')));
+		$bannerRight = $this->Banner->find('first', array('conditions' => array('type' => 'R', 'status' => 1, 'banner_date <=' => date('Y-m-d')), 'order' => array('banner_date' => 'desc')));
+
+		$this->set('bannerTop', $bannerTop);
+		$this->set('bannerDown', $bannerDown);
+		$this->set('bannerLeft', $bannerLeft);
+		$this->set('bannerRight', $bannerRight);
 	}
 }

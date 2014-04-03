@@ -30,9 +30,23 @@ class Outfit extends AppModel{
 			$this->data[$this->alias]['image'] = $image_name;
 		}
 
-		/*echo "<pre>".__CLASS__.__FUNCTION__;
-		print_r($this->data);
-		exit();*/
 		return true;
+	}
+
+	public function getOutfitPrice($outfit_id) {
+		$outfit = $this->findById($outfit_id);
+
+		debug($outfit);
+
+		App::import('Model', 'Product');
+		$product = new Product();
+
+		$outfit_price = 0;
+		foreach ($outfit['OutfitProduct'] as $op) {
+			$price = $product->getPrice($op['product_id']);
+			$outfit_price += $price;
+		}
+
+		return $outfit_price;
 	}
 }

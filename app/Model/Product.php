@@ -77,4 +77,14 @@ class Product extends AppModel{
 
 		return true;
 	}
+
+	public function getPrice($product_id) {
+		$price = $this->find('first', array(
+			'fields' => array('Product.price'),
+			'conditions' => array('Product.id' => $product_id),
+			'recursive' => -1,
+		));
+
+		return $price['Product']['price'];
+	}
 }
