@@ -21,6 +21,11 @@ class BannersController extends AppController {
 		)
 	);
 
+	public function beforeFilter() {
+		parent::beforeFilter();
+		$this->Auth->allow('getBannerByType');
+	}
+
 	public function index() {
 		$this->set('title_for_layout', 'Lista de Banners');
 
@@ -94,6 +99,17 @@ class BannersController extends AppController {
 			$this->Session->setFlash('No existe banner con este ID :(', 'default', array('class'=>'alert alert-danger'));
 
 			return $this->redirect('/banners/index');
+		}
+	}
+
+	public function getBannerByType($type) {
+		$this->autoRender =  false;
+		$banner = $this->Banner->find('first', array('conditions' => array('type' => $type, 'status' => 1, 'banner_date <=' => date('Y-m-d')), 'order' => array('banner_date' => 'desc')));
+
+		if ($this->request->is('requested')) {
+			return $banner;
+		} else {
+			$this->set('banner', $banner);
 		}
 	}
 }

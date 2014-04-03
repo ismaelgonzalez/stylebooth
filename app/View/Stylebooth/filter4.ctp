@@ -6,14 +6,14 @@
 		<div class="thumbnail">
 			<a href="/outfits/detail/<?php echo $o['Outfit']['id']; ?>"> <img style="min-height:286px;height:286px;" src="/files/outfits/<?php echo $o['Outfit']['image']; ?>" alt="<?php echo $o['Outfit']['name']; ?>"></a>
 			<div class="caption">
-				<h5><b><?php echo $o['Outfit']['name']; ?>: $1650 MXN</b></h5>
+				<h5><b><?php echo $o['Outfit']['name']; ?>: <?php echo $this->element('outfit_price', array('id' => $o['Outfit']['id'])); ?> MXN</b></h5>
 			</div>
 		</div>
 	</div>
 	<?php } ?>
 </div>
 <h4><b>Resultados de Productos</b></h4>
-<a href="/" > <?php echo $style['Style']['name']; ?> </a> -> <a href="/filter1" > <?php echo $this->Session->read('Visit.budget'); ?>, <?php echo $this->Session->read('Visit.size'); ?>, <?php echo $this->Session->read('Visit.foot_size'); ?> </a>-> <a href="/filter2" > <?php echo $skin['SkinHairType']['name']; ?> </a> -><a href="/filter3" >  <?php echo $body['BodyType']['name']; ?> </a> ->  Outfits ->
+	<?php echo $this->Breadcrumbs->getBreadcrumbs($style['Style']['name'], $this->Session->read('Visit.budget'), $this->Session->read('Visit.size'), $this->Session->read('Visit.foot_size'), $skin['SkinHairType']['name'], $body['BodyType']['name']); ?>
 <!-- Single button -->
 <div class="btn-group">
 	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">

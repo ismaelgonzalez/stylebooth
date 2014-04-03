@@ -2,7 +2,7 @@
 
 class OutfitsController extends AppController
 {
-	public $uses = array('Outfit', 'OutfitProduct', 'Product', 'ProductsCategory', 'Banner');
+	public $uses = array('Outfit', 'OutfitProduct', 'Product', 'ProductsCategory');
 
 	public $components = array('Session');
 
@@ -22,7 +22,7 @@ class OutfitsController extends AppController
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('detail');
+		$this->Auth->allow('detail', 'getOutfitTotalPrice');
 	}
 
 	public function index() {
@@ -191,7 +191,6 @@ class OutfitsController extends AppController
 			return $this->redirect('/');
 		}
 
-		$this->getBanners();
 		$this->layout = 'default';
 		$this->set('title_for_layout', 'Detalle de ' . $outfit['Outfit']['name']);
 
@@ -200,15 +199,34 @@ class OutfitsController extends AppController
 		debug($outfit);
 	}
 
-	private function getBanners(){
-		$bannerTop   = $this->Banner->find('first', array('conditions' => array('type' => 'U', 'status' => 1, 'banner_date <=' => date('Y-m-d')), 'order' => array('banner_date' => 'desc')));
-		$bannerDown  = $this->Banner->find('first', array('conditions' => array('type' => 'D', 'status' => 1, 'banner_date <=' => date('Y-m-d')), 'order' => array('banner_date' => 'desc')));
-		$bannerLeft  = $this->Banner->find('first', array('conditions' => array('type' => 'L', 'status' => 1, 'banner_date <=' => date('Y-m-d')), 'order' => array('banner_date' => 'desc')));
-		$bannerRight = $this->Banner->find('first', array('conditions' => array('type' => 'R', 'status' => 1, 'banner_date <=' => date('Y-m-d')), 'order' => array('banner_date' => 'desc')));
+	public function getOutfitTotalPrice($id){
+		$this->autoRender = false;
+		$outfits = $this->Outfit->find('first', array(
+			'conditions' => array(
+				'Outfit.status' => 1,
+				'Outfit.id' => $id,
+			),
+			'contain' => array(
+				'Product' => array(
+					'conditions' => array(
+						'Product.status' => 1,
+					),
+				),
+			),
+		));
 
-		$this->set('bannerTop', $bannerTop);
-		$this->set('bannerDown', $bannerDown);
-		$this->set('bannerLeft', $bannerLeft);
-		$this->set('bannerRight', $bannerRight);
+		$total_price = 0;
+		$products    = $outfits['Product'];
+
+		foreach ($products as $p) {
+			$total_price += $p['price'];
+		}
+
+		if ($this->request->is('requested')) {
+			return $total_price;
+		} else {
+			$this->set('total_price', $total_price);
+		}
+
 	}
 }

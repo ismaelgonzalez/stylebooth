@@ -87,21 +87,21 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 
 <div class="container" style="background-color: #FFFFFF;">
 	<div class="row">
-		<div id="bannerLeft" class="col-md-2"><br /><?php $this->Banner->getBanner($bannerLeft); ?></div>
+		<div id="bannerLeft" class="col-md-2"><br /><?php echo $this->element('banner', array('type' => 'L')); ?></div>
 		<div class="col-md-8" align="center">
-			<div id="bannerTop"><?php $this->Banner->getBanner($bannerTop); ?></div>
+			<div id="bannerTop"><?php echo $this->element('banner', array('type' => 'U')); ?></div>
 			<div class="row">
 				<?php echo $this->Session->flash(); ?>
 				<?php echo $this->fetch('content'); ?>
 			</div>
 		</div>
-		<div class="col-md-2"  id="banner2" ><br /><div id="bannerRight"><?php $this->Banner->getBanner($bannerRight); ?></div>
+		<div class="col-md-2"  id="banner2" ><br /><div id="bannerRight"><?php echo $this->element('banner', array('type' => 'R')); ?></div>
 		</div>
 	</div>
 	<div class="container" style="background-color: #FFFFFF;">
 		<div class="row" align="center">
 			<div class="col-md-12">
-				<div id="bannerBottom"><?php $this->Banner->getBanner($bannerDown); ?></div>
+				<div id="bannerBottom"><?php echo $this->element('banner', array('type' => 'D')); ?></div>
 				<h5><a href="#">Nosotros</a> &nbsp;&nbsp; <a href="#">Misión</a> &nbsp;&nbsp;<a href="#">Anunciate</a> &nbsp;&nbsp;<a href="#">Contacto</a></h5>
 				<h6>Stylebooth <?php echo date('Y'); ?></h6>
 			</div>

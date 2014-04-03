@@ -4,7 +4,7 @@ class OutfitProduct extends AppModel
 	public $name = 'OutfitProduct';
 	public $useTable = 'outfit_products';
 
-	public $belongsTo = array(
+	/*public $hasAndBelongsToMany = array(
 		'Outfit' => array(
 			'className' => 'Outfit',
 			'foreignKey' => 'id'
@@ -13,5 +13,5 @@ class OutfitProduct extends AppModel
 			'className' => 'Product',
 			'foreignKey' => 'id'
 		)
-	);
+	);*/
 }

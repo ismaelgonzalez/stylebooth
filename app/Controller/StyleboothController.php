@@ -1,13 +1,13 @@
 <?php
 class StyleboothController extends AppController
 {
-	public $uses = array('Banner', 'Style', 'SkinHairType', 'BodyType', 'Product', 'Outfit', 'OutfitProduct', 'UserStat');
+	public $uses = array('Style', 'SkinHairType', 'BodyType', 'Product', 'Outfit', 'OutfitProduct', 'UserStat');
 
 	public $components = array(
 		'Session',
 	);
 
-	public $helpers = array('Paginator', 'Js', 'Banner');
+	public $helpers = array('Paginator', 'Js', 'Breadcrumbs');
 
 	public function beforeFilter() {
 		parent::beforeFilter();
@@ -27,8 +27,6 @@ class StyleboothController extends AppController
 	}
 
 	public function index(){
-		$this->getBanners();
-
 		$this->Style->recursive = -1;
 		$styles = $this->Style->find('all');
 
@@ -36,16 +34,12 @@ class StyleboothController extends AppController
 	}
 
 	public function filter1(){
-		$this->getBanners();
-
 		if (!empty($this->data)) {
 			$this->Session->write('Visit.style', $this->data['style_id']);
 		}
 	}
 
 	public function filter2(){
-		$this->getBanners();
-
 		if (!empty($this->data)) {
 			$this->Session->write('Visit.budget', $this->data['budget']);
 			$this->Session->write('Visit.size', $this->data['size']);
@@ -59,8 +53,6 @@ class StyleboothController extends AppController
 	}
 
 	public function filter3(){
-		$this->getBanners();
-
 		if (!empty($this->data)) {
 			$this->Session->write('Visit.skin_hair_type', $this->data['skin_hair_type']);
 		}
@@ -73,7 +65,6 @@ class StyleboothController extends AppController
 
 	public function filter4(){
 		$this->layout = 'filter4_layout';
-		$this->getBanners();
 
 		if (!empty($this->data)) {
 			$this->Session->write('Visit.body_type', $this->data['body_type']);
@@ -137,6 +128,7 @@ class StyleboothController extends AppController
 
 		$product_ids = array_unique($product_ids);
 
+		/*
 		$this->OutfitProduct->recursive = -1;
 		$outfit_products = $this->OutfitProduct->find('all', array(
 			'conditions' => array(
@@ -159,6 +151,23 @@ class StyleboothController extends AppController
 				'Outfit.id' => $outfit_ids,
 			),
 		));
+		*/
+		$outfits = $this->Outfit->find('all', array(
+			'contain' => array(
+				'Product' => array(
+					'conditions' => array(
+						'Product.id' => $product_ids,
+					)
+				),
+			),
+		));
+
+		//cleanup outfits remove the ones with empty product
+		for ($i = 0; $i < sizeof($outfits); $i++) {
+			if (empty($outfits[$i]['Product'])) {
+				unset($outfits[$i]);
+			}
+		}
 
 		$this->set('products', $products);
 		$this->set('outfits', $outfits);
@@ -208,18 +217,6 @@ class StyleboothController extends AppController
 		$this->autoRender = false;
 		echo __FUNCTION__;
 		var_dump($user_id);
-	}
-
-	private function getBanners(){
-		$bannerTop   = $this->Banner->find('first', array('conditions' => array('type' => 'U', 'status' => 1, 'banner_date <=' => date('Y-m-d')), 'order' => array('banner_date' => 'desc')));
-		$bannerDown  = $this->Banner->find('first', array('conditions' => array('type' => 'D', 'status' => 1, 'banner_date <=' => date('Y-m-d')), 'order' => array('banner_date' => 'desc')));
-		$bannerLeft  = $this->Banner->find('first', array('conditions' => array('type' => 'L', 'status' => 1, 'banner_date <=' => date('Y-m-d')), 'order' => array('banner_date' => 'desc')));
-		$bannerRight = $this->Banner->find('first', array('conditions' => array('type' => 'R', 'status' => 1, 'banner_date <=' => date('Y-m-d')), 'order' => array('banner_date' => 'desc')));
-
-		$this->set('bannerTop', $bannerTop);
-		$this->set('bannerDown', $bannerDown);
-		$this->set('bannerLeft', $bannerLeft);
-		$this->set('bannerRight', $bannerRight);
 	}
 
 	private function getFilterNames($style_id, $skin_hair_type_id, $body_type_id) {

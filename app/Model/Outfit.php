@@ -2,7 +2,7 @@
 class Outfit extends AppModel{
 	public $name = 'Outfit';
 	public $useTable = 'outfits';
-	public $actsAs = array('Upload');
+	public $actsAs = array('Upload', 'Containable');
 
 	public $validate = array(
 		'name' => array(
@@ -13,11 +13,14 @@ class Outfit extends AppModel{
 		),
 	);
 
-	public $hasMany = array(
-		'OutfitProduct' => array(
-			'className' => 'OutfitProduct',
-			'foreignKey' => 'outfit_id'
-		)
+	public $hasAndBelongsToMany = array(
+		'Product' => array(
+			'className' => 'Product',
+			'joinTable' => 'outfit_products',
+			'foreignKey' => 'outfit_id',
+			'associationForeignKey' => 'product_id',
+			'unique' => true,
+		),
 	);
 
 	public function beforeSave() {

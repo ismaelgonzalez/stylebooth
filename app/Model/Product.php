@@ -32,10 +32,7 @@ class Product extends AppModel{
 	);
 
 	public $hasMany = array(
-		'OutfitProduct' => array(
-			'className' => 'OutfitProduct',
-			'foreignKey' => 'product_id'
-		),
+
 		'ProductSize' => array(
 			'className' => 'ProductSize',
 			'foreignKey' => 'product_id'
@@ -63,6 +60,16 @@ class Product extends AppModel{
 			'className' => 'ProductsCategory',
 			'foreignKey' => 'products_categories_id'
 		)
+	);
+
+	public $hasAndBelongsToMany = array(
+		'Outfit' => array(
+			'className' => 'Outfit',
+			'joinTable' => 'outfit_products',
+			'foreignKey' => 'product_id',
+			'associationForeignKey' => 'outfit_id',
+			'unique' => true,
+		),
 	);
 
 	public function beforeSave() {

@@ -2,7 +2,7 @@
 class ProductsController extends AppController
 {
 	public $uses = array('Product', 'ProductsCategory', 'Store', 'Style', 'SkinHairType', 'BodyType',
-		'ProductStyle', 'ProductsSkinHairType', 'ProductsBodyType', 'ProductSize', 'Banner'
+		'ProductStyle', 'ProductsSkinHairType', 'ProductsBodyType', 'ProductSize'
 	);
 
 	public $components = array('Session');
@@ -292,23 +292,10 @@ class ProductsController extends AppController
 			return $this->redirect('/');
 		}
 
-		$this->getBanners();
 		$this->layout = 'default';
 		$this->set('title_for_layout', 'Detalle de ' . $product['Product']['name']);
 		$this->set('product', $product);
 
 		debug($product);
-	}
-
-	private function getBanners(){
-		$bannerTop   = $this->Banner->find('first', array('conditions' => array('type' => 'U', 'status' => 1, 'banner_date <=' => date('Y-m-d')), 'order' => array('banner_date' => 'desc')));
-		$bannerDown  = $this->Banner->find('first', array('conditions' => array('type' => 'D', 'status' => 1, 'banner_date <=' => date('Y-m-d')), 'order' => array('banner_date' => 'desc')));
-		$bannerLeft  = $this->Banner->find('first', array('conditions' => array('type' => 'L', 'status' => 1, 'banner_date <=' => date('Y-m-d')), 'order' => array('banner_date' => 'desc')));
-		$bannerRight = $this->Banner->find('first', array('conditions' => array('type' => 'R', 'status' => 1, 'banner_date <=' => date('Y-m-d')), 'order' => array('banner_date' => 'desc')));
-
-		$this->set('bannerTop', $bannerTop);
-		$this->set('bannerDown', $bannerDown);
-		$this->set('bannerLeft', $bannerLeft);
-		$this->set('bannerRight', $bannerRight);
 	}
 }
