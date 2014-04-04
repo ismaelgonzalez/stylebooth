@@ -23,7 +23,7 @@ class ProductsController extends AppController
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('lista', 'detail');
+		$this->Auth->allow('lista', 'detail', 'getProductsByFilter');
 	}
 
 	public function getbyid($product_id){
@@ -297,5 +297,75 @@ class ProductsController extends AppController
 		$this->set('product', $product);
 
 		debug($product);
+	}
+
+	public function getProductsByFilter($filter){
+		$this->autoRender = false;
+
+		$visit = $this->Session->read('Visit');
+
+		$budget = null;
+		if (!strstr($visit['budget'], 'cualquier')) {
+			if (strstr($visit['budget'], 'menos')) {
+				$budget = "Product.price <= 500";
+			} elseif (strstr($visit['budget'], 'mas')) {
+				$budget = "Product.price >= 2000";
+			} else {
+				$values = split("_", $visit['budget']);
+				$budget = "Product.price BETWEEN '" . $values[0] . "' AND '". $values[1] . "'";
+			}
+		}
+
+		switch ($filter) {
+			case 'Todos los Productos':
+				$product_category = '';
+				break;
+			case 'Solo Accesorios':
+				$product_category = 'Product.products_categories_id = 5';
+				break;
+			case 'Solo Calzado':
+				$product_category = 'Product.products_categories_id = 6';
+				break;
+		}
+
+//		$this->Product->recursive = -1;
+		$products = $this->Product->find('all', array(
+			'conditions' => array(
+				'Product.status' => 1,
+				$budget,
+				$product_category,
+			),
+			'contain' => array(
+				'ProductStyle' => array(
+					'conditions' => array(
+						'ProductStyle.style_id' => $visit['style'],
+						'not' => array(
+							'ProductStyle.style_id' => null,
+						),
+					),
+				),
+				'ProductSkinHairType' => array(
+					'conditions' => array(
+						'ProductSkinHairType.skin_hair_type_id' => $visit['skin_hair_type'],
+					),
+				),
+				'ProductsBodyType' => array(
+					'conditions' => array(
+						'ProductsBodyType.body_type_id' => $visit['body_type'],
+					),
+				),
+				'ProductSize' => array(
+					'conditions' => array(
+						'OR' => array(
+							'ProductSize.size' => $visit['size'],
+							'ProductSize.size' => $visit['foot_size'],
+						),
+					),
+				),
+				'Store',
+			),
+		));
+
+		return json_encode($products);
 	}
 }

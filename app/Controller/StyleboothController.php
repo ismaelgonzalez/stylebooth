@@ -128,30 +128,6 @@ class StyleboothController extends AppController
 
 		$product_ids = array_unique($product_ids);
 
-		/*
-		$this->OutfitProduct->recursive = -1;
-		$outfit_products = $this->OutfitProduct->find('all', array(
-			'conditions' => array(
-				'OutfitProduct.product_id' => $product_ids,
-			),
-		));
-
-		$outfit_ids = array();
-		foreach ($outfit_products as $op) {
-			$outfit_ids[] = $op['OutfitProduct']['outfit_id'];
-			//$this->Outfit->getOutfitPrice($op['OutfitProduct']['outfit_id']);
-		}
-
-		$outfit_ids = array_unique($outfit_ids);
-
-		//search all outfits from set of id's
-		$this->Outfit->recursive = -1;
-		$outfits = $this->Outfit->find('all', array(
-			'conditions' => array(
-				'Outfit.id' => $outfit_ids,
-			),
-		));
-		*/
 		$outfits = $this->Outfit->find('all', array(
 			'contain' => array(
 				'Product' => array(
@@ -161,16 +137,19 @@ class StyleboothController extends AppController
 				),
 			),
 		));
-
+		//debug($this->Outfit->getLastQuery());
+		//debug($outfits); exit();
 		//cleanup outfits remove the ones with empty product
+		$real_outfits = array();
 		for ($i = 0; $i < sizeof($outfits); $i++) {
-			if (empty($outfits[$i]['Product'])) {
-				unset($outfits[$i]);
+			if (!empty($outfits[$i]['Product'])) {
+				//unset($outfits[$i]);
+				$real_outfits[] = $outfits[$i];
 			}
 		}
-
+		//debug($real_outfits); exit();
 		$this->set('products', $products);
-		$this->set('outfits', $outfits);
+		$this->set('outfits', $real_outfits);
 
 		$this->getFilterNames($visit['style'], $visit['skin_hair_type'], $visit['body_type']);
 

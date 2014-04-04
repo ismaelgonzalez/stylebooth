@@ -12,6 +12,10 @@
 	echo $this->Html->css('jquery-ui-1.10.4.custom.min');
 	echo $this->Html->css('stylebooth');
 
+	echo $this->Html->script('jquery-1.11.0.min');
+	echo $this->Html->script('jquery-ui-1.10.4.custom.min');
+	echo $this->Html->script('bootstrap.min');
+
 	echo $this->fetch('meta');
 	echo $this->fetch('css');
 	echo $this->fetch('script');
@@ -48,7 +52,7 @@
 				</div>
 				<button type="submit" class="btn" style="font-size: 10px;">Sign in</button>
 				<div class="form-group" style="color: #FFFFFF; font-size: 10px;" >
-					¿No tiene cuenta? <a href="#">Regístrese</a>
+					¿No tiene cuenta? <a href="/users/register">Regístrese</a>
 					<br />Entrar con faceook <div class="fb-login-button" data-max-rows="1" data-size="icon" data-show-faces="false" data-auto-logout-link="false"></div>
 				</div>
 			</form>
@@ -69,7 +73,7 @@
 		<?php if (empty($logged_user['id'])) { ?>
 		<div class="col-md-2"  id="banner2" >
 			<br /><br /><br /><br /><br /><br /><br /><br /><br />
-			<a href="#" style="text-decoration: underline; font-size: 14px;">
+			<a href="/users/register" style="text-decoration: underline; font-size: 14px;">
 				Registrate aqui para obtener cupones de descuentos en los resultados de tus productos</a>
 			<br /><br /> O Entra con faceook
 			<div class="fb-login-button" data-max-rows="1" data-size="icon" data-show-faces="false" data-auto-logout-link="false"></div>
@@ -86,11 +90,6 @@
 			</div>
 		</div>
 	</div>
-	<?php
-	echo $this->Html->script('jquery-1.11.0.min');
-	echo $this->Html->script('jquery-ui-1.10.4.custom.min');
-	echo $this->Html->script('bootstrap.min');
-	?>
 	<!-- Facebooklogin thing -->
 	<div id="fb-root"></div>
 	<script>(function(d, s, id) {
