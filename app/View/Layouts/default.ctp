@@ -90,7 +90,7 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 		<div class="col-md-8" align="center">
 			<div id="bannerTop"><?php echo $this->element('banner', array('type' => 'U')); ?></div>
 			<div class="row">
-				<?php echo $this->Session->flash(); ?>
+				<p><?php echo $this->Session->flash(); ?></p>
 				<?php echo $this->fetch('content'); ?>
 			</div>
 		</div>

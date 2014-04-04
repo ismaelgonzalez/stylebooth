@@ -1,7 +1,7 @@
 <?php
 class StoresController extends AppController
 {
-	public $uses = array('Store');
+	public $uses = array('Store', 'StoreAddress');
 
 	public $components = array('Session');
 
@@ -24,11 +24,7 @@ class StoresController extends AppController
 		$this->set('pageHeader', 'Tiendas');
 		$this->set('sectionTitle', 'Lista de Tiendas');
 
-		$stores = $this->Store->find('all', array(
-			'conditions' => array(
-				'Store.status' => 1,
-			),
-		));
+		$stores = $this->paginate('Store');
 
 		$this->set('stores', $stores);
 	}
@@ -41,11 +37,15 @@ class StoresController extends AppController
 			if (empty($this->data['Store']['image']['name'])) {
 				unset($this->request->data['Store']['image']);
 			}
-			if (!$this->Store->save($this->data)) {
+			if (!$this->Store->save($this->request->data)) {
 				$this->Session->setFlash('No se pudo guardar la Tienda  :S', 'default', array('class'=>'alert alert-danger'));
 
 				return false;
 			}
+
+			$store_id = $this->Store->getInsertID();
+			$this->request->data['StoreAddress']['store_id'] = $store_id;
+			$this->StoreAddress->save($this->request->data['StoreAddress']);
 
 			$this->Session->setFlash('Se agreg&oacute; la nueva Tienda!', 'default', array('class'=>'alert alert-success'));
 
@@ -57,7 +57,8 @@ class StoresController extends AppController
 		$this->set('title_for_layout', 'Editar Tienda');
 
 		$store = $this->Store->findById($id);
-
+		//debug($store);
+		//exit();
 		if ($store) {
 			$this->set('store', $store);
 		} else {
@@ -67,6 +68,8 @@ class StoresController extends AppController
 		}
 
 		if (!empty($this->data)) {
+			//debug($this->data);
+			//exit();
 			if (empty($this->data['Store']['image']['name'])) {
 				unset($this->request->data['Store']['image']);
 			}
@@ -75,6 +78,8 @@ class StoresController extends AppController
 
 				return false;
 			}
+
+			$this->StoreAddress->save($this->request->data['StoreAddress']);
 
 			$this->Session->setFlash('Se editó la tienda!', 'default', array('class'=>'alert alert-success'));
 
@@ -104,6 +109,25 @@ class StoresController extends AppController
 			$this->Session->setFlash('No existe Tienda con este ID :(', 'default', array('class'=>'alert alert-danger'));
 
 			return $this->redirect('/stores/index');
+		}
+	}
+
+	public function beforeFilter() {
+		parent::beforeFilter();
+		$this->Auth->allow('getStoreAddress');
+	}
+
+	public function getStoreAddress($store_id) {
+		$store_address = $this->StoreAddress->find('first', array(
+			'conditions' => array(
+				'StoreAddress.store_id' => $store_id,
+			),
+		));
+
+		if ($this->request->is('requested')) {
+			return $store_address;
+		} else {
+			$this->set('store_address', $store_address);
 		}
 	}
 }

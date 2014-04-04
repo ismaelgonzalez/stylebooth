@@ -60,7 +60,59 @@ echo $this->Form->input('zone', array(
 	'empty' => array('' => '-- Elige una zona --'),
 	'default' => $store['Store']['zone'],
 ));
-
+?>
+<div class="panel panel-info">
+	<div class="panel-heading">Dirección de Tienda</div>
+	<div class="panel-body">
+		<?php
+		echo $this->Form->input('StoreAddress.id', array(
+			'default' => $store['StoreAddress'][0]['id'],
+			'type' => 'hidden',
+		));
+		echo $this->Form->input('StoreAddress.store_id', array(
+			'default' => $store['StoreAddress'][0]['store_id'],
+			'type' => 'hidden',
+		));
+		echo $this->Form->input('StoreAddress.address1', array(
+			'label' => array('text' => 'Dirección', 'class' => 'control-label my-label col-lg-2'),
+			'class' => 'form-control',
+			'between' => '<div class="col-lg-6">',
+			'default' => $store['StoreAddress'][0]['address1'],
+		));
+		echo $this->Form->input('StoreAddress.address2', array(
+			'label' => array('text' => 'Colonia', 'class' => 'control-label my-label col-lg-2'),
+			'class' => 'form-control',
+			'between' => '<div class="col-lg-6">',
+			'default' => $store['StoreAddress'][0]['address2'],
+		));
+		echo $this->Form->input('StoreAddress.city', array(
+			'label' => array('text' => 'Ciudad', 'class' => 'control-label my-label col-lg-2'),
+			'class' => 'form-control',
+			'between' => '<div class="col-lg-6">',
+			'default' => $store['StoreAddress'][0]['city'],
+		));
+		echo $this->Form->input('StoreAddress.state', array(
+			'label' => array('text' => 'Estado', 'class' => 'control-label my-label col-lg-2'),
+			'class' => 'form-control',
+			'between' => '<div class="col-lg-6">',
+			'default' => $store['StoreAddress'][0]['state'],
+		));
+		echo $this->Form->input('StoreAddress.country', array(
+			'label' => array('text' => 'País', 'class' => 'control-label my-label col-lg-2'),
+			'class' => 'form-control',
+			'between' => '<div class="col-lg-6">',
+			'default' => $store['StoreAddress'][0]['country'],
+		));
+		echo $this->Form->input('StoreAddress.zip', array(
+			'label' => array('text' => 'Código Postal', 'class' => 'control-label my-label col-lg-2'),
+			'class' => 'form-control',
+			'between' => '<div class="col-lg-6">',
+			'default' => $store['StoreAddress'][0]['zip'],
+		));
+		?>
+	</div>
+</div>
+<?php
 echo "<div class='form-group col-lg-5'>";
 echo $this->Form->submit('Enviar', array('formnovalidate' => true, 'class' => 'btn btn-success'));
 echo "</div>";

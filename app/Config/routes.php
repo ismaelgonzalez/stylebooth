@@ -51,6 +51,9 @@
 	Router::connect('/filter2/*', array('controller' => 'stylebooth', 'action' => 'filter2'));
 	Router::connect('/filter3/*', array('controller' => 'stylebooth', 'action' => 'filter3'));
 	Router::connect('/filter4/*', array('controller' => 'stylebooth', 'action' => 'filter4'));
+
+//getcoupon
+	Router::connect('/getcoupon/*', array('controller' => 'coupons', 'action' => 'register'));
 /**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.

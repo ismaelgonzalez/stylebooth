@@ -2,7 +2,7 @@
 App::uses('AppController', 'Controller');
 
 class CouponsController extends AppController {
-	public $uses = array('Coupon', 'Product');
+	public $uses = array('Coupon', 'Product', 'CouponUser');
 
 	public $components = array('Session');
 
@@ -101,5 +101,49 @@ class CouponsController extends AppController {
 
 			return $this->redirect('/coupons/index');
 		}
+	}
+
+	public function register($id) {
+		$user = $this->Session->read( 'Auth.User' );
+
+		if ( empty( $user ) ) {
+			$this->Session->setFlash('¡Necesitas estar registrado para generar cupones!', 'default', array('class'=>'alert alert-danger'));
+
+			return $this->redirect('/');
+		}
+
+		$this->layout = 'login';
+		$coupon = $this->Coupon->findById($id);
+
+		if ( empty( $coupon ) ) {
+			$this->Session->setFlash('¡Este cupon no existe!', 'default', array('class'=>'alert alert-danger'));
+
+			return $this->redirect('/');
+		}
+
+		$usedCoupon = $this->CouponUser->find('first', array(
+			'conditions' => array(
+				'CouponUser.user_id' => $user['id'],
+				'CouponUser.coupon_id' => $id,
+			),
+		));
+
+		if (empty($usedCoupon)) {
+			$cu['CouponUser'] = array(
+				'user_id' => $user['id'],
+				'coupon_id' => $id,
+			);
+
+			$this->CouponUser->save($cu);
+
+			$use_coupon['Coupon'] = array(
+				'id' => $coupon['Coupon']['id'],
+				'number_coupons' => $coupon['Coupon']['number_coupons']-1,
+			);
+
+			$this->Coupon->save($use_coupon);
+		}
+
+		$this->set('coupon', $coupon);
 	}
 }

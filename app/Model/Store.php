@@ -26,14 +26,12 @@ class Store extends AppModel
 		),
 	);
 
-	public function beforeFind($query){
-		parent::beforeFind($query);
-		$query['conditions'] = array(
-			'status' => 1
-		);
-
-		return $query;
-	}
+	public $hasMany = array(
+		'StoreAddress' => array(
+			'className' => 'StoreAddress',
+			'foreignKey' => 'store_id'
+		),
+	);
 
 	public function beforeSave() {
 		parent::beforeSave();

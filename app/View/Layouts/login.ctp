@@ -28,7 +28,7 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 		body {
 			padding-top: 40px;
 			padding-bottom: 40px;
-			background-color: #eee;
+			background-color: #fdfdfd;
 		}
 
 		.form-signin {

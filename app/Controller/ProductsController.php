@@ -2,7 +2,7 @@
 class ProductsController extends AppController
 {
 	public $uses = array('Product', 'ProductsCategory', 'Store', 'Style', 'SkinHairType', 'BodyType',
-		'ProductStyle', 'ProductsSkinHairType', 'ProductsBodyType', 'ProductSize'
+		'ProductStyle', 'ProductsSkinHairType', 'ProductsBodyType', 'ProductSize', 'Coupon', 'Wishlist'
 	);
 
 	public $components = array('Session');
@@ -23,7 +23,7 @@ class ProductsController extends AppController
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('lista', 'detail', 'getProductsByFilter');
+		$this->Auth->allow('lista', 'detail', 'getProductsByFilter', 'addToWishList');
 	}
 
 	public function getbyid($product_id){
@@ -279,8 +279,23 @@ class ProductsController extends AppController
 	}
 
 	public function lista(){
-		echo __CLASS__ . ' ' . __FUNCTION__;
 		$this->layout = 'default';
+
+
+		$products = $this->Product->find('all', array(
+			'conditions' => array(
+				'Product.status' => 1,
+			),
+			'order' => array(
+				'Product.id' => 'desc'
+			),
+			'recursive' => -1,
+			'contain' => array(
+				'Store',
+			),
+		));
+
+		$this->set('products', $products);
 	}
 
 	public function detail($id){
@@ -292,11 +307,22 @@ class ProductsController extends AppController
 			return $this->redirect('/');
 		}
 
+		$coupon = $this->Coupon->find('first', array(
+			'conditions' => array(
+				'Coupon.product_id' => $id,
+				'Coupon.status' => 1,
+				'Coupon.number_coupons >' => 0,
+				'and' => array(
+					'Coupon.start_date <=' => date('Y-m-d'),
+					'Coupon.end_date >=' => date('Y-m-d'),
+				),
+			),
+		));
+
 		$this->layout = 'default';
 		$this->set('title_for_layout', 'Detalle de ' . $product['Product']['name']);
 		$this->set('product', $product);
-
-		debug($product);
+		$this->set('coupon', $coupon);
 	}
 
 	public function getProductsByFilter($filter){
@@ -328,7 +354,6 @@ class ProductsController extends AppController
 				break;
 		}
 
-//		$this->Product->recursive = -1;
 		$products = $this->Product->find('all', array(
 			'conditions' => array(
 				'Product.status' => 1,
@@ -367,5 +392,40 @@ class ProductsController extends AppController
 		));
 
 		return json_encode($products);
+	}
+
+	public function addToWishList($id) {
+		$this->autoRender = false;
+		$user = $this->Session->read( 'Auth.User' );
+
+		if ( empty( $user ) ) {
+			echo "noUser";
+			return;
+		}
+
+		$product = $this->Product->findById($id);
+
+		if ( empty( $product ) ) {
+			echo "noProduct";
+			return;
+		}
+
+		$wishlistProduct = $this->Wishlist->find('first', array(
+			'conditions' => array(
+				'Wishlist.user_id' => $user['id'],
+				'Wishlist.product_id' => $id,
+			),
+		));
+
+		if (empty($wishlistProduct)) {
+			$wl['Wishlist'] = array(
+				'user_id' => $user['id'],
+				'product_id' => $id,
+			);
+
+			$this->Wishlist->save($wl);
+			echo "saved";
+			return;
+		}
 	}
 }

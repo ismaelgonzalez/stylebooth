@@ -32,7 +32,6 @@ class Product extends AppModel{
 	);
 
 	public $hasMany = array(
-
 		'ProductSize' => array(
 			'className' => 'ProductSize',
 			'foreignKey' => 'product_id'
