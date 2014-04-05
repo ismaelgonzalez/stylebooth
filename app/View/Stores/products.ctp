@@ -4,7 +4,6 @@
 			  <span class="thumbnail">
 		  <img src="/files/stores/<?php echo $store['Store']['image']; ?>" alt="<?php echo $store['Store']['name']; ?>"/>
 		</span>
-		<a href="filter4.php">Ver Productos de Boutique</a>
 	</div>
 	<div class="col-md-8" align="left">
 		<h5><b><?php echo $store['Store']['name']; ?></b></h5>
