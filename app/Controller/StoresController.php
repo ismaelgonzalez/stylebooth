@@ -1,9 +1,9 @@
 <?php
 class StoresController extends AppController
 {
-	public $uses = array('Store', 'StoreAddress');
+	public $uses = array('Store', 'StoreAddress', 'Product');
 
-	public $components = array('Session');
+	public $components = array('Session', 'Paginator');
 
 	public $helpers = array('Paginator', 'Js', 'Status', 'Product');
 
@@ -114,10 +114,11 @@ class StoresController extends AppController
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('getStoreAddress');
+		$this->Auth->allow('getStoreAddress', 'getStoreName', 'lista', 'products');
 	}
 
 	public function getStoreAddress($store_id) {
+		$this->autoRender = false;
 		$store_address = $this->StoreAddress->find('first', array(
 			'conditions' => array(
 				'StoreAddress.store_id' => $store_id,
@@ -129,5 +130,51 @@ class StoresController extends AppController
 		} else {
 			$this->set('store_address', $store_address);
 		}
+	}
+
+	public function getStoreName($id) {
+		$this->autoRender = false;
+		$storeName = $this->Store->find('first', array(
+			'conditions' => array(
+				'Store.id' => $id,
+			),
+			'fields' => array(
+				'Store.name'
+			),
+		));
+
+		if ($this->request->is('requested')) {
+			return $storeName;
+		} else {
+			echo $storeName['Store']['name'];
+		}
+	}
+
+	public function lista(){
+		$this->layout = 'default';
+
+		$stores_norte    = $this->paginate('Store', array('Store.zone' => 'N', 'Store.status' => 1));
+		$stores_sur      = $this->paginate('Store', array('Store.zone' => 'S', 'Store.status' => 1));
+		$stores_poniente = $this->paginate('Store', array('Store.zone' => 'P', 'Store.status' => 1));
+		$stores_oriente  = $this->paginate('Store', array('Store.zone' => 'O', 'Store.status' => 1));
+
+		$this->set(compact('stores_norte', 'stores_sur', 'stores_poniente', 'stores_oriente'));
+	}
+
+	public function products($id){
+		$this->layout = 'default';
+
+		$store = $this->Store->findByIdAndStatus($id, 1);
+
+		if (empty($store)) {
+			$this->Session->setFlash('No existe Tienda con este ID :(', 'default', array('class'=>'alert alert-danger'));
+
+			return $this->redirect('/stores/lista');
+		}
+
+		$this->Product->recursive = -1;
+		$products = $this->Product->find('all', array('conditions' => array('Product.store_id' => $id, 'Product.status' => 1)));
+
+		$this->set(compact('products', 'store'));
 	}
 }

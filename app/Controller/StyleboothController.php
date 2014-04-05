@@ -137,8 +137,7 @@ class StyleboothController extends AppController
 				),
 			),
 		));
-		//debug($this->Outfit->getLastQuery());
-		//debug($outfits); exit();
+
 		//cleanup outfits remove the ones with empty product
 		$real_outfits = array();
 		for ($i = 0; $i < sizeof($outfits); $i++) {

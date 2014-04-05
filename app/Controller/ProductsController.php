@@ -2,7 +2,7 @@
 class ProductsController extends AppController
 {
 	public $uses = array('Product', 'ProductsCategory', 'Store', 'Style', 'SkinHairType', 'BodyType',
-		'ProductStyle', 'ProductsSkinHairType', 'ProductsBodyType', 'ProductSize', 'Coupon', 'Wishlist'
+		'ProductStyle', 'ProductsSkinHairType', 'ProductsBodyType', 'ProductSize', 'Coupon', 'Wishlist', 'Outfit'
 	);
 
 	public $components = array('Session');
@@ -23,7 +23,7 @@ class ProductsController extends AppController
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('lista', 'detail', 'getProductsByFilter', 'addToWishList');
+		$this->Auth->allow('lista', 'detail', 'getProductsByFilter', 'addToWishList', 'getProductsByOutfit');
 	}
 
 	public function getbyid($product_id){
@@ -427,5 +427,36 @@ class ProductsController extends AppController
 			echo "saved";
 			return;
 		}
+	}
+
+	public function getProductsByOutfit($outfit_id, $filter){
+		$this->autoRender = false;
+
+		switch ($filter) {
+			case 'Todos los Productos':
+				$product_category = '';
+				break;
+			case 'Solo Accesorios':
+				$product_category = 'Product.products_categories_id = 5';
+				break;
+			case 'Solo Calzado':
+				$product_category = 'Product.products_categories_id = 6';
+				break;
+		}
+
+		$outfits = $this->Outfit->find('first', array(
+			'conditions' => array(
+				'Outfit.id' => $outfit_id,
+			),
+			'contain' => array(
+				'Product' => array(
+					'conditions' => array(
+						$product_category,
+					),
+				),
+			),
+		));
+
+		return json_encode($outfits);
 	}
 }

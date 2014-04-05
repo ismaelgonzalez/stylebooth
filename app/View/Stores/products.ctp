@@ -1,16 +1,20 @@
-<h3><?php echo $outfit['Outfit']['name']; ?></h3>
-<div class="row" >
-	<div class="col-md-4 col-md-offset-4">
-		<div class="thumbnail">
-			<img style="min-height:350px;height:350px;" src="/files/outfits/<?php echo $outfit['Outfit']['image']; ?>" alt="<?php echo $outfit['Outfit']['name']; ?>"></a>
-			<div class="caption">
-				<h5><b><?php echo $outfit['Outfit']['name']; ?>: <?php echo $this->element('outfit_price', array('id' => $outfit['Outfit']['id'])); ?> MXN</b></h5>
-			</div>
-		</div>
+<h3><?php echo $store['Store']['name']; ?></h3>
+<div class="row" align="left">
+	<div class="col-md-4">
+			  <span class="thumbnail">
+		  <img src="/files/stores/<?php echo $store['Store']['image']; ?>" alt="<?php echo $store['Store']['name']; ?>"/>
+		</span>
+		<a href="filter4.php">Ver Productos de Boutique</a>
 	</div>
-	<input type="hidden" id="outfitID" value="<?php echo $outfit['Outfit']['id']; ?>">
+	<div class="col-md-8" align="left">
+		<h5><b><?php echo $store['Store']['name']; ?></b></h5>
+		<?php echo $this->element('store_address', array('store_address' => $store['StoreAddress'][0])); ?>
+		<a href="<?php echo $store['Store']['url']; ?>"  target="_blank"><?php echo $store['Store']['url']; ?></a> </h5>
+		<?php echo $store['Store']['google_maps']; ?>
+		<br />
+	</div>
 </div>
-<h4><b>Productos del Outfit</b></h4>
+<h4><b>Productos de la Tienda</b></h4>
 <!-- Single button -->
 <div class="row">
 	<div class="btn-group">
@@ -27,15 +31,15 @@
 <br />
 <div id="productsResults" class="row">
 	<?php
-	foreach ($outfit['Product'] as $p) {
+	foreach ($products as $p) {
 		?>
 		<div class="col-md-4">
 			<div class="thumbnail">
-				<a href="/products/detail/<?php echo $p['id']; ?>"> <img style="min-height:210px;height:210px;" src="/files/products/<?php echo $p['image']; ?>" alt="<?php echo $p['name']; ?>"></a>
+				<a href="/products/detail/<?php echo $p['Product']['id']; ?>"> <img style="min-height:210px;height:210px;" src="/files/products/<?php echo $p['Product']['image']; ?>" alt="<?php echo $p['Product']['name']; ?>"></a>
 				<div class="caption">
-					<h5><b><?php echo $p['name']; ?></b></h5>
-					<h5><?php echo $this->element('store_address', array('get_store_name' => true, 'store_id' => $p['store_id'])); ?></h5>
-					<h5>$<?php echo $p['price']; ?></h5>
+					<h5><b><?php echo $p['Product']['name']; ?></b></h5>
+					<h5><?php echo $store['Store']['name']; ?></h5>
+					<h5>$<?php echo $p['Product']['price']; ?></h5>
 				</div>
 			</div>
 		</div>

@@ -17,12 +17,14 @@
 	<div class="col-md-7" align="left">
 		<h3><b><?php echo $product['Product']['name']; ?></b></h3>
 		<h4><b><?php echo $this->Number->currency($product['Product']['price'], 'USD'); ?></b></h4>
-		<button type="button" class="btn btn-default btn-xs" onclick="javascript:addToWishList(<?php echo $product['Product']['id']; ?>)">
-			<span class="glyphicon glyphicon-heart" style="color: #F92672;"></span> Agregar a mi Booth Personal
-		</button>
+		<?php if (!empty($logged_user['id'])) { ?>
+			<button type="button" class="btn btn-default btn-xs" onclick="javascript:addToWishList(<?php echo $product['Product']['id']; ?>)">
+				<span class="glyphicon glyphicon-heart" style="color: #F92672;"></span> Agregar a mi Booth Personal
+			</button>
+		<?php } ?>
 		<h4>Tienda Disponible:</h4>
-		<h5><b><?php echo $product['Store']['name']; ?></b></h5>
-		<?php echo $this->element('store_address', array('store_id' => $product['Store']['id'])); ?>
+		<h5><b><a href="/stores/products/<?php echo $product['Store']['id']; ?>"><?php echo $product['Store']['name']; ?></a></b></h5>
+		<?php echo $this->element('store_address', array('get_store_address' => true, 'store_id' => $product['Store']['id'])); ?>
 		<h5> <a href="<?php echo $product['Store']['url']; ?>"  target="_blank"><?php echo $product['Store']['url']; ?></a> </h5>
 		<p>
 			<?php echo $product['Store']['google_maps']; ?>
@@ -63,7 +65,6 @@
 						$('#errorMessage').modal('show');
 						$('.btn-default').attr('disabled', 'disabled');
 					}
-
 				}
 			});
 		}

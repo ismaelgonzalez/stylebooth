@@ -183,6 +183,7 @@ class OutfitsController extends AppController
 	}
 
 	public function detail($id) {
+		$this->layout = 'filter4_layout';
 		$outfit = $this->Outfit->findById($id);
 
 		if (empty($outfit)) {
@@ -195,8 +196,6 @@ class OutfitsController extends AppController
 		$this->set('title_for_layout', 'Detalle de ' . $outfit['Outfit']['name']);
 
 		$this->set('outfit', $outfit);
-
-		debug($outfit);
 	}
 
 	public function getOutfitTotalPrice($id){
