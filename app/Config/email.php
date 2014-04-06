@@ -48,12 +48,12 @@ class EmailConfig {
 
 	public $smtp = array(
 		'transport' => 'Smtp',
-		'from' => array('site@localhost' => 'My Site'),
-		'host' => 'localhost',
-		'port' => 25,
+		'from' => array('no-reply@stylebooth.com' => 'Stylebooth'),
+		'host' => 'ssl://smtp.gmail.com',
+		'port' => 465,
 		'timeout' => 30,
-		'username' => 'user',
-		'password' => 'secret',
+		'username' => 'ismaelgonzalez@gmail.com',
+		'password' => 'caracol2008',
 		'client' => null,
 		'log' => false,
 		//'charset' => 'utf-8',

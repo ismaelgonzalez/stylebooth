@@ -38,10 +38,20 @@
 		</div>
 		<div class="navbar-collapse collapse" >
 			<ul class="nav navbar-nav" >
-				<li  ><br /><br /><a href="/noticias/lista/n">Noticias</a></li>
-				<li><br /><br /><a href="/blogs/lista/b">Blog</a></li>
-				<li><br /><br /><a href="/stores/lista">Tiendas</a></li>
+				<li><a href="/noticias/lista/n">Noticias</a></li>
+				<li><a href="/blogs/lista/b">Blog</a></li>
+				<li><a href="/stores/lista">Tiendas</a></li>
 			</ul>
+			<?php if (!empty($logged_user['id'])) { ?>
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="/mi_booth/<?php echo $logged_user['id']; ?>">Hola <?php echo $logged_user['first_name'] . ' ' . $logged_user['last_name']; ?></a>
+				</li>
+				<li>
+					<a href="/users/logout">Salir</a>
+				</li>
+			</ul>
+			<?php } else { ?>
 			<form class="navbar-form navbar-right" role="form" action="/users/login" id="UserLoginForm" method="post">
 				<br /><br />
 				<div class="form-group">
@@ -56,6 +66,7 @@
 					<br />Entrar con faceook <div class="fb-login-button" data-max-rows="1" data-size="icon" data-show-faces="false" data-auto-logout-link="false"></div>
 				</div>
 			</form>
+			<?php } ?>
 		</div><!--/.nav-collapse -->
 	</div>
 </div>

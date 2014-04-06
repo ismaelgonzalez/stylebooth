@@ -36,7 +36,7 @@ class AppController extends Controller {
 		'Session',
 		'Auth' => array(
 			'loginRedirect' => array('controller' => 'stylebooth', 'action' => 'dashboard'),
-			'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
+			'logoutRedirect' => '/', //array('controller' => 'users', 'action' => 'login'),
 			'authorize' => 'Controller',
 			'authError' => "No tienes acceso a esta area.",
 		),

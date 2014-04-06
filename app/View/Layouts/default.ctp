@@ -58,12 +58,19 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 		</div>
 		<div class="navbar-collapse collapse" >
 			<ul class="nav navbar-nav" >
-				<li  ><br /><br /><a href="/noticias/lista/n">Noticias</a></li>
-				<li><br /><br /><a href="/blogs/lista/b">Blog</a></li>
-				<li><br /><br /><a href="/stores/lista">Tiendas</a></li>
+				<li><a href="/noticias/lista/n">Noticias</a></li>
+				<li><a href="/blogs/lista/b">Blog</a></li>
+				<li><a href="/stores/lista">Tiendas</a></li>
 			</ul>
 			<?php if (!empty($logged_user['id'])) { ?>
-			<a href="/mi_booth/<?php echo $logged_user['id']; ?>">Hola <?php echo $logged_user['first_name'] . ' ' . $logged_user['last_name']; ?></a>
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<a href="/mi_booth/<?php echo $logged_user['id']; ?>">Hola <?php echo $logged_user['first_name'] . ' ' . $logged_user['last_name']; ?></a>
+					</li>
+					<li>
+						<a href="/users/logout">Salir</a>
+					</li>
+				</ul>
 			<?php } else { ?>
 			<form class="navbar-form navbar-right" role="form" action="/users/login" id="UserLoginForm" method="post">
 				<br /><br />
