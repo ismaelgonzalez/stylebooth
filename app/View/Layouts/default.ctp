@@ -27,11 +27,7 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 		<?php echo $title_for_layout; ?>
 	</title>
 	<?php
-	echo $this->fetch('meta');
-	echo $this->fetch('css');
-	echo $this->fetch('script');
-
-	echo $this->Html->meta('icon');
+		echo $this->Html->meta('icon');
 		echo $this->Html->css('bootstrap.min');
 		echo $this->Html->css('jquery-ui-1.10.4.custom.min');
 		echo $this->Html->css('stylebooth');
@@ -39,6 +35,10 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 		echo $this->Html->script('jquery-1.11.0.min');
 		echo $this->Html->script('jquery-ui-1.10.4.custom.min');
 		echo $this->Html->script('bootstrap.min');
+
+	echo $this->fetch('meta');
+	echo $this->fetch('css');
+	echo $this->fetch('script');
 	?>
 	<link href='http://fonts.googleapis.com/css?family=Cinzel' rel='stylesheet' type='text/css'>
 	<link rel='icon' href='favicon.ico'>
@@ -58,8 +58,8 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 		</div>
 		<div class="navbar-collapse collapse" >
 			<ul class="nav navbar-nav" >
-				<li><a href="/noticias/lista/n">Noticias</a></li>
-				<li><a href="/blogs/lista/b">Blog</a></li>
+				<li><a href="/noticias/lista/">Noticias</a></li>
+				<li><a href="/blogs/lista/">Blog</a></li>
 				<li><a href="/stores/lista">Tiendas</a></li>
 			</ul>
 			<?php if (!empty($logged_user['id'])) { ?>
@@ -67,6 +67,9 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 					<li>
 						<a href="/mi_booth/<?php echo $logged_user['id']; ?>">Hola <?php echo $logged_user['first_name'] . ' ' . $logged_user['last_name']; ?></a>
 					</li>
+					<?php if ($logged_user['role'] == 'admin') { ?>
+					<li><a href="/admin">Ir al Admin</a></li>
+					<?php } ?>
 					<li>
 						<a href="/users/logout">Salir</a>
 					</li>

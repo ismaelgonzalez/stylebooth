@@ -3,7 +3,7 @@ class PostsController extends AppController
 {
 	public $uses = array('Post');
 
-	public $components = array('Session');
+	public $components = array('Session', 'Paginator');
 
 	public $helpers = array('Paginator', 'Js', 'Status', 'TinyMCE.TinyMCE', 'Product');
 
@@ -124,5 +124,80 @@ class PostsController extends AppController
 
 			return $this->redirect('/banners/index/'.$type);
 		}
+	}
+
+	public function beforeFilter() {
+		parent::beforeFilter();
+		$this->Auth->allow('lista', 'noticia_detail', 'blog_lista', 'blog_detail');
+	}
+
+	public function lista() {
+		$this->layout = 'default';
+
+		$this->Paginator->settings = array(
+			'conditions' => array(
+				'Post.status' => 1,
+				'Post.type' => 'N',
+			),
+			'limit' => 20,
+		);
+
+		$posts = $this->Paginator->paginate('Post');
+
+		$top3 = $this->Post->find('all', array(
+			'conditions' => array(
+				'Post.status' => 1,
+				'Post.type' => 'N',
+			),
+			'order' => array(
+				'Post.num_views' => 'desc',
+			),
+			'limit' => 3,
+		));
+
+		$this->set('title_for_layout', 'Noticias');
+		$this->set('posts', $posts);
+		$this->set('top3', $top3);
+	}
+
+	public function noticia_detail($id){
+		$this->layout = 'default';
+
+		$noticia = $this->Post->findByIdAndTypeAndStatus($id, 'N', 1);
+
+		if (empty($noticia)) {
+			$this->Session->setFlash('No existe post con este ID :(', 'default', array('class'=>'alert alert-danger'));
+
+			return $this->redirect('/');
+		}
+
+		//save num_vista + 1
+		$post['Post'] = array(
+			'id'        => $noticia['Post']['id'],
+			'num_views' => $noticia['Post']['num_views'] + 1,
+		);
+
+		$this->Post->save($post);
+
+		$this->set('title_for_layout', $noticia['Post']['title']);
+		$this->set('noticia', $noticia);
+	}
+
+	public function blog_lista() {
+		$this->layout = 'default';
+
+		$this->Paginator->settings = array(
+			'conditions' => array(
+				'Post.status' => 1,
+				'Post.type' => 'B',
+			),
+			'limit' => 20,
+		);
+
+		$posts = $this->Paginator->paginate('Post');
+
+		$this->set('title_for_layout', 'Blogs');
+
+		$this->set('posts', $posts);
 	}
 }
