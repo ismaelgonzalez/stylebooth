@@ -20,6 +20,14 @@ class Post extends AppModel
 		),
 	);
 
+	public $hasMany = array(
+		'PostComment' => array(
+			'order' => array(
+				'PostComment.id' => 'desc',
+			),
+		),
+	);
+
 	public function beforeSave() {
 		parent::beforeSave();
 

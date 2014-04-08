@@ -1,7 +1,7 @@
 <?php
 class PostsController extends AppController
 {
-	public $uses = array('Post');
+	public $uses = array('Post', 'PostComment');
 
 	public $components = array('Session', 'Paginator');
 
@@ -128,7 +128,7 @@ class PostsController extends AppController
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('lista', 'noticia_detail', 'blog_lista', 'blog_detail');
+		$this->Auth->allow('lista', 'noticia_detail', 'blog_lista', 'blog_detail', 'addComment');
 	}
 
 	public function lista() {
@@ -138,6 +138,7 @@ class PostsController extends AppController
 			'conditions' => array(
 				'Post.status' => 1,
 				'Post.type' => 'N',
+				'Post.post_date <= ' => date('Y-m-d'),
 			),
 			'limit' => 20,
 		);
@@ -183,15 +184,36 @@ class PostsController extends AppController
 		$this->set('noticia', $noticia);
 	}
 
-	public function blog_lista() {
+	public function blog_lista($id = null) {
 		$this->layout = 'default';
+
+		if (!empty($id)) {
+			$post_id = array("Post.id" => $id);
+		}
+
+		$main = $this->Post->find('first', array(
+			'conditions' => array(
+				'Post.status' => 1,
+				'Post.type' => 'B',
+				'Post.post_date <= ' => date('Y-m-d'),
+				$post_id,
+			),
+			'order' => array(
+				'Post.post_date' => 'desc',
+				'Post.id' => 'desc',
+			),
+		));
 
 		$this->Paginator->settings = array(
 			'conditions' => array(
 				'Post.status' => 1,
 				'Post.type' => 'B',
+				'Post.post_date <= ' => date('Y-m-d'),
 			),
-			'limit' => 20,
+			'order' => array(
+				'Post.post_date' => 'desc',
+			),
+			'limit' => 10,
 		);
 
 		$posts = $this->Paginator->paginate('Post');
@@ -199,5 +221,36 @@ class PostsController extends AppController
 		$this->set('title_for_layout', 'Blogs');
 
 		$this->set('posts', $posts);
+		$this->set('main', $main);
+	}
+
+	public function addComment() {
+		$this->autoRender = false;
+		if (!empty($this->request->data)) {
+			$this->PostComment->create();
+			$postComment['PostComment'] = array(
+				'user_id' => $this->request->data['user_id'],
+				'post_id' => $this->request->data['post_id'],
+				'comment' => $this->request->data['comment'],
+			);
+
+			$this->PostComment->save($postComment);
+
+			$this->PostComment->recursive = -1;
+			$comments = $this->PostComment->find('all', array(
+				'conditions' => array(
+					'PostComment.status' => 1,
+					'PostComment.post_id' => $this->request->data['post_id']
+				),
+				'contain' => array(
+					'User',
+				),
+				'order' => array(
+					'PostComment.id' => 'desc',
+				),
+			));
+
+			echo json_encode($comments);
+		}
 	}
 }

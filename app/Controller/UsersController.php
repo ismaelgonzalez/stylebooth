@@ -24,7 +24,7 @@ class UsersController extends AppController
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('login', 'logout', 'register', 'registered', 'confirm');
+		$this->Auth->allow('login', 'logout', 'register', 'registered', 'confirm', 'getUser');
 	}
 
 	public function isAuthorized($user) {
@@ -238,6 +238,17 @@ class UsersController extends AppController
 		} else {
 			$this->Session->setFlash('Usuario Invalido :(', 'default', array('class'=>'alert alert-danger'));
 			return $this->redirect('/');
+		}
+	}
+
+	public function getUser($id) {
+		$this->User->recursive = -1;
+		$user = $this->User->findById($id);
+
+		if ($this->request->is('requested')) {
+			return $user;
+		} else {
+			$this->set('user', $user);
 		}
 	}
 }
