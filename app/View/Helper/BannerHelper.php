@@ -16,6 +16,8 @@ class BannerHelper extends AppHelper
 		} else {
 			if ($banner['Banner']['type'] == 'L' || $banner['Banner']['type'] == 'R'){
 				$banner_str = '<a href="' . $banner['Banner']['link'] . '"><img src="' . $path . DS . $banner['Banner']['image'] . '" alt="' . $banner['Banner']['link'] . '" width="160" height="600"></a>';
+			} elseif ($banner['Banner']['type'] == 'W') {
+				$banner_str = 'style="background: url(' . $path . DS . $banner['Banner']['image'] . ')"';
 			} else {
 				$banner_str = '<a href="' . $banner['Banner']['link'] . '"><img src="' . $path . DS . $banner['Banner']['image'] . '" alt="' . $banner['Banner']['link'] . '" width="480" height="60"></a>';
 			}

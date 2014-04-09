@@ -140,6 +140,10 @@ class PostsController extends AppController
 				'Post.type' => 'N',
 				'Post.post_date <= ' => date('Y-m-d'),
 			),
+			'order' => array(
+				'Post.post_date' => 'desc',
+				'Post.id' => 'desc',
+			),
 			'limit' => 20,
 		);
 

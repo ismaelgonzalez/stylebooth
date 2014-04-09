@@ -1,3 +1,5 @@
 <?php
 $banner = $this->requestAction('/banners/getBannerByType/' . $type);
-echo $this->Banner->getBanner($banner);
+if (!empty($banner)) {
+	echo $this->Banner->getBanner($banner);
+}

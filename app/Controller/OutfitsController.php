@@ -170,8 +170,9 @@ class OutfitsController extends AppController
 		$this->autoRender = false;
 		$products = $this->Product->find('list', array(
 			'conditions' => array(
-				'products_categories_id' => $category_id
-			)
+				'products_categories_id' => $category_id,
+				'status' => 1,
+			),
 		));
 
 		$options = "<option value=''>-- Elige un Producto --</option>";

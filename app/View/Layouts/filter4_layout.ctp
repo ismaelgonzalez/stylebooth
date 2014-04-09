@@ -45,8 +45,11 @@
 			<?php if (!empty($logged_user['id'])) { ?>
 			<ul class="nav navbar-nav navbar-right">
 				<li>
-					<a href="/profile/<?php echo $logged_user['id']; ?>">Hola <?php echo $logged_user['first_name'] . ' ' . $logged_user['last_name']; ?></a>
+					<a href="/users/profile/<?php echo $logged_user['id']; ?>">Hola <?php echo $logged_user['first_name'] . ' ' . $logged_user['last_name']; ?></a>
 				</li>
+				<?php if ($logged_user['role'] == 'admin') { ?>
+					<li><a href="/admin">Ir al Admin</a></li>
+				<?php } ?>
 				<li>
 					<a href="/users/logout">Salir</a>
 				</li>

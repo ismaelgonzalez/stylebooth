@@ -44,7 +44,7 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 	<link rel='icon' href='favicon.ico'>
 	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 </head>
-<body>
+<body <?php echo $this->element('banner', array('type' => 'w')); ?>>
 <div class="navbar navbar-inverse navbar-default" role="navigation" style=" margin-bottom: 0;">
 	<div class="container">
 		<div class="navbar-header">
