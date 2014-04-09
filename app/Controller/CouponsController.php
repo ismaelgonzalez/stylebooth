@@ -21,6 +21,11 @@ class CouponsController extends AppController {
 		)
 	);
 
+	public function beforeFilter() {
+		parent::beforeFilter();
+		$this->Auth->allow('register');
+	}
+
 	public function index() {
 		$this->set('title_for_layout', 'Administrar Cupones');
 

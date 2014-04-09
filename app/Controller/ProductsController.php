@@ -23,7 +23,7 @@ class ProductsController extends AppController
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('lista', 'detail', 'getProductsByFilter', 'addToWishList', 'getProductsByOutfit');
+		$this->Auth->allow('lista', 'detail', 'getProductsByFilter', 'addToWishList', 'getProductsByOutfit', 'getNameById', 'getSkinAndBodyType');
 	}
 
 	public function getbyid($product_id){
@@ -458,5 +458,31 @@ class ProductsController extends AppController
 		));
 
 		return json_encode($outfits);
+	}
+
+	public function getNameById($id){
+		$this->autoRender = false;
+		$this->Product->recursive = -1;
+		$product = $this->Product->findById($id);
+
+		if ($this->request->is('requested')) {
+			return $product;
+		} else {
+			echo $product['Product']['name'];
+		}
+	}
+
+	public function getSkinAndBodyType($skin_hair_type_id, $body_type_id){
+		$this->autoRender = false;
+		$this->SkinHairType->recursive = -1;
+		$sht = $this->SkinHairType->findById($skin_hair_type_id);
+		$this->BodyType->recursive = -1;
+		$bt = $this->BodyType->findById($body_type_id);
+
+		$result = array($sht, $bt);
+
+		if ($this->request->is('requested')) {
+			return $result;
+		}
 	}
 }

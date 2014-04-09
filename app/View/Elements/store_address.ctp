@@ -18,6 +18,9 @@ if ($get_store_address) {
 } elseif ($get_store_name) {
 	$store_name = $this->requestAction('/stores/getStoreName/' . $store_id);
 	echo $store_name['Store']['name'];
+} elseif ($get_store_name_by_product_id) {
+	$store_name = $this->requestAction('/stores/getStoreNameByProductId/' . $product_id);
+	echo $store_name['Store']['name'];
 } else {
 	echo "<h5>" . $store_address['address1'];
 

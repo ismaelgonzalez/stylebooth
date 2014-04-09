@@ -2,6 +2,7 @@
 class Coupon extends AppModel{
 	public $name = 'Coupon';
 	public $useTable = 'coupons';
+	public $actsAs = array('Containable');
 
 	public $belongsTo = array('Product');
 
@@ -23,6 +24,16 @@ class Coupon extends AppModel{
 				'rule' => 'naturalNumber',
 				'message' => 'El número de cupones disponibles tiene que ser por lo menos 1',
 			),
+		),
+	);
+
+	public $hasAndBelongsToMany = array(
+		'User' => array(
+			'className' => 'User',
+			'joinTable' => 'coupon_users',
+			'foreignKey' => 'coupon_id',
+			'associationForeignKey' => 'user_id',
+			'unique' => true,
 		),
 	);
 

@@ -49,6 +49,15 @@
 		)
 	);
 
+	Router::connect(
+		'/profile/:user_id',
+		array('controller' => 'users', 'action' => 'profile'),
+		array(
+			'pass' => array('user_id'),
+			'user_id' => '[0-9]+'
+		)
+	);
+
 //FILTER URL's
 	Router::connect('/filter1/*', array('controller' => 'stylebooth', 'action' => 'filter1'));
 	Router::connect('/filter2/*', array('controller' => 'stylebooth', 'action' => 'filter2'));

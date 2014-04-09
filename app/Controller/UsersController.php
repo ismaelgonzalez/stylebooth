@@ -1,7 +1,7 @@
 <?php
 class UsersController extends AppController
 {
-	public $uses = array('User');
+	public $uses = array('User', 'UserCoupon', 'Coupon');
 
 	public $components = array(
 		'Session',
@@ -20,15 +20,16 @@ class UsersController extends AppController
 				),
 			),
 		),
+		'Paginator',
 	);
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('login', 'logout', 'register', 'registered', 'confirm', 'getUser');
+		$this->Auth->allow('login', 'logout', 'register', 'registered', 'confirm', 'getUser', 'profile');
 	}
 
 	public function isAuthorized($user) {
-		if ($this->action === 'add' || $this->action === 'delete') {
+		if ($this->action === 'add' || $this->action === 'delete' || $this->action === 'edit' || $this->action === 'index'|| $this->action === 'cupones' || $this->action === 'stats') {
 			return parent::isAuthorized($user);
 		}
 
@@ -147,7 +148,7 @@ class UsersController extends AppController
 				if ($this->Auth->User('role') === 'admin') {
 					return $this->redirect('/admin');
 				} elseif ($this->Auth->User('role') === 'user') {
-					return $this->redirect('/mi_booth/' . $this->Auth->User('id'));
+					return $this->redirect('/users/profile/' . $this->Auth->User('id'));
 				}
 				//return $this->redirect($this->Auth->redirect());
 			}
@@ -249,6 +250,56 @@ class UsersController extends AppController
 			return $user;
 		} else {
 			$this->set('user', $user);
+		}
+	}
+
+	public function profile($user_id) {
+		$this->layout = 'default';
+		$user = $this->User->find('first', array(
+			'conditions' => array(
+				'User.status' => 1,
+				'User.id' => $user_id,
+			),
+		));
+
+		if (!empty($user)) {
+			if($user['User']['id'] != $this->Auth->User('id')) {
+				return $this->redirect('/');
+			}
+
+			$this->set('user', $user);
+		} else {
+			$this->Session->setFlash('Usuario Invalido :(', 'default', array('class'=>'alert alert-danger'));
+			return $this->redirect('/');
+		}
+
+		//process form
+		if (!empty($this->data)) {
+			if (empty($this->data['User']['image']['name'])) {
+				unset($this->request->data['User']['image']);
+			}
+
+			debug(AuthComponent::password($this->data['User']['password']));
+
+			if (!empty($this->data['User']['old_password']) && !empty($this->data['User']['new_password'])) {
+				if(AuthComponent::password($this->data['User']['old_password']) == $user['User']['password']) {
+					$this->request->data['User']['password'] = $this->data['User']['new_password'];
+				} else {
+					$this->Session->setFlash('No se pudo actualizar su información! Verifica que tu password actual sea la correcta', 'default', array('class'=>'alert alert-danger'));
+					return $this->redirect('/users/profile/' . $user['User']['id']);
+				}
+			}
+
+			debug($this->request->data);
+
+
+			if ($this->User->save($this->request->data)) {
+				$this->Session->setFlash('Informacion de perfil actualizada!', 'default', array('class'=>'alert alert-success'));
+				return $this->redirect('/users/profile/' . $user['User']['id']);
+			} else {
+				$this->Session->setFlash('No se pudo actualizar su información!', 'default', array('class'=>'alert alert-danger'));
+				return $this->redirect('/users/profile/' . $user['User']['id']);
+			}
 		}
 	}
 }

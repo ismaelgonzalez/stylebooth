@@ -5,7 +5,7 @@ class User extends AppModel
 {
 	public $name = 'User';
 	public $useTable = 'users';
-	public $actsAs = array('Upload');
+	public $actsAs = array('Upload', 'Containable');
 
 	public $validate = array(
 		'first_name' => array(
@@ -48,6 +48,25 @@ class User extends AppModel
 		),
 	);
 
+	public $hasMany = array(
+		'UserStat' => array(
+			'order' => array(
+				'UserStat.stat_date' => 'desc',
+			),
+			'limit' => 1,
+		),
+		'Wishlist');
+
+	public $hasAndBelongsToMany = array(
+		'Coupon' => array(
+			'className' => 'Coupon',
+			'joinTable' => 'coupon_users',
+			'foreignKey' => 'user_id',
+			'associationForeignKey' => 'coupon_id',
+			'unique' => true,
+		),
+	);
+
 	public function beforeSave() {
 		parent::beforeSave();
 
@@ -68,7 +87,7 @@ class User extends AppModel
 	public function confirmEmail($user){
 		$reg_key     = $user['User']['reg_key'];
 		$email       = $user['User']['email'];
-		$confirm_url = 'http://stylebooth/users/confirm/' . $reg_key . '/' . $email;
+		$confirm_url = 'http://www.stylebooth.mx/users/confirm/' . $reg_key . '/' . $email;
 
 		$mail_txt = "¡Gracias por registrarte en Stylebooth!\n"
 		. "Da click en el siguiente link para acompletar tu registro:\n"

@@ -114,7 +114,7 @@ class StoresController extends AppController
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('getStoreAddress', 'getStoreName', 'lista', 'products');
+		$this->Auth->allow('getStoreAddress', 'getStoreName', 'lista', 'products', 'getStoreNameByProductId');
 	}
 
 	public function getStoreAddress($store_id) {
@@ -176,5 +176,20 @@ class StoresController extends AppController
 		$products = $this->Product->find('all', array('conditions' => array('Product.store_id' => $id, 'Product.status' => 1)));
 
 		$this->set(compact('products', 'store'));
+	}
+
+	public function getStoreNameByProductId($product_id){
+		$this->autoRender = false;
+		$this->Product->recursive = -1;
+		$product = $this->Product->findById($product_id);
+
+		$this->Store->recursive = -1;
+		$store = $this->Store->findById($product['Product']['store_id']);
+
+		if ($this->request->is('requested')) {
+			return $store;
+		} else {
+			echo $store['Store']['name'];
+		}
 	}
 }
