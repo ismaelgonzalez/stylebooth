@@ -67,6 +67,7 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 				<li <?php if ($this->params['controller'] == 'products') { echo "class='active'"; } ?>><a href="/products">Productos</a></li>
 				<li <?php if ($this->params['controller'] == 'stores') { echo "class='active'"; } ?>><a href="/stores">Tiendas</a></li>
 				<li <?php if ($this->params['controller'] == 'users') { echo "class='active'"; } ?>><a href="/users">Usuarios</a></li>
+				<li <?php if ($this->params['controller'] == 'stats') { echo "class='active'"; } ?>><a href="/stats">Estadisticas</a></li>
 			</ul>
 		</div>
 		<!-- SIDEBAR -->

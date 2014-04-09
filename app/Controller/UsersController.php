@@ -164,13 +164,30 @@ class UsersController extends AppController
 	}
 
 	public function cupones($id){
-		$this->autoRender = false;
-		echo __FUNCTION__;
+		$user = $this->User->findById($id);
+
+		$this->set('title_for_layout', 'Cupones del Usuario');
+		$this->set('pageHeader', 'Cupones del Usuario');
+		$this->set('sectionTitle', 'Lista de Cupones de ' . $user['User']['first_name']. ' ' . $user['User']['last_name'] . ' rol:' . ucwords($user['User']['role']));
+		$this->set(compact('user'));
 	}
 
 	public function stats($id){
-		$this->autoRender = false;
-		echo __FUNCTION__;
+		$this->Paginator->settings = array(
+			'conditions' => array(
+				'UserStat.user_id' => $id,
+			),
+			'limit' => 20,
+		);
+
+		$stats = $this->Paginator->paginate('UserStat');
+
+		$user = $this->User->findById($id);
+
+		$this->set(compact('stats', 'user'));
+		$this->set('title_for_layout', 'Estadísticas del Usuario');
+		$this->set('pageHeader', 'Estadísticas del Usuario');
+		$this->set('sectionTitle', 'Estadísticas del Usuario' . $user['User']['first_name']. ' ' . $user['User']['last_name'] . ' rol:' . ucwords($user['User']['role']));
 	}
 
 	public function register(){
