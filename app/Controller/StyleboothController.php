@@ -1,7 +1,7 @@
 <?php
 class StyleboothController extends AppController
 {
-	public $uses = array('Style', 'SkinHairType', 'BodyType', 'Product', 'Outfit', 'OutfitProduct', 'UserStat');
+	public $uses = array('Style', 'SkinHairType', 'BodyType', 'Product', 'Outfit', 'OutfitProduct', 'UserStat', 'Wishlist');
 
 	public $components = array(
 		'Session',
@@ -11,7 +11,7 @@ class StyleboothController extends AppController
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('index','filter1','filter2','filter3','filter4');
+		$this->Auth->allow('index','filter1','filter2','filter3','filter4', 'my_booth', 'deleteFromWishlist');
 	}
 
 	public function isAuthorized($user) {
@@ -192,9 +192,30 @@ class StyleboothController extends AppController
 	}
 
 	public function my_booth($user_id){
-		$this->autoRender = false;
-		echo __FUNCTION__;
-		var_dump($user_id);
+		$user = $this->User->find('first', array(
+			'conditions' => array(
+				'User.status' => 1,
+				'User.id' => $user_id,
+			),
+		));
+
+		if (empty($user['UserStat'])) {
+			$style = $this->Style->find('first');
+		} else {
+			$style = $this->Style->findById($user['UserStat'][0]['products_styles']);
+		}
+
+		$products = array();
+		if (!empty($user['Wishlist'])) {
+			foreach ($user['Wishlist'] as $w){
+				$this->Product->recursive = -1;
+				$product = $this->Product->findById($w['product_id']);
+				$products[] = $product;
+			}
+		}
+
+		$this->set(compact('user', 'style', 'products'));
+
 	}
 
 	private function getFilterNames($style_id, $skin_hair_type_id, $body_type_id) {
@@ -209,5 +230,28 @@ class StyleboothController extends AppController
 		$this->set('style', $style);
 		$this->set('skin', $skin);
 		$this->set('body', $body);
+	}
+
+	public function deleteFromWishlist($product_id) {
+		$this->autoRender = false;
+		$user_id = $this->Auth->User('id');
+
+		if ($user_id) {
+			$wishlist = $this->Wishlist->find('first', array(
+				'conditions' => array(
+					'user_id' => $user_id,
+					'product_id' => $product_id,
+				),
+			));
+
+			if($this->Wishlist->delete($wishlist['Wishlist']['id'])){
+				echo 'ok';
+			} else {
+				echo 'error';
+				return false;
+			}
+		} else {
+			return $this->redirect('/');
+		}
 	}
 }
