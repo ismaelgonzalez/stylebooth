@@ -6,9 +6,9 @@ class ProductHelper extends AppHelper
 	 */
 	public function outfit_product_thumbnail($product, $thumb_size){
 
-		$div = "<div class='thumbnail col-md-1' style='margin-left:10px' id='prod_".$product['Product']['id']."'>
-			<img src='/files/products/".$product['Product']['image']."' alt='".$product['Product']['name']."' width='".$thumb_size."' class='img-thumbnail'>
-			<p>".$product['Product']['name']."<a class='close' onclick='delProd(".$product['Product']['id'].")'>x</a></p>
+		$div = "<div class='thumbnail col-md-1' style='margin-left:10px' id='prod_".$product['id']."'>
+			<img src='/files/products/".$product['image']."' alt='".$product['name']."' width='".$thumb_size."' class='img-thumbnail'>
+			<p>".$product['name']."<a class='close' onclick='delProd(".$product['id'].")'>x</a></p>
 		</div>";
 
 		echo $div;

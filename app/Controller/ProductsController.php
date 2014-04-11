@@ -23,7 +23,7 @@ class ProductsController extends AppController
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('lista', 'detail', 'getProductsByFilter', 'addToWishList', 'getProductsByOutfit', 'getNameById', 'getSkinAndBodyType');
+		$this->Auth->allow('lista', 'detail', 'getProductsByFilter', 'addToWishList', 'getProductsByOutfit', 'getNameById', 'getSkinAndBodyType', 'getProductsByStore');
 	}
 
 	public function getbyid($product_id){
@@ -54,7 +54,7 @@ class ProductsController extends AppController
 		$this->set('pageHeader', 'Productos');
 		$this->set('sectionTitle', 'Agregar Productos');
 
-		$stores             = $this->Store->find('list');
+		$stores             = $this->Store->find('list', array('conditions' => array('Store.status' => 1)));
 		$product_categories = $this->ProductsCategory->find('list');
 		$styles             = $this->Style->find('list');
 		$skin_hair_types    = $this->SkinHairType->find('list');
@@ -281,7 +281,6 @@ class ProductsController extends AppController
 	public function lista(){
 		$this->layout = 'default';
 
-
 		$products = $this->Product->find('all', array(
 			'conditions' => array(
 				'Product.status' => 1,
@@ -289,7 +288,7 @@ class ProductsController extends AppController
 			'order' => array(
 				'Product.id' => 'desc'
 			),
-			'recursive' => -1,
+			//'recursive' => -1,
 			'contain' => array(
 				'Store',
 			),
@@ -484,5 +483,31 @@ class ProductsController extends AppController
 		if ($this->request->is('requested')) {
 			return $result;
 		}
+	}
+
+	public function getProductsByStore($store_id, $filter){
+		$this->autoRender = false;
+
+		switch ($filter) {
+			case 'Todos los Productos':
+				$product_category = '';
+				break;
+			case 'Solo Accesorios':
+				$product_category = 'Product.products_categories_id = 5';
+				break;
+			case 'Solo Calzado':
+				$product_category = 'Product.products_categories_id = 6';
+				break;
+		}
+
+		$outfits = $this->Product->find('all', array(
+			'conditions' => array(
+				'Product.store_id' => $store_id,
+				$product_category,
+			),
+			'recursive' => -1,
+		));
+
+		return json_encode($outfits);
 	}
 }

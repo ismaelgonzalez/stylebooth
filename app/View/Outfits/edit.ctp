@@ -43,7 +43,7 @@ echo "<div class='well'>
 	<input type='hidden' name='data[OutfitProducts][OutfitId]' id='OutfitProductsOutfitId' value='".$outfit_products."'>
 	<h5>Productos Existentes</h5>";
 //product thumbnails
-foreach ($products as $p) {
+foreach ($outfit['Product'] as $p) {
 	$this->Product->outfit_product_thumbnail($p, 75);
 }
 echo "</div>

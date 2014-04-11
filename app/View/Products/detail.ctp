@@ -33,7 +33,7 @@
 </div>
 <p>
 	<ul class="pager">
-		<li><a href="/products/lista">Anterior</a></li>
+		<li><a href="javascript:history.back();">Anterior</a></li>
 	</ul>
 </p>
 <div id="errorMessage" class="modal fade">

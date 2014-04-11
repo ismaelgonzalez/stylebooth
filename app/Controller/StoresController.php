@@ -24,7 +24,12 @@ class StoresController extends AppController
 		$this->set('pageHeader', 'Tiendas');
 		$this->set('sectionTitle', 'Lista de Tiendas');
 
-		$stores = $this->paginate('Store');
+		$this->Paginator->settings= array(
+			'conditions' => array(
+				'Store.status' => 1,
+			),
+		);
+		$stores = $this->Paginator->paginate('Store');
 
 		$this->set('stores', $stores);
 	}

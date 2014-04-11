@@ -41,7 +41,11 @@ class OutfitsController extends AppController
 		if (!empty($this->data)) {
 			$this->Outfit->create();
 
-			if (!$this->Outfit->save($this->data)) {
+			if (empty($this->data['Outfit']['image']['name'])) {
+				unset($this->request->data['Outfit']['image']);
+			}
+
+			if (!$this->Outfit->save($this->request->data)) {
 				$this->Session->setFlash('No se pudo guardar el Outfit :S', 'default', array('class'=>'alert alert-danger'));
 
 				return false;
@@ -83,7 +87,7 @@ class OutfitsController extends AppController
 			$products_categories = $this->ProductsCategory->find('list');
 			$this->set('products_categories', $products_categories);
 
-			$outfit_products = array();
+		/*	$outfit_products = array();
 			$products        = array();
 
 			$this->Product->recursive = -1;
@@ -94,7 +98,7 @@ class OutfitsController extends AppController
 
 			$outfit_products = implode(',', $outfit_products);
 			$this->set('outfit_products', $outfit_products);
-			$this->set('products', $products);
+			$this->set('products', $products);*/
 		} else {
 			$this->Session->setFlash('No existe outfit con este ID :(', 'default', array('class'=>'alert alert-danger'));
 

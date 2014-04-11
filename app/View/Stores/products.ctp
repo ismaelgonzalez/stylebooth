@@ -1,8 +1,10 @@
 <h3><?php echo $store['Store']['name']; ?></h3>
 <div class="row" align="left">
 	<div class="col-md-4">
-			  <span class="thumbnail">
-		  <img src="/files/stores/<?php echo $store['Store']['image']; ?>" alt="<?php echo $store['Store']['name']; ?>"/>
+			<span class="thumbnail">
+		<img src="/files/stores/<?php echo $store['Store']['image']; ?>" alt="<?php echo $store['Store']['name']; ?>"/>
+		<input type="hidden" id="store_id" value="<?php echo $store['Store']['id']; ?>">
+		<input type="hidden" id="store_name" value="<?php echo $store['Store']['name']; ?>">
 		</span>
 	</div>
 	<div class="col-md-8" align="left">
@@ -54,10 +56,11 @@
 			$(this).parents(".btn-group").find('.selection').text($(this).text());
 			$(this).parents(".btn-group").find('.selection').val($(this).text());
 			$text = $(this).text();
-			$id = $('#outfitID').val();
+			$id = $('#store_id').val();
+			console.log($text + ' ' + $id);
 			$.ajax({
 				type: 'post',
-				url: '/products/getProductsByOutfit/' + $id + '/' + $text,
+				url: '/products/getProductsByStore/' + $id + '/' + $text,
 				success: function(html) {
 					filterProducts(html);
 				}
@@ -69,15 +72,15 @@
 		var obj = JSON.parse(html);
 		var result = "";
 		var name_store = "";
-		for (i=0; i<obj.Product.length; i++) {
-			name_store = $.getStoreName('/stores/getStoreName/' + obj.Product[i].store_id);
+		$name_store = $('#store_name').val();
+		for (i=0; i<obj.length; i++) {
 			result += '<div class="col-md-4">'
 				+ '<div class="thumbnail">'
-				+ '<a href="/products/detail/' + obj.Product[i].id + '"> <img style="min-height:210px;height:210px;" src="/files/products/' + obj.Product[i].image + '" alt="' + obj.Product[i].name + '"></a>'
+				+ '<a href="/products/detail/' + obj[i].Product.id + '"> <img style="min-height:210px;height:210px;" src="/files/products/' + obj[i].Product.image + '" alt="' + obj[i].Product.name + '"></a>'
 				+ '<div class="caption">'
-				+ '<h5><b>' + obj.Product[i].name + '</b></h5>'
-				+ '<h5>' + name_store + '</h5>'
-				+ '<h5>$' + obj.Product[i].price + '</h5>'
+				+ '<h5><b>' + obj[i].Product.name + '</b></h5>'
+				+ '<h5>' + $name_store + '</h5>'
+				+ '<h5>$' + obj[i].Product.price + '</h5>'
 				+ '</div>'
 				+ '</div>'
 				+ '</div>';
@@ -86,19 +89,4 @@
 		$('#productsResults').empty()
 			.append(result);
 	}
-
-	jQuery.extend({
-		getStoreName: function(url) {
-			var result = null;
-			$.ajax({
-				url: url,
-				type: 'get',
-				async: false,
-				success: function(data) {
-					result = data;
-				}
-			});
-			return result;
-		}
-	});
 </script>
