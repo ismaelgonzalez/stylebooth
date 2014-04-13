@@ -292,6 +292,7 @@ class ProductsController extends AppController
 			//'recursive' => -1,
 			'contain' => array(
 				'Store',
+				'Coupon'
 			),
 		));
 

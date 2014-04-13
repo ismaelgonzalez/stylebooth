@@ -137,6 +137,7 @@ class CouponsController extends AppController {
 			$cu['CouponUser'] = array(
 				'user_id' => $user['id'],
 				'coupon_id' => $id,
+				'generated_key' => date('YmdHis') . $user['id'] . $id . rand(0,9),
 			);
 
 			$this->CouponUser->save($cu);
@@ -150,5 +151,10 @@ class CouponsController extends AppController {
 		}
 
 		$this->set('coupon', $coupon);
+	}
+
+	public function generated($id){
+		$coupon = $this->Coupon->findById($id);
+		$this->set(compact('coupon'));
 	}
 }

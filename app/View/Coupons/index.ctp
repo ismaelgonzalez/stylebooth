@@ -31,6 +31,7 @@ if (sizeof($coupons) < 1) {
 			<td><?php echo $this->Status->getStatus($c['Coupon']['status']); ?></td>
 			<td>
 				<a href="/coupons/edit/<?php echo $c['Coupon']['id']; ?>"><i class="icon-edit" data-toggle="tooltip" title="Editar Cupon"></i></a> |
+				<a href="/coupons/generated/<?php echo $c['Coupon']['id']; ?>"><i class="icon-tags text-warning" data-toggle="tooltip" title="Ver Cupones Generados"></i></a> |
 				<i class="icon-remove-sign delete" onclick="borrar(<?php echo $c['Coupon']['id']; ?>)" data-toggle="tooltip" title="Desactivar Cupon"></i>
 			</td>
 		</tr>

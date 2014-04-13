@@ -116,7 +116,7 @@
 	<tbody>
 	<?php foreach ($user['Coupon'] as $c) { ?>
 	<tr>
-		<td><?php echo $c['id']; ?></td>
+		<td><?php echo $c['CouponUser']['generated_key']; ?></td>
 		<td><?php echo $this->element('product_name', array('get_product_name' => true, 'id' => $c['product_id'])); ?></td>
 		<td><?php echo date('d M Y', strtotime($c['start_date'])); ?></td>
 		<td><?php echo $this->element('store_address', array('get_store_name_by_product_id' => true, 'product_id' => $c['product_id'])); ?></td>

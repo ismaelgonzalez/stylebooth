@@ -48,6 +48,10 @@ class Product extends AppModel{
 			'className' => 'ProductSkinHairType',
 			'foreignKey' => 'product_id'
 		),
+		'Coupon' => array(
+			'className' => 'Coupon',
+			'foreignKey' => 'product_id'
+		),
 	);
 
 	public $belongsTo = array(

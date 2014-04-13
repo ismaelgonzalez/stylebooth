@@ -11,6 +11,9 @@
 					<h5><b><?php echo $p['Product']['name']; ?></b></h5>
 					<h5><?php echo $p['Store']['name']; ?></h5>
 					<h5>$<?php echo $p['Product']['price']; ?></h5>
+					<?php if (!empty($p['Coupon'])) { ?>
+					<h5><a href="/products/detail/<?php echo $p['Product']['id']; ?>"><strong>Ve por tu cupon!</strong></a></h5>
+					<?php } ?>
 				</div>
 			</div>
 		</div>
