@@ -76,19 +76,18 @@ class StyleboothController extends AppController
 		$budget = null;
 		if (!strstr($visit['budget'], 'cualquier')) {
 			if (strstr($visit['budget'], 'menos')) {
-				$budget = "Product.price <= 500";
+				$budget = "Outfit.budget <= 500";
 			} elseif (strstr($visit['budget'], 'mas')) {
-				$budget = "Product.price >= 2000";
+				$budget = "Outfit.budget >= 2000";
 			} else {
 				$values = split("_", $visit['budget']);
-				$budget = "Product.price BETWEEN '" . $values[0] . "' AND '". $values[1] . "'";
+				$budget = "Outfit.budget BETWEEN '" . $values[0] . "' AND '". $values[1] . "'";
 			}
 		}
 
 		$products = $this->Product->find('all', array(
 			'conditions' => array(
 				'Product.status' => 1,
-				$budget,
 			),
 			'contain' => array(
 				'ProductStyle' => array(
@@ -129,6 +128,9 @@ class StyleboothController extends AppController
 		$product_ids = array_unique($product_ids);
 
 		$outfits = $this->Outfit->find('all', array(
+			'conditions' => array(
+				$budget,
+			),
 			'contain' => array(
 				'Product' => array(
 					'conditions' => array(

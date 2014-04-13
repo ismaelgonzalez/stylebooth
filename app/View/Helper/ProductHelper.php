@@ -8,6 +8,7 @@ class ProductHelper extends AppHelper
 
 		$div = "<div class='thumbnail col-md-1' style='margin-left:10px' id='prod_".$product['id']."'>
 			<img src='/files/products/".$product['image']."' alt='".$product['name']."' width='".$thumb_size."' class='img-thumbnail'>
+			<p>Precio: $".$product['price']."
 			<p>".$product['name']."<a class='close' onclick='delProd(".$product['id'].")'>x</a></p>
 		</div>";
 

@@ -87,18 +87,13 @@ class OutfitsController extends AppController
 			$products_categories = $this->ProductsCategory->find('list');
 			$this->set('products_categories', $products_categories);
 
-		/*	$outfit_products = array();
-			$products        = array();
-
-			$this->Product->recursive = -1;
-			foreach ($outfit['OutfitProduct'] as $o) {
-				$outfit_products[] = $o['product_id'];
-				$products[] = $this->Product->findById($o['product_id']);
+			$outfit_products = array();
+			foreach ($outfit['Product'] as $o) {
+				$outfit_products[] = $o['id'];
 			}
 
 			$outfit_products = implode(',', $outfit_products);
 			$this->set('outfit_products', $outfit_products);
-			$this->set('products', $products);*/
 		} else {
 			$this->Session->setFlash('No existe outfit con este ID :(', 'default', array('class'=>'alert alert-danger'));
 
@@ -170,18 +165,44 @@ class OutfitsController extends AppController
 		}
 	}
 
-	public function getproducts($category_id){
+	public function getStoresByCategoryId($category_id){
 		$this->autoRender = false;
-		$products = $this->Product->find('list', array(
+		$products = $this->Product->find('all', array(
 			'conditions' => array(
-				'products_categories_id' => $category_id,
-				'status' => 1,
+				'Product.products_categories_id' => $category_id,
+				'Product.status' => 1,
+			),
+		));
+
+		$arr_stores = array();
+		foreach($products as $p){
+			$arr_stores[] = array($p['Store']['id'], $p['Store']['name']);
+		}
+
+		$arr_stores = array_intersect_key( $arr_stores , array_unique( array_map('serialize' , $arr_stores ) ) );
+
+		$options = "<option value=''>-- Elige una Tienda --</option>";
+		foreach ($arr_stores as $s) {
+			$options .= "<option value='". $s[0] ."'>". $s[1] ."</option>";
+		}
+
+		echo $options;
+	}
+
+	public function getproducts($store_id, $category_id){
+		$this->autoRender = false;
+
+		$products = $this->Product->find('all', array(
+			'conditions' => array(
+				'Product.products_categories_id' => $category_id,
+				'Product.status' => 1,
+				'Product.store_id' => $store_id,
 			),
 		));
 
 		$options = "<option value=''>-- Elige un Producto --</option>";
-		foreach ($products as $key => $value) {
-			$options .= "<option value='$key'>$value</option>";
+		foreach ($products as $p) {
+			$options .= "<option value='".$p['Product']['id']."'>".$p['Product']['name']."</option>";
 		}
 
 		echo $options;

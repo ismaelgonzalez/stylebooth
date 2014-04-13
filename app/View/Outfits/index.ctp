@@ -12,6 +12,7 @@ if (sizeof($outfits) < 1) {
 			<th>Nombre</th>
 			<th>Imagen</th>
 			<th>Status</th>
+			<th>Presupuesto</th>
 			<th>&nbsp;</th>
 		</tr>
 		</thead>
@@ -21,6 +22,7 @@ if (sizeof($outfits) < 1) {
 			<td><?php echo $o['Outfit']['name']; ?></td>
 			<td><?php echo $o['Outfit']['image']; ?></td>
 			<td><?php echo $this->Status->getStatus($o['Outfit']['status']); ?></td>
+			<td><?php echo $this->Number->Currency($o['Outfit']['budget']); ?></td>
 			<td>
 				<a href="/outfits/edit/<?php echo $o['Outfit']['id']; ?>"><i class="icon-edit" data-toggle="tooltip" title="Editar Outfit"></i></a> |
 				<i class="icon-remove-sign delete" onclick="borrar(<?php echo $o['Outfit']['id']; ?>)" data-toggle="tooltip" title="Desactivar Outfit"></i>

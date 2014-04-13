@@ -28,7 +28,17 @@ echo $this->Form->input('image', array(
 	'type' => 'file',
 	'between' => '<div class="col-lg-4">',
 ));
-
+echo $this->Form->input('budget', array(
+	'type' => 'hidden',
+	'class' => 'form-control',
+	'default' => '0',
+));
+echo $this->Form->input('budget_disabled', array(
+	'label' => array('text' => 'Presupuesto del Outfit $', 'class' => 'control-label my-label col-lg-2'),
+	'class' => 'form-control',
+	'disabled' => 'disabled',
+	'default' => '0',
+));
 //echo "<hr>";
 echo "<div class='well'>
 <div class='row hidden' id='accepted_products'>
@@ -40,6 +50,11 @@ echo $this->Form->input('product_category_id', array(
 	'class' => 'form-control col-lg-3',
 	'options' => $products_categories,
 	'empty' => array('' => '-- Elige una Categoría --'),
+));
+echo $this->Form->input('store_id', array(
+	'label' => array('text' => 'Tiendas', 'class' => 'control-label my-label col-lg-2'),
+	'class' => 'form-control col-lg-3',
+	'empty' => array('' => '-- Elige una Tienda --'),
 ));
 echo $this->Form->input('product_id', array(
 	'label' => array('text' => 'Producto', 'class' => 'control-label my-label col-lg-2'),
@@ -64,7 +79,29 @@ echo $this->Form->end();
 			var catid = $(this).val();
 			$.ajax({
 				type:    "POST",
-				url:     "/outfits/getproducts/"+catid,
+				url:     "/outfits/getStoresByCategoryId/"+catid,
+				success: function(html) {
+
+					$('#OutfitStoreId')
+						.empty()
+						.append(html)
+						.chosen({allow_single_deselect: true, autocomplete: true})
+						.trigger('chosen:updated');
+
+					$('#OutfitProductId').empty()
+						.chosen({allow_single_deselect: true, autocomplete: true})
+						.trigger('chosen:updated');
+				}
+			});
+		});
+
+		$('#OutfitStoreId').change(function() {
+			var $store_id = $(this).val();
+			var $cat_id   = $("#OutfitProductCategoryId").val();
+
+			$.ajax({
+				type:    "POST",
+				url:     "/outfits/getproducts/"+$store_id+"/"+$cat_id,
 				success: function(html) {
 
 					$('#OutfitProductId')
@@ -88,6 +125,7 @@ echo $this->Form->end();
 					$("#OutfitProductsOutfitId").val(function(e, val) {
 						return val + (val ? ',' : '') + product_id
 					});
+					get_budget(product_id);
 				}
 			});
 		});
@@ -104,6 +142,36 @@ echo $this->Form->end();
 		}
 
 		$('#OutfitProductsOutfitId').val(arrProd.toString());
-}
 
+		rest_budget(prod_id);
+	}
+
+	function get_budget(product_id){
+		var $budget = $("#OutfitBudget");
+		var $budget_disabled = $("#OutfitBudgetDisabled");
+		$.ajax({
+			type: 'post',
+			url: '/products/getPriceById/' + product_id,
+			success: function(price) {
+				total = parseFloat($budget.val()) + parseFloat(price);
+				$budget.val(total);
+				$budget_disabled.val(total).fadeIn('slow');
+			}
+		});
+	}
+
+	function rest_budget(product_id){
+		var $budget = $("#OutfitBudget");
+		var $budget_disabled = $("#OutfitBudgetDisabled");
+		$.ajax({
+			type: 'post',
+			url: '/products/getPriceById/' + product_id,
+			success: function(price) {
+				total = parseFloat($budget.val()) - parseFloat(price);
+				console.log(total);
+				$budget.val(total);
+				$budget_disabled.val(total).fadeIn('slow');
+			}
+		});
+	}
 </script>

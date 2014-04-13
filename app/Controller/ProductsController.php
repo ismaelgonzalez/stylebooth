@@ -33,6 +33,7 @@ class ProductsController extends AppController
 
 		$div = "<div class='thumbnail col-md-1' style='margin-left:10px' id='prod_".$product['Product']['id']."'>
 			<img src='/files/products/".$product['Product']['image']."' alt='".$product['Product']['name']."' width='75' class='img-thumbnail'>
+			<p>Precio: $".$product['Product']['price']."
 			<p>".$product['Product']['name']."<a class='close' onclick='delProd(".$product['Product']['id'].")'>x</a></p>
 		</div>";
 
@@ -329,18 +330,6 @@ class ProductsController extends AppController
 
 		$visit = $this->Session->read('Visit');
 
-		$budget = null;
-		if (!strstr($visit['budget'], 'cualquier')) {
-			if (strstr($visit['budget'], 'menos')) {
-				$budget = "Product.price <= 500";
-			} elseif (strstr($visit['budget'], 'mas')) {
-				$budget = "Product.price >= 2000";
-			} else {
-				$values = split("_", $visit['budget']);
-				$budget = "Product.price BETWEEN '" . $values[0] . "' AND '". $values[1] . "'";
-			}
-		}
-
 		switch ($filter) {
 			case 'Todos los Productos':
 				$product_category = '';
@@ -356,7 +345,6 @@ class ProductsController extends AppController
 		$products = $this->Product->find('all', array(
 			'conditions' => array(
 				'Product.status' => 1,
-				$budget,
 				$product_category,
 			),
 			'contain' => array(
@@ -509,5 +497,20 @@ class ProductsController extends AppController
 		));
 
 		return json_encode($outfits);
+	}
+
+	public function getPriceById($id){
+		$this->autoRender = false;
+		$price = $this->Product->find('first', array(
+			'conditions' => array(
+				'Product.id' => $id,
+			),
+			'fields' => array(
+				'Product.price'
+			),
+			'recursive' => -1
+		));
+
+		echo $price['Product']['price'];
 	}
 }
