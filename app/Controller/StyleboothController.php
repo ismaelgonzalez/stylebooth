@@ -1,7 +1,7 @@
 <?php
 class StyleboothController extends AppController
 {
-	public $uses = array('Style', 'SkinHairType', 'BodyType', 'Product', 'Outfit', 'OutfitProduct', 'UserStat', 'Wishlist');
+	public $uses = array('Style', 'SkinHairType', 'BodyType', 'Product', 'Outfit', 'OutfitProduct', 'UserStat', 'Wishlist', 'ProductsCategory');
 
 	public $components = array(
 		'Session',
@@ -11,7 +11,7 @@ class StyleboothController extends AppController
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('index','filter1','filter2','filter3','filter4', 'my_booth', 'deleteFromWishlist');
+		$this->Auth->allow('index','filter1','filter2','filter3','filter4', 'my_booth', 'deleteFromWishlist', 'getProductsCategoryList');
 	}
 
 	public function isAuthorized($user) {
@@ -255,5 +255,17 @@ class StyleboothController extends AppController
 		} else {
 			return $this->redirect('/');
 		}
+	}
+
+	public function getProductsCategoryList(){
+		$this->autoRender =  false;
+		$pc = $this->ProductsCategory->find('list');
+
+		if ($this->request->is('requested')) {
+			return $pc;
+		} else {
+			$this->set(compact('pc'));
+		}
+
 	}
 }

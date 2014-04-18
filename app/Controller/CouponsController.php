@@ -151,6 +151,7 @@ class CouponsController extends AppController {
 		}
 
 		$this->set('coupon', $coupon);
+		$this->set('usedCoupon', $usedCoupon);
 	}
 
 	public function generated($id){

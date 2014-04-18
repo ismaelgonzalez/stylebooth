@@ -335,11 +335,32 @@ class ProductsController extends AppController
 			case 'Todos los Productos':
 				$product_category = '';
 				break;
+			case 'Solo Blusas':
+				$product_category = 'Product.products_categories_id = 1';
+				break;
+			case 'Solo Pantalones':
+				$product_category = 'Product.products_categories_id = 2';
+				break;
+			case 'Solo Faldas':
+				$product_category = 'Product.products_categories_id = 3';
+				break;
+			case 'Solo Vestidos':
+				$product_category = 'Product.products_categories_id = 4';
+				break;
 			case 'Solo Accesorios':
 				$product_category = 'Product.products_categories_id = 5';
 				break;
 			case 'Solo Calzado':
 				$product_category = 'Product.products_categories_id = 6';
+				break;
+			case 'Solo Prendas íntimas':
+				$product_category = 'Product.products_categories_id = 7';
+				break;
+			case 'Solo Vestidos de noche':
+				$product_category = 'Product.products_categories_id = 8';
+				break;
+			case 'Solo Trajes de baño':
+				$product_category = 'Product.products_categories_id = 9';
 				break;
 		}
 
@@ -424,11 +445,32 @@ class ProductsController extends AppController
 			case 'Todos los Productos':
 				$product_category = '';
 				break;
+			case 'Solo Blusas':
+				$product_category = 'Product.products_categories_id = 1';
+				break;
+			case 'Solo Pantalones':
+				$product_category = 'Product.products_categories_id = 2';
+				break;
+			case 'Solo Faldas':
+				$product_category = 'Product.products_categories_id = 3';
+				break;
+			case 'Solo Vestidos':
+				$product_category = 'Product.products_categories_id = 4';
+				break;
 			case 'Solo Accesorios':
 				$product_category = 'Product.products_categories_id = 5';
 				break;
 			case 'Solo Calzado':
 				$product_category = 'Product.products_categories_id = 6';
+				break;
+			case 'Solo Prendas íntimas':
+				$product_category = 'Product.products_categories_id = 7';
+				break;
+			case 'Solo Vestidos de noche':
+				$product_category = 'Product.products_categories_id = 8';
+				break;
+			case 'Solo Trajes de baño':
+				$product_category = 'Product.products_categories_id = 9';
 				break;
 		}
 
@@ -481,11 +523,32 @@ class ProductsController extends AppController
 			case 'Todos los Productos':
 				$product_category = '';
 				break;
+			case 'Solo Blusas':
+				$product_category = 'Product.products_categories_id = 1';
+				break;
+			case 'Solo Pantalones':
+				$product_category = 'Product.products_categories_id = 2';
+				break;
+			case 'Solo Faldas':
+				$product_category = 'Product.products_categories_id = 3';
+				break;
+			case 'Solo Vestidos':
+				$product_category = 'Product.products_categories_id = 4';
+				break;
 			case 'Solo Accesorios':
 				$product_category = 'Product.products_categories_id = 5';
 				break;
 			case 'Solo Calzado':
 				$product_category = 'Product.products_categories_id = 6';
+				break;
+			case 'Solo Prendas íntimas':
+				$product_category = 'Product.products_categories_id = 7';
+				break;
+			case 'Solo Vestidos de noche':
+				$product_category = 'Product.products_categories_id = 8';
+				break;
+			case 'Solo Trajes de baño':
+				$product_category = 'Product.products_categories_id = 9';
 				break;
 		}
 

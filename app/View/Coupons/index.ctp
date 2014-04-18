@@ -37,6 +37,9 @@ if (sizeof($coupons) < 1) {
 		</tr>
 			<?php } ?>
 		</tbody>
+		<tfoot>
+			<td colspan="5"><?php echo $this->Paginator->numbers(); ?></td>
+		</tfoot>
 	</table>
 </div>
 <?php } ?>

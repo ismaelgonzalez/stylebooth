@@ -65,6 +65,12 @@ echo $this->Form->input('name', array(
 	'between' => '<div class="col-lg-4">',
 	'default' => $product['Product']['name'],
 ));
+echo $this->Form->input('blurb', array(
+	'label' => array('text' => 'Descripción', 'class' => 'control-label my-label col-lg-2'),
+	'class' => 'form-control',
+	'between' => '<div class="col-lg-8">',
+	'default' => $product['Product']['blurb'],
+));
 echo "<div class='row'>";
 $this->Product->product_thumbnail($product, 250);
 echo "</div>";

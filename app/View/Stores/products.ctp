@@ -23,9 +23,7 @@
 			<span class="selection"> Todos los Productos </span><span class="caret"></span>
 		</button>
 		<ul class="dropdown-menu" role="menu">
-			<li><a href="#">Todos los Productos</a></li>
-			<li><a href="#">Solo Accesorios</a></li>
-			<li><a href="#">Solo Calzado</a></li>
+			<?php echo $this->element('products_category'); ?>
 		</ul>
 	</div>
 </div>

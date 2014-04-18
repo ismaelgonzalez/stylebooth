@@ -17,6 +17,7 @@
 	<div class="col-md-7" align="left">
 		<h3><b><?php echo $product['Product']['name']; ?></b></h3>
 		<h4><b><?php echo $this->Number->currency($product['Product']['price'], 'USD'); ?></b></h4>
+		<h5><?php echo $product['Product']['blurb']; ?></h5>
 		<?php if (!empty($logged_user['id'])) { ?>
 			<button type="button" class="btn btn-default btn-xs" onclick="javascript:addToWishList(<?php echo $product['Product']['id']; ?>)">
 				<span class="glyphicon glyphicon-heart" style="color: #F92672;"></span> Agregar a mi Booth Personal

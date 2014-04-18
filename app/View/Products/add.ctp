@@ -59,6 +59,11 @@ echo $this->Form->input('name', array(
 	'class' => 'form-control',
 	'between' => '<div class="col-lg-4">'
 ));
+echo $this->Form->input('blurb', array(
+	'label' => array('text' => 'Descripción', 'class' => 'control-label my-label col-lg-2'),
+	'class' => 'form-control',
+	'between' => '<div class="col-lg-8">'
+));
 echo $this->Form->input('image', array(
 	'label' => array('text' => 'Imagen', 'class' => 'control-label my-label col-lg-2'),
 	'class' => 'form-control',

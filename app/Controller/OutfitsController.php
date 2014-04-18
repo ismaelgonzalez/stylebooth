@@ -4,7 +4,7 @@ class OutfitsController extends AppController
 {
 	public $uses = array('Outfit', 'OutfitProduct', 'Product', 'ProductsCategory');
 
-	public $components = array('Session');
+	public $components = array('Paginator', 'Session');
 
 	public $helpers = array('Paginator', 'Js', 'Status', 'Product');
 
@@ -16,7 +16,7 @@ class OutfitsController extends AppController
 		),
 		'limit' => 10,
 		'order' => array(
-			'Coupon.id' => 'DESC'
+			'Outfit.id' => 'DESC'
 		)
 	);
 
@@ -28,7 +28,8 @@ class OutfitsController extends AppController
 	public function index() {
 		$this->set('title_for_layout', 'Administrar Outfits');
 
-		$outfits = $this->paginate('Outfit');
+		$this->Paginator->settings = $this->paginate;
+		$outfits = $this->Paginator->paginate('Outfit');
 		$this->set('outfits', $outfits);
 	}
 
