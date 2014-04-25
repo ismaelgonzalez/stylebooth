@@ -61,6 +61,7 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 				<li><a href="/noticias/lista/">Noticias</a></li>
 				<li><a href="/blogs/lista/">Blog</a></li>
 				<li><a href="/stores/lista">Tiendas</a></li>
+				<li><a href="/products/lista">Productos</a></li>
 			</ul>
 			<?php if (!empty($logged_user['id'])) { ?>
 				<ul class="nav navbar-nav navbar-right">

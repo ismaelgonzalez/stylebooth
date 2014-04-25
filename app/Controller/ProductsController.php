@@ -292,7 +292,12 @@ class ProductsController extends AppController
 			//'recursive' => -1,
 			'contain' => array(
 				'Store',
-				'Coupon'
+				'Coupon' => array(
+					'conditions' => array(
+						'Coupon.start_date <=' => date('Y-m-d'),
+						'Coupon.end_date >' => date('Y-m-d'),
+					),
+				),
 			),
 		));
 
@@ -397,6 +402,13 @@ class ProductsController extends AppController
 					),
 				),
 				'Store',
+				'Coupon' => array(
+					'conditions' => array(
+						'Coupon.start_date <=' => date('Y-m-d'),
+						'Coupon.end_date >' => date('Y-m-d'),
+						'Coupon.status' => 1,
+					),
+				),
 			),
 		));
 
@@ -483,6 +495,13 @@ class ProductsController extends AppController
 					'conditions' => array(
 						$product_category,
 					),
+					'Coupon' => array(
+						'conditions' => array(
+							'Coupon.start_date <=' => date('Y-m-d'),
+							'Coupon.end_date >' => date('Y-m-d'),
+							'Coupon.status' => 1,
+						),
+					),
 				),
 			),
 		));
@@ -535,7 +554,7 @@ class ProductsController extends AppController
 			case 'Solo Vestidos':
 				$product_category = 'Product.products_categories_id = 4';
 				break;
-			case 'Solo Accesorios':
+			case 'Solo Accesorios y Bolsas':
 				$product_category = 'Product.products_categories_id = 5';
 				break;
 			case 'Solo Calzado':
@@ -557,7 +576,13 @@ class ProductsController extends AppController
 				'Product.store_id' => $store_id,
 				$product_category,
 			),
-			'recursive' => -1,
+			'contain' => array('Coupon' => array(
+				'conditions' => array(
+					'Coupon.start_date <=' => date('Y-m-d'),
+					'Coupon.end_date >' => date('Y-m-d'),
+					'Coupon.status' => 1,
+				),
+			)),
 		));
 
 		return json_encode($outfits);

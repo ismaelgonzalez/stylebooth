@@ -34,6 +34,7 @@
 					<h5><b><?php echo $p['name']; ?></b></h5>
 					<h5><?php echo $this->element('store_address', array('get_store_name' => true, 'store_id' => $p['store_id'])); ?></h5>
 					<h5>$<?php echo $p['price']; ?></h5>
+					<?php echo $this->element('coupons', array('product_id' => $p['id'])); ?>
 				</div>
 			</div>
 		</div>
@@ -72,8 +73,11 @@
 				+ '<div class="caption">'
 				+ '<h5><b>' + obj.Product[i].name + '</b></h5>'
 				+ '<h5>' + name_store + '</h5>'
-				+ '<h5>$' + obj.Product[i].price + '</h5>'
-				+ '</div>'
+				+ '<h5>$' + obj.Product[i].price + '</h5>';
+			if (obj.Product[i].Coupon.length > 0){
+				result += '<h5><a href="/products/detail/' + obj.Product[i].id + '">Ve Por Tu Cupon!</a></h5>';
+			}
+			result += '</div>'
 				+ '</div>'
 				+ '</div>';
 		}

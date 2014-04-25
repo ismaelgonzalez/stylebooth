@@ -23,7 +23,7 @@ class CouponsController extends AppController {
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('register');
+		$this->Auth->allow('register', 'getByProductId');
 	}
 
 	public function index() {
@@ -150,6 +150,14 @@ class CouponsController extends AppController {
 			$this->Coupon->save($use_coupon);
 		}
 
+		//find updated with generated_key
+		$usedCoupon = $this->CouponUser->find('first', array(
+			'conditions' => array(
+				'CouponUser.user_id' => $user['id'],
+				'CouponUser.coupon_id' => $id,
+			),
+		));
+
 		$this->set('coupon', $coupon);
 		$this->set('usedCoupon', $usedCoupon);
 	}
@@ -157,5 +165,30 @@ class CouponsController extends AppController {
 	public function generated($id){
 		$coupon = $this->Coupon->findById($id);
 		$this->set(compact('coupon'));
+	}
+
+	public function getByProductId($product_id){
+		$this->autoRender = false;
+		$coupon = $this->Coupon->find('first', array(
+			'conditions' => array(
+				'Coupon.product_id' => $product_id,
+				'Coupon.start_date <=' => date('Y-m-d'),
+				'Coupon.end_date >' => date('Y-m-d'),
+				'Coupon.status' => 1,
+			),
+			'recursive' => -1,
+		));
+
+		if ($this->request->is('requested')) {
+			return $coupon;
+		} else {
+			debug($coupon);
+			if (!empty($coupon)) {
+				echo '<h5><a href="/products/detail/' . $product_id . '">Ve Por Tu Cupon!</a></h5>';
+			} else {
+				echo '';
+			}
+
+		}
 	}
 }

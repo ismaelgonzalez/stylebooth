@@ -13,6 +13,11 @@
 			<?php } ?>
 		</div>
 		<?php } ?>
+		<div class="row">
+			<a class="thumbnail" href="/stores/products/<?php echo $product['Store']['id']; ?>">
+				<img src="/files/stores/<?php echo $product['Store']['image']; ?>" alt="<?php echo $product['Store']['image']; ?>">
+			</a>
+		</div>
 	</div>
 	<div class="col-md-7" align="left">
 		<h3><b><?php echo $product['Product']['name']; ?></b></h3>
