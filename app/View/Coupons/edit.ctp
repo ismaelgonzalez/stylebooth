@@ -1,3 +1,6 @@
+<script src="/js/chosen.jquery.js"></script>
+<link rel="stylesheet" href="/css/chosen.css">
+<link rel="stylesheet" href="/css/chosen.bootstrap.css">
 <?php
 echo $this->Form->Create('Coupon',
 	array(
@@ -21,6 +24,13 @@ echo $this->Form->input('title', array(
 	'label' => array('text' => 'Nombre', 'class' => 'control-label my-label col-lg-2'),
 	'class' => 'form-control',
 	'default' => $coupon['Coupon']['title']
+));
+echo $this->Form->input('store_id', array(
+	'label' => array('text' => 'Tienda', 'class' => 'control-label my-label col-lg-2'),
+	'class' => 'form-control',
+	'options' => array($stores),
+	'empty' => array('' => '-- Elige una Tienda --'),
+	'default' => $coupon['Product']['store_id']
 ));
 echo $this->Form->input('product_id', array(
 	'label' => array('text' => 'Producto', 'class' => 'control-label my-label col-lg-2'),
@@ -59,5 +69,23 @@ echo $this->Form->end();
 	$(function () {
 		$('#CouponStartDate').datepicker({dateFormat:'dd-mm-yy'});
 		$('#CouponEndDate').datepicker({dateFormat:'dd-mm-yy'});
+		$('#CouponProductId').chosen({allow_single_deselect: true, autocomplete: true});
+
+		$('#CouponStoreId').change(function() {
+			var $store_id = $(this).val();
+
+			$.ajax({
+				type:    "POST",
+				url:     "/products/getProductsByStoreId/"+$store_id,
+				success: function(html) {
+
+					$('#CouponProductId')
+						.empty()
+						.append(html)
+						.chosen({allow_single_deselect: true, autocomplete: true})
+						.trigger('chosen:updated');
+				}
+			});
+		});
 	});
 </script>

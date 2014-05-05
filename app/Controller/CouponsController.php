@@ -64,6 +64,8 @@ class CouponsController extends AppController {
 			$this->set('coupon', $coupon);
 			$products = $this->Product->find('list');
 			$this->set('products', $products);
+			$stores = $this->Store->find('list');
+			$this->set('stores', $stores);
 		} else {
 			$this->Session->setFlash('No existe cupon con este ID :(', 'default', array('class'=>'alert alert-danger'));
 
