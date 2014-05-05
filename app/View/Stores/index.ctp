@@ -16,7 +16,7 @@ if (sizeof($stores) < 1) {
 		</tr>
 		</thead>
 		<tbody>
-			<? foreach($stores as $s) { ?>
+			<?php foreach($stores as $s) { ?>
 		<tr>
 			<td><?php echo $s['Store']['name']; ?></td>
 			<td><a href="<?php echo $s['Store']['url']; ?>"><?php echo $s['Store']['url']; ?></a></td>

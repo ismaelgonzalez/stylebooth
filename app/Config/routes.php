@@ -64,6 +64,10 @@
 	Router::connect('/filter3/*', array('controller' => 'stylebooth', 'action' => 'filter3'));
 	Router::connect('/filter4/*', array('controller' => 'stylebooth', 'action' => 'filter4'));
 
+//edit skin, hair & body types
+	Router::connect('/editSkinHairType/*', array('controller' => 'user', 'action' => 'editSkinHairType'));
+	Router::connect('/editBodyType/*', array('controller' => 'user', 'action' => 'editBodyType'));
+
 //getcoupon
 	Router::connect('/getcoupon/*', array('controller' => 'coupons', 'action' => 'register'));
 /**

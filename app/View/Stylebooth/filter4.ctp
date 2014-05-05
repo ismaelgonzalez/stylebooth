@@ -46,7 +46,7 @@
 	<?php } ?>
 </div>
 <ul class="pager">
-	<li><a href="/filter3">Anterior</a></li>
+	<li><a href="/filter1">Anterior</a></li>
 </ul>
 	<script type="text/javascript">
 		$(function() {

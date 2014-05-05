@@ -18,7 +18,7 @@
 		</tr>
 		</thead>
 		<tbody>
-		<? foreach($banners as $b) { ?>
+		<?php foreach($banners as $b) { ?>
 		<tr>
 			<td><?php echo $this->Status->getPosition($b['Banner']['type']); ?></td>
 			<td><?php echo $b['Banner']['image']; ?></td>

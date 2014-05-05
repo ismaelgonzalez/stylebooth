@@ -39,8 +39,6 @@ class Outfit extends AppModel{
 	public function getOutfitPrice($outfit_id) {
 		$outfit = $this->findById($outfit_id);
 
-		debug($outfit);
-
 		App::import('Model', 'Product');
 		$product = new Product();
 

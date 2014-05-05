@@ -20,7 +20,7 @@ if (sizeof($users) < 1) {
 		</tr>
 		</thead>
 		<tbody>
-			<? foreach($users as $u) { ?>
+			<?php foreach($users as $u) { ?>
 		<tr>
 			<td><?php echo $u['User']['first_name'] . ' ' . $u['User']['last_name']; ?></td>
 			<td><?php echo $u['User']['email']; ?></td>

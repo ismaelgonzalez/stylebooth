@@ -15,7 +15,7 @@ if (sizeof($posts) < 1) {
 		</tr>
 		</thead>
 		<tbody>
-			<? foreach($posts as $p) { ?>
+			<?php foreach($posts as $p) { ?>
 		<tr>
 			<td><?php echo $p['Post']['title']; ?></td>
 			<td><?php echo date('d/M/Y', strtotime($p['Post']['post_date'])); ?></td>

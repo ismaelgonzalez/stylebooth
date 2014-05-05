@@ -17,7 +17,7 @@ if (sizeof($outfits) < 1) {
 		</tr>
 		</thead>
 		<tbody>
-			<? foreach($outfits as $o) { ?>
+			<?php foreach($outfits as $o) { ?>
 		<tr>
 			<td><?php echo $o['Outfit']['name']; ?></td>
 			<td><?php echo $o['Outfit']['image']; ?></td>

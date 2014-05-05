@@ -3,8 +3,7 @@
 if (sizeof($coupons) < 1) {
 	echo "<h4>Por el momento no tenemos cupones en el sistema.</h4>";
 } else {
-	?>
-
+?>
 <div class="table-responsive">
 	<table class="table table-striped table-hover">
 		<thead>
@@ -20,7 +19,7 @@ if (sizeof($coupons) < 1) {
 		</tr>
 		</thead>
 		<tbody>
-			<? foreach($coupons as $c) { ?>
+			<?php foreach($coupons as $c) { ?>
 		<tr>
 			<td><?php echo $c['Coupon']['title']; ?></td>
 			<td><?php echo $c['Product']['name']; ?></td>

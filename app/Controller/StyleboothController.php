@@ -40,10 +40,30 @@ class StyleboothController extends AppController
 	}
 
 	public function filter2(){
+		$user = $this->Session->read('Auth.User');
+
 		if (!empty($this->data)) {
 			$this->Session->write('Visit.budget', $this->data['budget']);
 			$this->Session->write('Visit.size', $this->data['size']);
 			$this->Session->write('Visit.foot_size', $this->data['foot_size']);
+		}
+
+		if (empty($user)) {
+			return $this->redirect('/filter4');
+		}
+
+		$us = $this->UserStat->find('first', array(
+			'conditions' => array(
+				'UserStat.user_id' => $user['id'],
+			),
+			'order' => array(
+				'UserStat.stat_date' => 'desc'
+			),
+			'recursive' => -1,
+		));
+
+		if (!empty($us)) {
+			return $this->redirect('/filter4');
 		}
 
 		$this->SkinHairType->recursive = -1;
@@ -53,6 +73,26 @@ class StyleboothController extends AppController
 	}
 
 	public function filter3(){
+		$user = $this->Session->read('Auth.User');
+
+		if (empty($user)) {
+			return $this->redirect('/filter4');
+		}
+
+		$us = $this->UserStat->find('first', array(
+			'conditions' => array(
+				'UserStat.user_id' => $user['id'],
+			),
+			'order' => array(
+				'UserStat.stat_date' => 'desc'
+			),
+			'recursive' => -1,
+		));
+
+		if (!empty($us)) {
+			return $this->redirect('/filter4');
+		}
+
 		if (!empty($this->data)) {
 			$this->Session->write('Visit.skin_hair_type', $this->data['skin_hair_type']);
 		}
@@ -85,40 +125,84 @@ class StyleboothController extends AppController
 			}
 		}
 
-		$products = $this->Product->find('all', array(
-			'conditions' => array(
-				'Product.status' => 1,
-			),
-			'contain' => array(
-				'ProductStyle' => array(
+		$user = $this->Session->read('Auth.User');
+
+		if (!empty($user)) {
+			if (empty($visit['skin_hair_type']) || empty($visit['body_type'])) {
+				$old_us = $this->UserStat->find('first', array(
 					'conditions' => array(
-						'ProductStyle.style_id' => $visit['style'],
-						'not' => array(
-							'ProductStyle.style_id' => null,
+						'UserStat.user_id' => $user['id'],
+					),
+					'order' => array(
+						'UserStat.stat_date' => 'desc'
+					),
+					'recursive' => -1,
+				));
+
+				$visit['skin_hair_type'] = $old_us['UserStat']['products_skin_hair_types'];
+				$visit['body_type']      = $old_us['UserStat']['products_body_types'];
+			}
+
+			$products = $this->Product->find('all', array(
+				'conditions' => array(
+					'Product.status' => 1,
+				),
+				'contain' => array(
+					'ProductStyle' => array(
+						'conditions' => array(
+							'ProductStyle.style_id' => $visit['style'],
+							'not' => array(
+								'ProductStyle.style_id' => null,
+							),
 						),
 					),
-				),
-				'ProductSkinHairType' => array(
-					'conditions' => array(
-						'ProductSkinHairType.skin_hair_type_id' => $visit['skin_hair_type'],
-					),
-				),
-				'ProductsBodyType' => array(
-					'conditions' => array(
-						'ProductsBodyType.body_type_id' => $visit['body_type'],
-					),
-				),
-				'ProductSize' => array(
-					'conditions' => array(
-						'OR' => array(
-							'ProductSize.size' => $visit['size'],
-							'ProductSize.size' => $visit['foot_size'],
+					'ProductSkinHairType' => array(
+						'conditions' => array(
+							'ProductSkinHairType.skin_hair_type_id' => $visit['skin_hair_type'],
 						),
 					),
+					'ProductsBodyType' => array(
+						'conditions' => array(
+							'ProductsBodyType.body_type_id' => $visit['body_type'],
+						),
+					),
+					'ProductSize' => array(
+						'conditions' => array(
+							'OR' => array(
+								'ProductSize.size' => $visit['size'],
+								'ProductSize.size' => $visit['foot_size'],
+							),
+						),
+					),
+					'Store',
 				),
-				'Store',
-			),
-		));
+			));
+		} else {	//no logged in user
+			$products = $this->Product->find('all', array(
+				'conditions' => array(
+					'Product.status' => 1,
+				),
+				'contain' => array(
+					'ProductStyle' => array(
+						'conditions' => array(
+							'ProductStyle.style_id' => $visit['style'],
+							'not' => array(
+								'ProductStyle.style_id' => null,
+							),
+						),
+					),
+					'ProductSize' => array(
+						'conditions' => array(
+							'OR' => array(
+								'ProductSize.size' => $visit['size'],
+								'ProductSize.size' => $visit['foot_size'],
+							),
+						),
+					),
+					'Store',
+				),
+			));
+		}
 
 		$product_ids = array();
 		foreach ($products as $p) {

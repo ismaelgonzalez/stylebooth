@@ -15,7 +15,7 @@ if ($get_product_name){
 	}
 
 		echo '<h5>' . $result[0]['SkinHairType']['name'] . '</h5>'
-		. '<a href="/filter2">Cambiar Selección</a>'
+		. '<a href="/users/editSkinHairType">Cambiar Selección</a>'
 		. '</span>'
 		. '</div>'
 		. '<div class="col-md-6">'
@@ -27,7 +27,7 @@ if ($get_product_name){
 		echo '<img src="/files/body_types/' . $result[1]['BodyType']['image'] . '" alt="' . $result[1]['BodyType']['name'] . '"/>';
 	}
 		echo '<h5>' . $result[1]['BodyType']['name'] . '</h5>'
-		. '<a href="/filter3">Cambiar Selección</a>'
+		. '<a href="/users/editBodyType">Cambiar Selección</a>'
 		. '</span>'
 		. '</div>';
 }

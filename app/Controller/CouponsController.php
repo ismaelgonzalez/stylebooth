@@ -185,13 +185,11 @@ class CouponsController extends AppController {
 		if ($this->request->is('requested')) {
 			return $coupon;
 		} else {
-			debug($coupon);
 			if (!empty($coupon)) {
 				echo '<h5><a href="/products/detail/' . $product_id . '">Ve Por Tu Cupon!</a></h5>';
 			} else {
 				echo '';
 			}
-
 		}
 	}
 }

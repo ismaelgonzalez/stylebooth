@@ -17,7 +17,7 @@ if (sizeof($products) < 1) {
 		</tr>
 		</thead>
 		<tbody>
-			<? foreach($products as $p) { ?>
+			<?php foreach($products as $p) { ?>
 		<tr>
 			<td><?php echo $p['Store']['name']; ?></td>
 			<td><?php echo $p['ProductsCategory']['name']; ?></td>

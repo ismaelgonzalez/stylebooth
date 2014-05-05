@@ -1,7 +1,7 @@
 <?php
 class UsersController extends AppController
 {
-	public $uses = array('User', 'UserCoupon', 'Coupon');
+	public $uses = array('User', 'UserCoupon', 'Coupon', 'SkinHairType', 'BodyType', 'UserStat');
 
 	public $components = array(
 		'Session',
@@ -25,7 +25,7 @@ class UsersController extends AppController
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('login', 'logout', 'register', 'registered', 'confirm', 'getUser', 'profile');
+		$this->Auth->allow('login', 'logout', 'register', 'registered', 'confirm', 'getUser', 'profile', 'editSkinHairType', 'editBodyType');
 	}
 
 	public function isAuthorized($user) {
@@ -296,8 +296,6 @@ class UsersController extends AppController
 				unset($this->request->data['User']['image']);
 			}
 
-			debug(AuthComponent::password($this->data['User']['password']));
-
 			if (!empty($this->data['User']['old_password']) && !empty($this->data['User']['new_password'])) {
 				if(AuthComponent::password($this->data['User']['old_password']) == $user['User']['password']) {
 					$this->request->data['User']['password'] = $this->data['User']['new_password'];
@@ -307,9 +305,6 @@ class UsersController extends AppController
 				}
 			}
 
-			debug($this->request->data);
-
-
 			if ($this->User->save($this->request->data)) {
 				$this->Session->setFlash('Informacion de perfil actualizada!', 'default', array('class'=>'alert alert-success'));
 				return $this->redirect('/users/profile/' . $user['User']['id']);
@@ -317,6 +312,71 @@ class UsersController extends AppController
 				$this->Session->setFlash('No se pudo actualizar su información!', 'default', array('class'=>'alert alert-danger'));
 				return $this->redirect('/users/profile/' . $user['User']['id']);
 			}
+		}
+	}
+
+	public function editSkinHairType(){
+		$user = $this->Session->read('Auth.User');
+
+		if (empty($user)) {
+			return $this->redirect('/');
+		}
+
+		$this->layout = 'default';
+		$this->set('title_for_layout', 'Cambiar tu Selección de Tez y Cabello');
+
+		$this->SkinHairType->recursive = -1;
+		$skin_hair_types = $this->SkinHairType->find('all');
+
+		$this->set('skin_hair_types', $skin_hair_types);
+
+		if (!empty($this->data)) {
+			$us = $this->UserStat->find('first', array(
+				'conditions' => array(
+					'UserStat.user_id' => $user['id'],
+				),
+				'order' => array(
+					'UserStat.stat_date' => 'desc'
+				),
+				'recursive' => -1,
+			));
+
+			$us['UserStat']['products_skin_hair_types'] = $this->data['skin_hair_type'];
+
+			$this->UserStat->save($us);
+			return $this->redirect('/users/profile/' . $user['id'] );
+		}
+	}
+
+	public function editBodyType(){
+		$user = $this->Session->read('Auth.User');
+
+		if (empty($user)) {
+			return $this->redirect('/');
+		}
+
+		$this->layout = 'default';
+		$this->set('title_for_layout', 'Cambiar tu Selección de Cuerpo');
+		$this->BodyType->recursive = -1;
+		$body_types = $this->BodyType->find('all');
+
+		$this->set('body_types', $body_types);
+
+		if (!empty($this->data)) {
+			$us = $this->UserStat->find('first', array(
+				'conditions' => array(
+					'UserStat.user_id' => $user['id'],
+				),
+				'order' => array(
+					'UserStat.stat_date' => 'desc'
+				),
+				'recursive' => -1,
+			));
+
+			$us['UserStat']['products_body_types'] = $this->data['body_type'];
+
+			$this->UserStat->save($us);
+			return $this->redirect('/users/profile/' . $user['id'] );
 		}
 	}
 }
