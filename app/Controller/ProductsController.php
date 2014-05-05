@@ -602,4 +602,22 @@ class ProductsController extends AppController
 
 		echo $price['Product']['price'];
 	}
+
+	public function getProductsByStoreId($store_id){
+		$this->autoRender = false;
+
+		$products = $this->Product->find('all', array(
+			'conditions' => array(
+				'Product.status' => 1,
+				'Product.store_id' => $store_id,
+			),
+		));
+
+		$options = "<option value=''>-- Elige un Producto --</option>";
+		foreach ($products as $p) {
+			$options .= "<option value='".$p['Product']['id']."'>".$p['Product']['name']."</option>";
+		}
+
+		echo $options;
+	}
 }

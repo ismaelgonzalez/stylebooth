@@ -21,6 +21,12 @@ echo $this->Form->input('title', array(
 	'label' => array('text' => 'Nombre', 'class' => 'control-label my-label col-lg-2'),
 	'class' => 'form-control',
 ));
+echo $this->Form->input('store_id', array(
+	'label' => array('text' => 'Tienda', 'class' => 'control-label my-label col-lg-2'),
+	'class' => 'form-control',
+	'options' => array($stores),
+	'empty' => array('' => '-- Elige una Tienda --'),
+));
 echo $this->Form->input('product_id', array(
 	'label' => array('text' => 'Producto', 'class' => 'control-label my-label col-lg-2'),
 	'options' => array($products),
@@ -54,5 +60,22 @@ echo $this->Form->end();
 		$('#CouponStartDate').datepicker({dateFormat:'dd-mm-yy'});
 		$('#CouponEndDate').datepicker({dateFormat:'dd-mm-yy'});
 		$('#CouponProductId').chosen({allow_single_deselect: true, autocomplete: true});
+
+		$('#CouponStoreId').change(function() {
+			var $store_id = $(this).val();
+
+			$.ajax({
+				type:    "POST",
+				url:     "/products/getProductsByStoreId/"+$store_id,
+				success: function(html) {
+
+					$('#CouponProductId')
+						.empty()
+						.append(html)
+						.chosen({allow_single_deselect: true, autocomplete: true})
+						.trigger('chosen:updated');
+				}
+			});
+		});
 	});
 </script>

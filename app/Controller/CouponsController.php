@@ -2,7 +2,7 @@
 App::uses('AppController', 'Controller');
 
 class CouponsController extends AppController {
-	public $uses = array('Coupon', 'Product', 'CouponUser');
+	public $uses = array('Coupon', 'Product', 'CouponUser', 'Store');
 
 	public $components = array('Session');
 
@@ -38,6 +38,9 @@ class CouponsController extends AppController {
 		$this->set('title_for_layout', 'Agregar Cupones');
 		$products = $this->Product->find('list');
 		$this->set('products', $products);
+
+		$stores = $this->Store->find('list');
+		$this->set('stores', $stores);
 
 		if (!empty($this->data)) {
 			$this->Coupon->create();
