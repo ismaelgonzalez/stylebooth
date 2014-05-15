@@ -85,16 +85,18 @@
 				<?php echo $this->fetch('content'); ?>
 			</div>
 		</div>
-		<?php if (empty($logged_user['id'])) { ?>
 		<div class="col-md-2"  id="banner2" >
+		<?php if (empty($logged_user['id'])) { ?>
 			<br /><br /><br /><br /><br /><br /><br /><br /><br />
 			<a href="/users/register" style="text-decoration: underline; font-size: 14px;">
 				Registrate aqui para obtener cupones de descuentos en los resultados de tus productos</a>
 			<br /><br /> O Entra con faceook
 			<div class="fb-login-button" data-max-rows="1" data-size="icon" data-show-faces="false" data-auto-logout-link="false"></div>
 			<br /><br />
-		</div>
 		<?php } ?>
+			<br>
+			<div id="bannerRight"><?php echo $this->element('banner', array('type' => 'R')); ?></div>
+		</div>
 </div>
 	<div class="container" style="background-color: #FFFFFF;">
 		<div class="row" align="center">

@@ -36,7 +36,7 @@ class CouponsController extends AppController {
 
 	public function add() {
 		$this->set('title_for_layout', 'Agregar Cupones');
-		$products = $this->Product->find('list');
+		$products = $this->Product->find('list', array('conditions' => array('status' => 1)));
 		$this->set('products', $products);
 
 		$stores = $this->Store->find('list');
