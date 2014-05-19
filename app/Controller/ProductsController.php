@@ -352,7 +352,7 @@ class ProductsController extends AppController
 			case 'Solo Vestidos':
 				$product_category = 'Product.products_categories_id = 4';
 				break;
-			case 'Solo Accesorios':
+			case 'Solo Accesorios y Bolsas':
 				$product_category = 'Product.products_categories_id = 5';
 				break;
 			case 'Solo Calzado':
@@ -469,7 +469,7 @@ class ProductsController extends AppController
 			case 'Solo Vestidos':
 				$product_category = 'Product.products_categories_id = 4';
 				break;
-			case 'Solo Accesorios':
+			case 'Solo Accesorios y Bolsas':
 				$product_category = 'Product.products_categories_id = 5';
 				break;
 			case 'Solo Calzado':

@@ -127,6 +127,8 @@ class StyleboothController extends AppController
 
 		$user = $this->Session->read('Auth.User');
 
+		$product_budget = str_replace('Outfit.budget', 'Product.price', $budget);
+
 		if (!empty($user)) {
 			if (empty($visit['skin_hair_type']) || empty($visit['body_type'])) {
 				$old_us = $this->UserStat->find('first', array(
@@ -146,6 +148,7 @@ class StyleboothController extends AppController
 			$products = $this->Product->find('all', array(
 				'conditions' => array(
 					'Product.status' => 1,
+					$product_budget,
 				),
 				'contain' => array(
 					'ProductStyle' => array(
@@ -181,6 +184,7 @@ class StyleboothController extends AppController
 			$products = $this->Product->find('all', array(
 				'conditions' => array(
 					'Product.status' => 1,
+					$product_budget,
 				),
 				'contain' => array(
 					'ProductStyle' => array(
@@ -214,6 +218,7 @@ class StyleboothController extends AppController
 		$outfits = $this->Outfit->find('all', array(
 			'conditions' => array(
 				$budget,
+				'Outfit.status' => 1,
 			),
 			'contain' => array(
 				'Product' => array(
