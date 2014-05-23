@@ -39,7 +39,7 @@ class CouponsController extends AppController {
 		$products = $this->Product->find('list', array('conditions' => array('status' => 1)));
 		$this->set('products', $products);
 
-		$stores = $this->Store->find('list');
+		$stores = $this->Store->find('list', array('conditions' => array('status' => 1)));
 		$this->set('stores', $stores);
 
 		if (!empty($this->data)) {
