@@ -115,7 +115,7 @@ echo $this->Form->input('price', array(
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-4 panel-talla">
 			<div class="panel panel-default panel-info">
 				<div class="panel-heading">Talla</div>
 				<div class="panel-body">
@@ -129,7 +129,7 @@ echo $this->Form->input('price', array(
 				</div>
 			</div>
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-4 panel-calzado">
 			<div class="panel panel-default panel-info">
 				<div class="panel-heading">Calzado</div>
 				<div class="panel-body">
@@ -154,5 +154,19 @@ echo $this->Form->end();
 <script type="text/javascript">
 	$(function (){
 		$('#ProductStoreId').chosen({allow_single_deselect: true, autocomplete: true});
+		$('#ProductProductsCategoriesId').change(function() {
+			$category = $(this).val();
+
+			if ($category == 5) {
+				$('.panel-talla').hide();
+				$('.panel-calzado').hide();
+			} else if ($category == 6) {
+				$('.panel-talla').hide();
+				$('.panel-calzado').show();
+			} else {
+				$('.panel-talla').show();
+				$('.panel-calzado').hide();
+			}
+		});
 	});
 </script>

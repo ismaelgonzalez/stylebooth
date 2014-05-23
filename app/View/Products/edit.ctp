@@ -129,34 +129,39 @@ echo $this->Form->input('price', array(
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-4">
-			<div class="panel panel-default panel-info">
-				<div class="panel-heading">Talla</div>
-				<div class="panel-body">
-					<?php foreach($talla as $t) { ?>
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" class="checkbox" name="data[ProductSize][size][]" id="ProductSizeSize" value="<?php echo $t; ?>" <?php if ( in_array( $t, $this->Checkbox->getSizeChecked( $product['ProductSize'], 'size' ) ) ) { echo 'checked'; } ?>><?php echo ucwords($t); ?>
-						</label>
+		<?php if ($product['Product']['products_categories_id'] != 5 && $product['Product']['products_categories_id'] != 6 ) { ?>
+			<div class="col-md-4 panel-talla" style="display: block;">
+				<div class="panel panel-default panel-info">
+					<div class="panel-heading">Talla</div>
+					<div class="panel-body">
+						<?php foreach($talla as $t) { ?>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" class="checkbox" name="data[ProductSize][size][]" id="ProductSizeSize" value="<?php echo $t; ?>" <?php if ( in_array( $t, $this->Checkbox->getSizeChecked( $product['ProductSize'], 'size' ) ) ) { echo 'checked'; } ?>><?php echo ucwords($t); ?>
+							</label>
+						</div>
+						<?php } ?>
 					</div>
-					<?php } ?>
 				</div>
 			</div>
-		</div>
-		<div class="col-md-4">
-			<div class="panel panel-default panel-info">
-				<div class="panel-heading">Calzado</div>
-				<div class="panel-body">
-					<?php foreach($calzado as $c) { ?>
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" class="checkbox" name="data[ProductSize][size][]" id="ProductSizeSize" value="<?php echo $c; ?>" <?php if ( in_array( $c, $this->Checkbox->getSizeChecked( $product['ProductSize'], 'size' ) ) ) { echo 'checked'; } ?>><?php echo ucwords($c); ?>
-						</label>
+		<?php }
+			if ($product['Product']['products_categories_id'] == 6) {
+		?>
+			<div class="col-md-4 panel-calzado" style="display: block;">
+				<div class="panel panel-default panel-info">
+					<div class="panel-heading">Calzado</div>
+					<div class="panel-body">
+						<?php foreach($calzado as $c) { ?>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" class="checkbox" name="data[ProductSize][size][]" id="ProductSizeSize" value="<?php echo $c; ?>" <?php if ( in_array( $c, $this->Checkbox->getSizeChecked( $product['ProductSize'], 'size' ) ) ) { echo 'checked'; } ?>><?php echo ucwords($c); ?>
+							</label>
+						</div>
+						<?php } ?>
 					</div>
-					<?php } ?>
 				</div>
 			</div>
-		</div>
+		<?php } ?>
 	</div>
 </div>
 <?php
@@ -168,5 +173,19 @@ echo $this->Form->end();
 <script type="text/javascript">
 	$(function (){
 		$('#ProductStoreId').chosen({allow_single_deselect: true, autocomplete: true});
+		$('#ProductProductsCategoriesId').change(function() {
+			$category = $(this).val();
+
+			if ($category == 5) {
+				$('.panel-talla').hide();
+				$('.panel-calzado').hide();
+			} else if ($category == 6) {
+				$('.panel-talla').hide();
+				$('.panel-calzado').show();
+			} else {
+				$('.panel-talla').show();
+				$('.panel-calzado').hide();
+			}
+		});
 	});
 </script>
