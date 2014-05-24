@@ -33,6 +33,8 @@ class Banner extends AppModel{
 		if(!empty($this->data[$this->alias]['image']['name'])){
 			$image_name = $this->uploadPic('banners');
 			$this->data[$this->alias]['image'] = $image_name;
+		} else {
+			$this->data[$this->alias]['image'] = null;
 		}
 
 		return true;
