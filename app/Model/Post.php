@@ -25,6 +25,9 @@ class Post extends AppModel
 			'order' => array(
 				'PostComment.id' => 'desc',
 			),
+			'conditions' => array(
+				'PostComment.status' => 1,
+			),
 		),
 	);
 

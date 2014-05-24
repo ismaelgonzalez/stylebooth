@@ -44,6 +44,9 @@
 						<?php echo $this->element('user_name', array('get_full_name' => true, 'id' => $c['user_id'])); ?>
 						 - <?php echo date('d M, Y', strtotime($c['comment_date'])); ?></h5>
 					<h6><?php echo $c['comment']; ?></h6>
+					<?php if ($logged_user['role'] == 'admin') { ?>
+					<p><a href="#row_comments" onclick="delComment(<?php echo $c['id'] . ',' . $main['Post']['id']; ?>)"><small>Borrar Comentario</small></a></p>
+					<?php } ?>
 				</div>
 			</div>
 			<?php } ?>
@@ -73,7 +76,6 @@
 				var $user_id      = $('#PostCommentUserId').val();
 				var $post_id      = $('#PostCommentPostId').val();
 				var $comment      = $('#PostCommentComment').val();
-				var $comments_div = $('.comments');
 
 				if ($comment == ''){
 					alert('Necesitas escribir un comentario antes de dar click en comentar.');
@@ -85,32 +87,7 @@
 					url: '/posts/addComment',
 					data: 'user_id=' + $user_id + "&post_id=" + $post_id + "&comment=" + $comment,
 					success: function(html) {
-						var obj = JSON.parse(html);
-						var result = '';
-
-						for (i=0; i<obj.length; i++) {
-							var $comment_date = new Date(obj[i].PostComment.comment_date);
-							result += '<div class="media" align="left">'
-								+ '<a class="pull-left thumbnail col-sm-2" href="#">';
-							if (obj[i].User.image != null) {
-								result += '<img class="media-object" src="/files/users/' + obj[i].User.image + '" alt="usuario de stylebooth">'
-							} else {
-								result += '<img class="media-object" src="/files/users/user.jpg" alt="usuario anonimo de stylebooth">'
-							}
-							result += '</a>'
-								+ '<div class="media-body">'
-								+ '<h5 class="media-heading">' + obj[i].User.first_name + ' ' + obj[i].User.last_name + ' - ' + $comment_date.ddmmyyyy() + '</h5>'
-								+ '<h6 >' + obj[i].PostComment.comment + '</h6>'
-								+ '</div>'
-								+ '</div>';
-						}
-
-						$('#PostCommentComment').val('');
-
-						$comments_div
-							.empty()
-							.fadeIn('slow')
-							.append(result);
+						setComments(html);
 					}
 				})
 
@@ -123,5 +100,48 @@
 			var dd = this.getDate().toString();
 
 			return (dd[1]?dd:"0"+dd[0]) + "-" + (mm[1]?mm:"0"+mm[0]) + yyyy;
+		}
+
+		function delComment(comment_id, post_id){
+			$.ajax({
+				type: 'post',
+				url: '/posts/delComment/' + comment_id + '/' + post_id,
+				success: function(html) {
+					setComments(html);
+				}
+			});
+		}
+
+		function setComments(json){
+			var obj = JSON.parse(json);
+			var result = '';
+			var $comments_div = $('.comments');
+
+			for (i=0; i<obj.length; i++) {
+				var $comment_date = new Date(obj[i].PostComment.comment_date);
+				result += '<div class="media" align="left">'
+					+ '<a class="pull-left thumbnail col-sm-2" href="#">';
+				if (obj[i].User.image != null) {
+					result += '<img class="media-object" src="/files/users/' + obj[i].User.image + '" alt="usuario de stylebooth">'
+				} else {
+					result += '<img class="media-object" src="/files/users/user.jpg" alt="usuario anonimo de stylebooth">'
+				}
+				result += '</a>'
+					+ '<div class="media-body">'
+					+ '<h5 class="media-heading">' + obj[i].User.first_name + ' ' + obj[i].User.last_name + ' - ' + $comment_date.ddmmyyyy() + '</h5>'
+					+ '<h6 >' + obj[i].PostComment.comment + '</h6>'
+					<?php if ($logged_user['role'] == 'admin') { ?>
+					+ '<p><a href="#row_comments" onclick="delComment(' + obj[i].PostComment.id + ',' + obj[i].PostComment.post_id + ')"><small>Borrar Comentario</small></a></p>'
+					<?php } ?>
+					+ '</div>'
+					+ '</div>';
+			}
+
+			$('#PostCommentComment').val('');
+
+			$comments_div
+				.empty()
+				.fadeIn('slow')
+				.append(result);
 		}
 	</script>
