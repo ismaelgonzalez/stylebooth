@@ -55,7 +55,15 @@ class UsersController extends AppController
 		$this->set('pageHeader', 'Usuarios');
 		$this->set('sectionTitle', 'Lista de Usuarios');
 
-		$users = $this->paginate('User');
+		$this->Paginator->settings= array(
+			'conditions' => array(
+				'User.status' => 1,
+			),
+			'order' => array(
+				'User.id' => 'DESC',
+			),
+		);
+		$users = $this->Paginator->paginate('User');
 
 		$this->set('users', $users);
 	}

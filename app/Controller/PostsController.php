@@ -128,7 +128,7 @@ class PostsController extends AppController
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('lista', 'noticia_detail', 'blog_lista', 'blog_detail', 'addComment');
+		$this->Auth->allow('lista', 'noticia_detail', 'blog_lista', 'blog_detail', 'addComment', 'delComment');
 	}
 
 	public function lista() {
@@ -256,5 +256,37 @@ class PostsController extends AppController
 
 			echo json_encode($comments);
 		}
+	}
+
+	public function delComment($comment_id, $post_id) {
+		$this->autoRender = false;
+
+		$user = $this->Session->read('Auth.User');
+
+		if (empty($user) || $user['role'] != 'admin') {
+			return $this->redirect('/');
+		}
+
+		$this->PostComment->recursive = -1;
+		$pc = $this->PostComment->findById($comment_id);
+
+		$pc['PostComment']['status'] = 0;
+		$this->PostComment->save($pc);
+
+		$this->PostComment->recursive = -1;
+		$comments = $this->PostComment->find('all', array(
+			'conditions' => array(
+				'PostComment.status' => 1,
+				'PostComment.post_id' => $post_id,
+			),
+			'contain' => array(
+				'User',
+			),
+			'order' => array(
+				'PostComment.id' => 'desc',
+			),
+		));
+
+		echo json_encode($comments);
 	}
 }

@@ -21,7 +21,7 @@
 		<?php foreach($banners as $b) { ?>
 		<tr>
 			<td><?php echo $this->Status->getPosition($b['Banner']['type']); ?></td>
-			<td><?php echo $b['Banner']['image']; ?></td>
+			<td><?php if ($b['Banner']['image']) { echo $b['Banner']['image']; } else { echo "<span class='label label-info'>AdSense</span>"; } ?></td>
 			<td><?php echo $b['Banner']['link']; ?></td>
 			<td><?php echo date('d/M/Y', strtotime($b['Banner']['banner_date'])); ?></td>
 			<td><?php echo $this->Status->getStatus($b['Banner']['status']); ?></td>

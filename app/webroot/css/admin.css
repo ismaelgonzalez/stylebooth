@@ -101,3 +101,9 @@ body {
 	color: red;
 	cursor: pointer;
 }
+.panel-talla {
+	display: none;
+}
+.panel-calzado {
+	display: none;
+}
