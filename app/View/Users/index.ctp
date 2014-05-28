@@ -17,6 +17,7 @@ if (sizeof($users) < 1) {
 			<th>Rol</th>
 			<th>Status</th>
 			<th></th>
+			<th></th>
 		</tr>
 		</thead>
 		<tbody>
@@ -35,11 +36,13 @@ if (sizeof($users) < 1) {
 				<a href="/users/cupones/<?php echo $u['User']['id']; ?>"><i class="icon-tags" data-toggle="tooltip" title="Ver Cupones del Usuario"></i></a> |
 				<a href="/users/stats/<?php echo $u['User']['id']; ?>"><i class="icon-bar-chart" data-toggle="tooltip" title="Ver Stats del Usuario"></i></a>
 			</td>
+			<td align="center" class="checkboxes"><input class="chk_id" type="checkbox" name="batch_<?php echo $u['User']['id']; ?>" id="batch_<?php echo $u['User']['id']; ?>" value="<?php echo $u['User']['id']; ?>"></td>
 		</tr>
 			<?php } ?>
 		</tbody>
 		<tfoot>
-			<td colspan="5"><?php echo $this->Paginator->numbers(); ?></td>
+			<td colspan="8"><?php echo $this->Paginator->numbers(); ?></td>
+			<td align="center"><span class="btn btn-bg btn-danger borrar_grupo" data-toggle="tooltip" title="Borrar En Grupo"><i class="icon-bug"></i></span></td>
 		</tfoot>
 	</table>
 </div>
@@ -70,6 +73,18 @@ if (sizeof($users) < 1) {
 			var id = $("#deleteID").val();
 			$("#deleteUser").modal('hide');
 			window.open('/users/delete/'+id, '_parent');
+		});
+
+		$('.borrar_grupo').click(function(){
+			var $selected = "";
+			var $checked = $('.checkboxes').children("input:checked");
+			console.log($checked);
+
+			$checked.each(function(){
+				$selected += $(this).val() + "_";
+			});
+
+			console.log($selected);
 		});
 	});
 
