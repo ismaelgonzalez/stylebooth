@@ -97,4 +97,19 @@ class User extends AppModel
 
 		return $mail_txt;
 	}
+
+	public function forgotPasswordEmail($user){
+		$email = $user['User']['email'];
+		$salt        = Configure::read('Security.salt');
+		$passwd_key = md5($user['User']['id'] . $email .$salt );
+
+		$mail_txt = "Has solicitado recuperar tu contraseña.\n"
+			."Favor de dar click en el siguiente link:\n"
+			."http://".$_SERVER['SERVER_NAME']."/users/renewPassword/".$email."/".$passwd_key."\n"
+			. "Si no se abre el link, por favor copialo y pegalo en tu navegador.\n"
+			. "Si no mandaste esta peticion de recuperar contraseña, ignora este email.\n"
+			. "¡Gracias!";
+
+		return $mail_txt;
+	}
 }

@@ -87,6 +87,7 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 				<button type="submit" class="btn" style="font-size: 10px;">Sign in</button>
 				<div class="form-group" style="color: #FFFFFF; font-size: 10px;" >
 					¿No tiene cuenta? <a href="/users/register">Regístrese</a>
+					<br><a href="/users/forgotPassword">¿Olvidaste tu contraseña?</a>
 					<br />Entrar con faceook <div class="fb-login-button" data-max-rows="1" data-size="icon" data-show-faces="false" data-auto-logout-link="false"></div>
 				</div>
 			</form>

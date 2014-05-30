@@ -25,7 +25,7 @@ class UsersController extends AppController
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('login', 'logout', 'register', 'registered', 'confirm', 'getUser', 'profile', 'editSkinHairType', 'editBodyType');
+		$this->Auth->allow('login', 'logout', 'register', 'registered', 'confirm', 'getUser', 'profile', 'editSkinHairType', 'editBodyType', 'forgotPassword', 'renewPassword');
 	}
 
 	public function isAuthorized($user) {
@@ -412,5 +412,79 @@ class UsersController extends AppController
 
 		$this->Session->setFlash('Se desactivaron los Usuarios con exito!', 'default', array('class'=>'alert alert-success'));
 		return $this->redirect('/users/');
+	}
+
+	public function forgotPassword(){
+		$this->layout = 'login';
+
+		if (!empty($this->data)) {
+			$user = $this->User->find('first', array(
+				'conditions' => array(
+					'User.status' => 1,
+					'User.email' => $this->data['User']['email']
+				),
+				'recursive' => -1,
+			));
+
+			if (!empty($user)) {
+				$forgorPasswordEmail = $this->User->forgotPasswordEmail($user);
+
+				App::uses('CakeEmail', 'Network/Email');
+				$Email = new CakeEmail('smtp');
+				$Email->from(array('no-reply@stylebooth.com' => 'Stylebooth'))
+					->to($user['User']['email'])
+					->subject('Recupera tu contraseña de Stylebooth')
+					->send($forgorPasswordEmail);
+
+				$this->Session->setFlash('Se te ha enviado un email para recuperar tu contraseña. Gracias.', 'default', array('class'=>'alert alert-success'));
+			}else {
+				$this->Session->setFlash(__('Email invalido.'), 'default', array('class' => 'alert alert-danger'));
+			}
+		}
+
+		$this->set('title_for_layout', 'Recupera tu contraseña');
+	}
+
+	public function renewPassword($email, $passwd_key) {
+		$this->layout = 'login';
+		$this->set('email', $email);
+		$this->set('passwd_key', $passwd_key);
+
+		//find user by email
+		$user = $this->User->find('first', array(
+			'conditions' => array(
+				'User.status' => 1,
+				'User.email' => $email,
+			),
+			'recursive' => -1,
+		));
+
+		if (!empty($user)) {
+			//make passwd_key
+			$email_to_compare      = $user['User']['email'];
+			$salt                  = Configure::read('Security.salt');
+			$passwd_key_to_compare = md5($user['User']['id'] . $email_to_compare .$salt );
+
+			//compare to passwd_key
+			if ($passwd_key != $passwd_key_to_compare) {
+				$this->Session->setFlash(__('Lo Sentimos mucho, la clave de verificación es invalida.'), 'default', array('class' => 'alert alert-danger'));
+				return $this->redirect('/');
+			}
+
+			if(!empty($this->data)){
+				if ($this->data['User']['password'] === $this->data['User']['confirm_password']) {
+					$user['User']['password'] = $this->data['User']['password'];
+					if ($this->User->save($user)) {
+						$this->Session->setFlash('¡Se ha actualizado tu contraseña! Inicia sesion con tu nueva contraseña.', 'default', array('class'=>'alert alert-success'));
+
+						return $this->redirect('/users/login');
+					}
+				}
+			}
+		}else {
+			$this->Session->setFlash(__('Email invalido.'), 'default', array('class' => 'alert alert-danger'));
+			return $this->redirect('/');
+		}
+
 	}
 }
