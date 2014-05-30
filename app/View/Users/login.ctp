@@ -26,6 +26,10 @@ echo $this->Form->input('password', array(
 	'between' => '<div class="col-lg-4">',
 	'placeholder' => "Clave de Acceso",
 ));
-
+?>
+<p>
+	<h4><a href="/users/forgotPassword">¿Se te olvido tu contraseña?</a> </h4>
+</p>
+<?php
 echo $this->Form->submit('Ingresar', array('formnovalidate' => true, 'class' => 'btn btn-lg btn-primary'));
 echo $this->Form->end();
