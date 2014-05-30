@@ -255,4 +255,30 @@ class OutfitsController extends AppController
 		}
 
 	}
+
+	public function batch_delete($id_list) {
+		$this->autoRender = false;
+		$id_arr = explode("_", $id_list);
+
+		foreach ($id_arr as $id) {
+			if (!empty($id)) {
+				$outfit = $this->Outfit->find('first', array(
+					'conditions' => array(
+						'Outfit.id' => $id
+					),
+					'fields' => array(
+						'Outfit.id',
+						'Outfit.status'
+					),
+					'recursive' => '1',
+				));
+
+				$outfit['Outfit']['status'] = 0;
+				$this->Outfit->save($outfit);
+			}
+		}
+
+		$this->Session->setFlash('Se desactivaron los Outfits con exito!', 'default', array('class'=>'alert alert-success'));
+		return $this->redirect('/outfits/');
+	}
 }

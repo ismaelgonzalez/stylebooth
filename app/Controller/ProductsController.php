@@ -620,4 +620,30 @@ class ProductsController extends AppController
 
 		echo $options;
 	}
+
+	public function batch_delete($id_list) {
+		$this->autoRender = false;
+		$id_arr = explode("_", $id_list);
+
+		foreach ($id_arr as $id) {
+			if (!empty($id)) {
+				$product = $this->Product->find('first', array(
+					'conditions' => array(
+						'Product.id' => $id
+					),
+					'fields' => array(
+						'Product.id',
+						'Product.status'
+					),
+					'recursive' => '1',
+				));
+
+				$product['Product']['status'] = 0;
+				$this->Product->save($product);
+			}
+		}
+
+		$this->Session->setFlash('Se desactivaron los Productos con exito!', 'default', array('class'=>'alert alert-success'));
+		return $this->redirect('/products/');
+	}
 }

@@ -387,4 +387,30 @@ class UsersController extends AppController
 			return $this->redirect('/users/profile/' . $user['id'] );
 		}
 	}
+
+	public function batch_delete($id_list) {
+		$this->autoRender = false;
+		$id_arr = explode("_", $id_list);
+
+		foreach ($id_arr as $id) {
+			if (!empty($id)) {
+				$user = $this->User->find('first', array(
+					'conditions' => array(
+						'User.id' => $id
+					),
+					'fields' => array(
+						'User.id',
+						'User.status'
+					),
+					'recursive' => '1',
+				));
+
+				$user['User']['status'] = 0;
+				$this->User->save($user);
+			}
+		}
+
+		$this->Session->setFlash('Se desactivaron los Usuarios con exito!', 'default', array('class'=>'alert alert-success'));
+		return $this->redirect('/users/');
+	}
 }

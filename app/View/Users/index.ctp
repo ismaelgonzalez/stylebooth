@@ -65,6 +65,24 @@ if (sizeof($users) < 1) {
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<div id="deleteBatch" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Stylebooth Admin</h4>
+			</div>
+			<div class="modal-body">
+				<p>Estas Seguro que quieres borrar estos Usuarios?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				<button id="confirmBatchDelete" type="button" class="btn btn-danger">Desactivar Usuarios</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("[data-toggle=tooltip]").tooltip({placement: 'right'});
@@ -76,15 +94,20 @@ if (sizeof($users) < 1) {
 		});
 
 		$('.borrar_grupo').click(function(){
+			$("#deleteBatch").modal('show');
+		});
+
+		$('#confirmBatchDelete').click(function() {
+			$("#deleteBatch").modal('hide');
+
 			var $selected = "";
 			var $checked = $('.checkboxes').children("input:checked");
-			console.log($checked);
 
 			$checked.each(function(){
 				$selected += $(this).val() + "_";
 			});
 
-			console.log($selected);
+			window.open('/users/batch_delete/' + $selected, '_parent');
 		});
 	});
 

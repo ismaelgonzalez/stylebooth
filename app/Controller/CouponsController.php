@@ -194,4 +194,30 @@ class CouponsController extends AppController {
 			}
 		}
 	}
+
+	public function batch_delete($id_list) {
+		$this->autoRender = false;
+		$id_arr = explode("_", $id_list);
+
+		foreach ($id_arr as $id) {
+			if (!empty($id)) {
+				$coupon = $this->Coupon->find('first', array(
+					'conditions' => array(
+						'Coupon.id' => $id
+					),
+					'fields' => array(
+						'Coupon.id',
+						'Coupon.status'
+					),
+					'recursive' => '1',
+				));
+
+				$coupon['Coupon']['status'] = 0;
+				$this->Coupon->save($coupon);
+			}
+		}
+
+		$this->Session->setFlash('Se desactivaron los Cupones con exito!', 'default', array('class'=>'alert alert-success'));
+		return $this->redirect('/coupons/');
+	}
 }

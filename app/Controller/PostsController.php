@@ -36,6 +36,9 @@ class PostsController extends AppController
 				'Post.status' => 1,
 				'Post.type' => $type,
 			),
+			'order' => array(
+				'Post.id' => 'DESC',
+			),
 		));
 
 		$this->set('posts', $posts);
@@ -288,5 +291,36 @@ class PostsController extends AppController
 		));
 
 		echo json_encode($comments);
+	}
+
+	public function batch_delete($id_list, $type) {
+		$this->autoRender = false;
+		$id_arr = explode("_", $id_list);
+
+		foreach ($id_arr as $id) {
+			if (!empty($id)) {
+				$post = $this->Post->find('first', array(
+					'conditions' => array(
+						'Post.id' => $id
+					),
+					'fields' => array(
+						'Post.id',
+						'Post.status'
+					),
+					'recursive' => '1',
+				));
+
+				$post['Post']['status'] = 0;
+				$this->Post->save($post);
+			}
+		}
+
+		if ($type == 'n') {
+			$this->Session->setFlash('Se desactivaron las Noticias con exito!', 'default', array('class'=>'alert alert-success'));
+			return $this->redirect('/noticias/index/n');
+		} else {
+			$this->Session->setFlash('Se desactivaron los Blogs con exito!', 'default', array('class'=>'alert alert-success'));
+			return $this->redirect('/blogs/index/b');
+		}
 	}
 }

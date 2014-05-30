@@ -28,6 +28,9 @@ class StoresController extends AppController
 			'conditions' => array(
 				'Store.status' => 1,
 			),
+			'order' => array(
+				'Store.id' => 'DESC',
+			),
 		);
 		$stores = $this->Paginator->paginate('Store');
 
@@ -196,5 +199,31 @@ class StoresController extends AppController
 		} else {
 			echo $store['Store']['name'];
 		}
+	}
+
+	public function batch_delete($id_list) {
+		$this->autoRender = false;
+		$id_arr = explode("_", $id_list);
+
+		foreach ($id_arr as $id) {
+			if (!empty($id)) {
+				$store = $this->Store->find('first', array(
+					'conditions' => array(
+						'Store.id' => $id
+					),
+					'fields' => array(
+						'Store.id',
+						'Store.status'
+					),
+					'recursive' => '1',
+				));
+
+				$store['Store']['status'] = 0;
+				$this->Store->save($store);
+			}
+		}
+
+		$this->Session->setFlash('Se desactivaron las Tiendas con exito!', 'default', array('class'=>'alert alert-success'));
+		return $this->redirect('/stores/');
 	}
 }

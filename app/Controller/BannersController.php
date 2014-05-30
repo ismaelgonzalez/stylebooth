@@ -112,4 +112,30 @@ class BannersController extends AppController {
 			$this->set('banner', $banner);
 		}
 	}
+
+	public function batch_delete($id_list) {
+		$this->autoRender = false;
+		$id_arr = explode("_", $id_list);
+
+		foreach ($id_arr as $id) {
+			if (!empty($id)) {
+				$banner = $this->Banner->find('first', array(
+					'conditions' => array(
+						'Banner.id' => $id
+					),
+					'fields' => array(
+						'Banner.id',
+						'Banner.status'
+					),
+					'recursive' => '1',
+				));
+
+				$banner['Banner']['status'] = 0;
+				$this->Banner->save($banner);
+			}
+		}
+
+		$this->Session->setFlash('Se desactivaron los Banners con exito!', 'default', array('class'=>'alert alert-success'));
+		return $this->redirect('/banners/');
+	}
 }
