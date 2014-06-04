@@ -11,7 +11,9 @@ class StyleboothController extends AppController
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('index','filter1','filter2','filter3','filter4', 'my_booth', 'deleteFromWishlist', 'getProductsCategoryList');
+		$this->Auth->allow('index','filter1','filter2','filter3','filter4', 'my_booth', 'deleteFromWishlist', 'getProductsCategoryList',
+			'contacto', 'anunciate', 'mision', 'nosotros'
+		);
 	}
 
 	public function isAuthorized($user) {
@@ -356,5 +358,37 @@ class StyleboothController extends AppController
 			$this->set(compact('pc'));
 		}
 
+	}
+
+	public function contacto() {
+		$this->set('title_for_layout', 'Contacto');
+
+		if (!empty($this->data)) {
+			if (!empty($this->data['Stylebooth']['email']) || !empty($this->data['Stylebooth']['nombre']) || !empty($this->data['Stylebooth']['comentarios'])) {
+				App::uses('CakeEmail', 'Network/Email');
+				$Email = new CakeEmail('smtp');
+				$Email->from(array($this->data['Stylebooth']['email'] => $this->data['Stylebooth']['nombre']. ' ' . $this->data['Stylebooth']['email']))
+					->to('correo@promktmoda.com')
+					->subject('Un nuevo email de la forma de contacto de Stylebooth')
+					->send($this->data['Stylebooth']['comentarios']);
+
+				$this->Session->setFlash('Se han enviado tus comentarios. Gracias.', 'default', array('class'=>'alert alert-success'));
+				return $this->redirect('/');
+			} else {
+				$this->Session->setFlash('Tienes que llenar todos los campos para mandar tu comentario.', 'default', array('class'=>'alert alert-danger'));
+			}
+		}
+	}
+
+	public function anunciate() {
+		$this->set('title_for_layout', 'Anunciate');
+	}
+
+	public function mision() {
+		$this->set('title_for_layout', 'Misión');
+	}
+
+	public function nosotros() {
+		$this->set('title_for_layout', 'Nosotros');
 	}
 }

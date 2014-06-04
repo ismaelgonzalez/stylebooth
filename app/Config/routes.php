@@ -70,6 +70,12 @@
 
 //getcoupon
 	Router::connect('/getcoupon/*', array('controller' => 'coupons', 'action' => 'register'));
+
+//footer
+Router::connect('/contacto', array('controller' => 'stylebooth', 'action' => 'contacto'));
+Router::connect('/anunciate', array('controller' => 'stylebooth', 'action' => 'anunciate'));
+Router::connect('/mision', array('controller' => 'stylebooth', 'action' => 'mision'));
+Router::connect('/nosotros', array('controller' => 'stylebooth', 'action' => 'nosotros'));
 /**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.

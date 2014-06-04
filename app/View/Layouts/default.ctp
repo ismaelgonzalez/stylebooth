@@ -113,7 +113,12 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 		<div class="row" align="center">
 			<div class="col-md-12">
 				<div id="bannerBottom"><?php echo $this->element('banner', array('type' => 'D')); ?></div>
-				<h5><a href="#">Nosotros</a> &nbsp;&nbsp; <a href="#">Misión</a> &nbsp;&nbsp;<a href="#">Anunciate</a> &nbsp;&nbsp;<a href="#">Contacto</a></h5>
+				<h5>
+					<a href="/nosotros">Nosotros</a> &nbsp;&nbsp;
+					<a href="/mision">Misión</a> &nbsp;&nbsp;
+					<a href="/anunciate">Anunciate</a> &nbsp;&nbsp;
+					<a href="/contacto">Contacto</a>
+				</h5>
 				<h6>Stylebooth <?php echo date('Y'); ?></h6>
 			</div>
 		</div>
