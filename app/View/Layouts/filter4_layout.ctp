@@ -91,8 +91,8 @@
 			<br /><br /><br /><br /><br /><br /><br /><br /><br />
 			<a href="/users/register" style="text-decoration: underline; font-size: 14px;">
 				Registrate aqui para obtener cupones de descuentos en los resultados de tus productos</a>
-			<br /><br /> O Entra con faceook
-			<div class="fb-login-button" data-max-rows="1" data-size="icon" data-show-faces="false" data-auto-logout-link="false"></div>
+			<!--<br /><br /> O Entra con faceook
+			<div class="fb-login-button" data-max-rows="1" data-size="icon" data-show-faces="false" data-auto-logout-link="false"></div>-->
 			<br /><br />
 		<?php } ?>
 			<br>
