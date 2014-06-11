@@ -179,8 +179,7 @@ class StyleboothController extends AppController
 					'ProductBodyType.body_type_id' => $visit['body_type'],
 					'ProductSkinHairType.skin_hair_type_id' => $visit['skin_hair_type'],
 					'OR' => array(
-						array('ProductSize.size' => $visit['size']),
-						array('ProductSize.size' => $visit['foot_size']),
+						array('ProductSize.size' => array($visit['size']), $visit['foot_size']),
 					),
 				),
 			));
@@ -192,8 +191,7 @@ class StyleboothController extends AppController
 					'Product.price <=' => $budget,
 					'ProductStyle.style_id' => $visit['style'],
 					'OR' => array(
-						'ProductSize.size' => $visit['size'],
-						'ProductSize.size' => $visit['foot_size'],
+						array('ProductSize.size' => array($visit['size']), $visit['foot_size']),
 					),
 				),
 			));
