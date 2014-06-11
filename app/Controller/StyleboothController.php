@@ -171,6 +171,7 @@ class StyleboothController extends AppController
 			}
 
 			$products = $this->Product->find('all', array(
+				'fields' => array('DISTINCT *'),
 				'joins' => $joins,
 				'conditions' => array(
 					'Product.status' => 1,
@@ -179,20 +180,19 @@ class StyleboothController extends AppController
 					'ProductBodyType.body_type_id' => $visit['body_type'],
 					'ProductSkinHairType.skin_hair_type_id' => $visit['skin_hair_type'],
 					'OR' => array(
-						array('ProductSize.size' => array($visit['size']), $visit['foot_size']),
+						array('ProductSize.size' => array($visit['size'], $visit['foot_size'])),
 					),
 				),
 			));
 		} else {	//no logged in user
 			$products = $this->Product->find('all', array(
+				'fields' => array('DISTINCT *'),
 				'joins' => $joins,
 				'conditions' => array(
 					'Product.status' => 1,
 					'Product.price <=' => $budget,
 					'ProductStyle.style_id' => $visit['style'],
-					'OR' => array(
-						array('ProductSize.size' => array($visit['size']), $visit['foot_size']),
-					),
+					'ProductSize.size' => array($visit['size'], $visit['foot_size']),
 				),
 			));
 		}
