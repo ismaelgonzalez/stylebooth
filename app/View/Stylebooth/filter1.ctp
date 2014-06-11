@@ -2,25 +2,22 @@
 	<h3>Selecciona tu Presupuesto</h3>
 	<div class="btn-group " data-toggle="buttons" >
 		<label class="btn btn-default">
-			<input type="radio" name="budget" class='budget' value="menos_500"> Menos de $500 MXN
+			<input type="radio" name="budget" class='budget' value="500"> $500
 		</label>
 		<label class="btn btn-default">
-			<input type="radio" name="budget" class='budget' value="500_800"> $500 - $800 MXN
+			<input type="radio" name="budget" class='budget' value="800"> $800 MXN
 		</label>
 		<label class="btn btn-default">
-			<input type="radio" name="budget" class='budget' value="800_1000"> $800 - $1000 MXN
+			<input type="radio" name="budget" class='budget' value="1000"> $1000 MXN
 		</label>
 		<label class="btn btn-default">
-			<input type="radio" name="budget" class='budget' value="1000_1500"> $1000 - $1500 MXN
+			<input type="radio" name="budget" class='budget' value="1500"> $1500 MXN
 		</label>
 		<label class="btn btn-default">
-			<input type="radio" name="budget" class='budget' value="1500_2000"> $1500 - $2000 MXN
+			<input type="radio" name="budget" class='budget' value="2000"> $2000 MXN
 		</label>
 		<label class="btn btn-default">
-			<input type="radio" name="budget" class='budget' value="2000_mas"> Mas de $2000 MXN
-		</label>
-		<label class="btn btn-default">
-			<input type="radio" name="budget" class='budget' value="cualquier presupuesto"> Cualquier presupuesto
+			<input type="radio" name="budget" class='budget' value="2001"> Cualquier presupuesto
 		</label>
 	</div>
 	<h3>Selecciona tu talla</h3>
@@ -38,7 +35,7 @@
 			<input type="radio" name="size" class='size' value="extra grande"> Extra Grande
 		</label>
 		<label class="btn btn-default">
-			<input type="radio" name="size" class='size' value="cualquier_talla"> Cualquier talla
+			<input type="radio" name="size" class='size' value="cualquier talla"> Cualquier talla
 		</label>
 	</div>
 	<br /><br />
@@ -92,7 +89,7 @@
 			$foot_size = $(".foot_size:checked").val();
 
 			if ($budget == '') {
-				$budget = 'cualquier presupuesto';
+				$budget = '2001';
 			}
 			if ($size == '') {
 				$size = 'cualquier talla';

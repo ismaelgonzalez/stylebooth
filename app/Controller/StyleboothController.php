@@ -46,8 +46,8 @@ class StyleboothController extends AppController
 
 		if (!empty($this->data)) {
 			$this->Session->write('Visit.budget', $this->data['budget']);
-			$this->Session->write('Visit.size', $this->data['size']);
-			$this->Session->write('Visit.foot_size', $this->data['foot_size']);
+			$this->Session->write('Visit.size', str_replace('_', ' ', $this->data['size']));
+			$this->Session->write('Visit.foot_size', str_replace('_', ' ', $this->data['foot_size']));
 		}
 
 		if (empty($user)) {
@@ -115,21 +115,44 @@ class StyleboothController extends AppController
 		//get related outfits from session data
 		$visit = $this->Session->read('Visit');
 
-		$budget = null;
-		if (!strstr($visit['budget'], 'cualquier')) {
-			if (strstr($visit['budget'], 'menos')) {
-				$budget = "Outfit.budget <= 500";
-			} elseif (strstr($visit['budget'], 'mas')) {
-				$budget = "Outfit.budget >= 2000";
-			} else {
-				$values = split("_", $visit['budget']);
-				$budget = "Outfit.budget BETWEEN '" . $values[0] . "' AND '". $values[1] . "'";
-			}
-		}
+		$budget = $visit['budget'];
 
 		$user = $this->Session->read('Auth.User');
 
-		$product_budget = str_replace('Outfit.budget', 'Product.price', $budget);
+		$joins = array(
+			array(
+				'table' => 'product_styles',
+				'alias' => 'ProductStyle',
+				'type' => 'left',
+				'conditions' => array(
+					'ProductStyle.product_id = Product.id',
+				),
+			),
+			array(
+				'table' => 'products_body_types',
+				'alias' => 'ProductBodyType',
+				'type' => 'left',
+				'conditions' => array(
+					'ProductBodyType.product_id = Product.id',
+				),
+			),
+			array(
+				'table' => 'products_skin_hair_types',
+				'alias' => 'ProductSkinHairType',
+				'type' => 'left',
+				'conditions' => array(
+					'ProductSkinHairType.product_id = Product.id',
+				),
+			),
+			array(
+				'table' => 'product_sizes',
+				'alias' => 'ProductSize',
+				'type' => 'left',
+				'conditions' => array(
+					'ProductSize.product_id = Product.id',
+				),
+			),
+		);
 
 		if (!empty($user)) {
 			if (empty($visit['skin_hair_type']) || empty($visit['body_type'])) {
@@ -148,64 +171,30 @@ class StyleboothController extends AppController
 			}
 
 			$products = $this->Product->find('all', array(
+				'joins' => $joins,
 				'conditions' => array(
 					'Product.status' => 1,
-					$product_budget,
-				),
-				'contain' => array(
-					'ProductStyle' => array(
-						'conditions' => array(
-							'ProductStyle.style_id' => $visit['style'],
-							'not' => array(
-								'ProductStyle.style_id' => null,
-							),
-						),
+					'Product.price <=' => $budget,
+					'ProductStyle.style_id' => $visit['style'],
+					'ProductBodyType.body_type_id' => $visit['body_type'],
+					'ProductSkinHairType.skin_hair_type_id' => $visit['skin_hair_type'],
+					'OR' => array(
+						array('ProductSize.size' => $visit['size']),
+						array('ProductSize.size' => $visit['foot_size']),
 					),
-					'ProductSkinHairType' => array(
-						'conditions' => array(
-							'ProductSkinHairType.skin_hair_type_id' => $visit['skin_hair_type'],
-						),
-					),
-					'ProductsBodyType' => array(
-						'conditions' => array(
-							'ProductsBodyType.body_type_id' => $visit['body_type'],
-						),
-					),
-					'ProductSize' => array(
-						'conditions' => array(
-							'OR' => array(
-								'ProductSize.size' => $visit['size'],
-								'ProductSize.size' => $visit['foot_size'],
-							),
-						),
-					),
-					'Store',
 				),
 			));
 		} else {	//no logged in user
 			$products = $this->Product->find('all', array(
+				'joins' => $joins,
 				'conditions' => array(
 					'Product.status' => 1,
-					$product_budget,
-				),
-				'contain' => array(
-					'ProductStyle' => array(
-						'conditions' => array(
-							'ProductStyle.style_id' => $visit['style'],
-							'not' => array(
-								'ProductStyle.style_id' => null,
-							),
-						),
+					'Product.price <=' => $budget,
+					'ProductStyle.style_id' => $visit['style'],
+					'OR' => array(
+						'ProductSize.size' => $visit['size'],
+						'ProductSize.size' => $visit['foot_size'],
 					),
-					'ProductSize' => array(
-						'conditions' => array(
-							'OR' => array(
-								'ProductSize.size' => $visit['size'],
-								'ProductSize.size' => $visit['foot_size'],
-							),
-						),
-					),
-					'Store',
 				),
 			));
 		}
@@ -219,7 +208,6 @@ class StyleboothController extends AppController
 
 		$outfits = $this->Outfit->find('all', array(
 			'conditions' => array(
-				$budget,
 				'Outfit.status' => 1,
 			),
 			'contain' => array(
