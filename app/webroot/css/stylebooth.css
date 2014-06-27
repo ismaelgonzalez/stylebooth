@@ -12,6 +12,9 @@ a:active {color:#F92672;}  /* selected link */
 .nav li a {
 	margin-top: 25px;
 }
+#popUpAd {
+	color: #666666;
+}
 #popUpAd .modal-header {
 	background: #000;
 	font-size: 18px;
@@ -22,7 +25,7 @@ a:active {color:#F92672;}  /* selected link */
 	font-weight: bold;
 }
 #popUpAd .modal-header .close {
-	color: #cccccc;
+	color: #666666;
 }
 #popUpAd .modal-body {
 	background: #000;
