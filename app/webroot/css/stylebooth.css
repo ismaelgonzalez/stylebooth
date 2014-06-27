@@ -12,3 +12,29 @@ a:active {color:#F92672;}  /* selected link */
 .nav li a {
 	margin-top: 25px;
 }
+#popUpAd .modal-header {
+	background: #000;
+	font-size: 18px;
+	text-align: center;
+	border-bottom: 0px;
+}
+#popUpAd .modal-header h4 {
+	font-weight: bold;
+}
+#popUpAd .modal-header .close {
+	color: #cccccc;
+}
+#popUpAd .modal-body {
+	background: #000;
+	font-size: 18px;
+	text-align: center;
+}
+.popUpAdClose {
+	font-size: 14px;
+	color: #ffffff;
+	text-align: right;
+}
+.popUpAdClose a {
+	color: #fff;
+	text-decoration: none;
+}

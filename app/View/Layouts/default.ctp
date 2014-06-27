@@ -123,6 +123,26 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 			</div>
 		</div>
 	</div>
+	<!-- Intro Ad -->
+	<div id="popUpAd" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4>Bienvenida a Stylebooth</h4>
+				</div>
+				<div class="modal-body">
+					<p style="font-weight: bold;">¡Obtén cupones de descuento y Asesoría de Imagen <strong>Gratis</strong>!</p>
+					<p style="font-size: 16px; color: #ffffff;">¡Regístrate como usuario!</p>
+					<p>
+						<button style="background: #F92672; color: #ffffff; border: 0px;" onclick="window.open('/users/register', '_parent')">Regístrate Aqui</button>
+					</p>
+					<p>¿Ya eres usuario? <a href="/users/login">¡Conéctate!</a></p>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	<!-- Intro Ad -->
 	<!-- Facebooklogin thing -->
 	<div id="fb-root"></div>
 	<script type="text/javascript">
@@ -134,6 +154,21 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 			document.getElementById("bannerLeft").innerHTML = "";
 			document.getElementById("bannerBottom").innerHTML = "";
 		}
+		$(function(){
+			<?php if (!$hasSeenPopUpAd) { ?>
+			$('#popUpAd').modal('show');
+			<?php } ?>
+
+			$('#popUpAd').on('hidden.bs.modal', function () {
+				$.ajax({
+					type: 'post',
+					url: '/stylebooth/hasSeenPopUpAd',
+					success: function(response){
+
+					}
+				});
+			})
+		});
 	</script>
 	<script>(function(d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0];

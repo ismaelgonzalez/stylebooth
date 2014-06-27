@@ -63,6 +63,12 @@ class AppController extends Controller {
 			$sectionTitle = $action . ' ' . $this->name;
 		}
 		$this->set('sectionTitle', $sectionTitle);
+
+		if (!$this->Session->read('hasSeenPopUpAd')) {
+			$this->Session->write('hasSeenPopUpAd', false);
+		}
+
+		$this->set('hasSeenPopUpAd', $this->Session->read('hasSeenPopUpAd'));
 	}
 
 	 public function isAuthorized($user) {

@@ -12,7 +12,7 @@ class StyleboothController extends AppController
 	public function beforeFilter() {
 		parent::beforeFilter();
 		$this->Auth->allow('index','filter1','filter2','filter3','filter4', 'my_booth', 'deleteFromWishlist', 'getProductsCategoryList',
-			'contacto', 'anunciate', 'mision', 'nosotros'
+			'contacto', 'anunciate', 'mision', 'nosotros', 'hasSeenPopUpAd'
 		);
 	}
 
@@ -376,5 +376,10 @@ class StyleboothController extends AppController
 
 	public function nosotros() {
 		$this->set('title_for_layout', 'Nosotros');
+	}
+
+	public function hasSeenPopUpAd() {
+		$this->autoRender = false;
+		$this->Session->write('hasSeenPopUpAd', true);
 	}
 }
