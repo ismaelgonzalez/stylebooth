@@ -76,6 +76,8 @@ Router::connect('/contacto', array('controller' => 'stylebooth', 'action' => 'co
 Router::connect('/anunciate', array('controller' => 'stylebooth', 'action' => 'anunciate'));
 Router::connect('/mision', array('controller' => 'stylebooth', 'action' => 'mision'));
 Router::connect('/nosotros', array('controller' => 'stylebooth', 'action' => 'nosotros'));
+
+Router::connect('/hasSeenPopUpAd', array('controller' => 'stylebooth', 'action' => 'hasSeenPopUpAd'));
 /**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.

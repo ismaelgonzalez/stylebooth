@@ -162,7 +162,7 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 			$('#popUpAd').on('hidden.bs.modal', function () {
 				$.ajax({
 					type: 'post',
-					url: '/stylebooth/hasSeenPopUpAd',
+					url: '/hasSeenPopUpAd',
 					success: function(response){
 
 					}
