@@ -41,3 +41,6 @@ a:active {color:#F92672;}  /* selected link */
 	color: #fff;
 	text-decoration: none;
 }
+.thumbnail {
+	min-height: 300px;
+}
