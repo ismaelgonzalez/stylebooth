@@ -1,30 +1,13 @@
-<?php
-$cakeDescription = __d('cake_dev', 'Stylebooth');
-?>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>
-		<?php echo $cakeDescription ?>:
-		<?php echo $title_for_layout; ?>
-	</title>
-	<?php
-		echo $this->Html->meta('icon');
-		echo $this->Html->css('bootstrap.min');
-		echo $this->Html->css('jquery-ui-1.10.4.custom.min');
-		echo $this->Html->css('stylebooth');
-
-		echo $this->Html->script('jquery-1.11.0.min');
-		echo $this->Html->script('jquery-ui-1.10.4.custom.min');
-		echo $this->Html->script('bootstrap.min');
-
-	echo $this->fetch('meta');
-	echo $this->fetch('css');
-	echo $this->fetch('script');
-	?>
+	<title>Stylebooth</title>
+	<!-- Bootstrap -->
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
 	<link href='http://fonts.googleapis.com/css?family=Cinzel' rel='stylesheet' type='text/css'>
 	<link rel='icon' href='favicon.ico'>
 	<link rel="stylesheet" href="stylebooth.css">
@@ -34,9 +17,20 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
-	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 </head>
-<body <?php echo $this->element('banner', array('type' => 'w')); ?>>
+<body>
+<!-- Facebooklogin thing --
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0];
+	if (d.getElementById(id)) return;
+	js = d.createElement(s); js.id = id;
+	js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=217858254898594";
+	fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!-- end facebook login -->
+
+<!-- Static navbar -->
 <div class="navbar navbar-inverse navbar-default" role="navigation" style=" margin-bottom: 0;">
 	<div class="container">
 		<div class="navbar-header">
@@ -46,97 +40,85 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/" style="height: 95px;"><img src="/stylebooth.png"  /></a>
+			<a class="navbar-brand" href="index.php" style="height: 95px;"><img src="stylebooth.png"  /></a>
 		</div>
 		<div class="navbar-collapse collapse" >
 			<ul class="nav navbar-nav" >
-				<li><a href="/noticias/lista/">Noticias</a></li>
-				<li><a href="/blogs/lista/">Blog</a></li>
-				<li><a href="/stores/lista">Tiendas</a></li>
-				<li><a href="/products/lista">Productos</a></li>
+				<li  ><br /><br /><a href="noticias.php">Noticias</a></li>
+				<li><br /><br /><a href="blog.php">Blog</a></li>
+				<li><br /><br /><a href="tiendas.php">Tiendas</a></li>
 			</ul>
-			<?php if (!empty($logged_user['id'])) { ?>
-				<ul class="nav navbar-nav navbar-right">
-					<li>
-						<a href="/users/profile/<?php echo $logged_user['id']; ?>">Hola <?php echo $logged_user['first_name'] . ' ' . $logged_user['last_name']; ?></a>
-					</li>
-					<?php if ($logged_user['role'] == 'admin') { ?>
-					<li><a href="/admin">Ir al Admin</a></li>
-					<?php } ?>
-					<li>
-						<a href="/users/logout">Salir</a>
-					</li>
-				</ul>
-			<?php } else { ?>
-			<form class="navbar-form navbar-right" role="form" action="/users/login" id="UserLoginForm" method="post">
+			<form class="navbar-form navbar-right" role="form">
 				<br /><br />
 				<div class="form-group">
-					<input placeholder="Email" class="form-control" style="font-size: 10px;" size="15" name="data[User][email]" type="email" id="UserEmail" required="required">
+					<input type="text" placeholder="Email" class="form-control" style="font-size: 10px;" size="15">
 				</div>
 				<div class="form-group">
-					<input type="password" placeholder="Password" class="form-control" style="font-size: 10px;" size="15" name="data[User][password]" id="UserPassword" required="required">
+					<input type="password" placeholder="Password" class="form-control" style="font-size: 10px;" size="15">
 				</div>
 				<button type="submit" class="btn" style="font-size: 10px;">Sign in</button>
 				<div class="form-group" style="color: #FFFFFF; font-size: 10px;" >
-					¿No tienes cuenta? <a href="/users/register">Regístrate</a>
-					<br><a href="/users/forgotPassword">¿Olvidaste tu contraseña?</a>
-					<!--<br />Entrar con faceook <div class="fb-login-button" data-max-rows="1" data-size="icon" data-show-faces="false" data-auto-logout-link="false"></div>-->
+					¿No tiene cuenta? <a href="#">Regístrese</a>
+					<br />Entrar con faceook <div class="fb-login-button" data-max-rows="1" data-size="icon" data-show-faces="false" data-auto-logout-link="false"></div>
 				</div>
 			</form>
-			<?php } ?>
 		</div><!--/.nav-collapse -->
 	</div>
 </div>
 <div class="container" style="background-color: #FFFFFF;">
 	<div class="row">
-		<div id="bannerLeft" class="col-md-2"><br /><?php echo $this->element('banner', array('type' => 'L')); ?></div>
-		<div class="col-md-8" align="center">
-			<div id="bannerTop"><?php echo $this->element('banner', array('type' => 'U')); ?></div>
-			<div class="row">
-				<p><?php echo $this->Session->flash(); ?></p>
-				<?php echo $this->fetch('content'); ?>
-			</div>
+		<div id="bannerTop" class="col-md-2">
+			<br />
+			<img src="banner2.gif" />
 		</div>
-		<div class="col-md-2"  id="banner2" ><br /><div id="bannerRight"><?php echo $this->element('banner', array('type' => 'R')); ?></div>
+		<div class="col-md-8" align="center">
+			<div id="bannerLeft">
+				<img src="banner1.gif" />
+			</div>
+			<h1>Selecciona tu Estilo</h1>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="thumbnail">
+						<a href="filter1.php"> <img src="image.png" alt="..."></a>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="thumbnail">
+						<a href="filter1.php"> <img src="image.png" alt="..."></a>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="thumbnail">
+						<a href="filter1.php"> <img src="image.png" alt="..."></a>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="thumbnail">
+						<a href="filter1.php"> <img src="image.png" alt="..."></a>
+					</div>
+				</div>
+			</div>
+			<h3><a href="#">Ver todos los productos</a> </h3>
+				<br />
+		</div>
+		<div class="col-md-2"  id="banner2" >
+			<br />
+			<div id="bannerRight">
+				<img src="banner1.gif" />
+			</div>
 		</div>
 	</div>
 	<div class="container" style="background-color: #FFFFFF;">
 		<div class="row" align="center">
 			<div class="col-md-12">
-				<div id="bannerBottom"><?php echo $this->element('banner', array('type' => 'D')); ?></div>
-				<h5>
-					<a href="/nosotros">Nosotros</a> &nbsp;&nbsp;
-					<a href="/mision">Misión</a> &nbsp;&nbsp;
-					<a href="/anunciate">Anunciate</a> &nbsp;&nbsp;
-					<a href="/contacto">Contacto</a>
-				</h5>
-				<h6>Stylebooth <?php echo date('Y'); ?></h6>
+				<div id="bannerBottom"><img src="banner2.gif" /></div>
+				<h5><a href="#">Nosotros</a> &nbsp;&nbsp; <a href="#">Misión</a> &nbsp;&nbsp;<a href="#">Anunciate</a> &nbsp;&nbsp;<a href="#">Contacto</a></h5>
+				<h6>Stylebooth 2014</h6>
 			</div>
 		</div>
 	</div>
-</div>
-
-<!-- Intro Ad -->
-<div id="popUpAd" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4>Bienvenida a Stylebooth</h4>
-			</div>
-			<div class="modal-body">
-				<p style="font-weight: bold;">¡Obtén cupones de descuento y Asesoría de Imagen <strong>Gratis</strong>!</p>
-				<p style="font-size: 16px; color: #ffffff;">¡Regístrate como usuario!</p>
-				<p>
-					<button style="background: #F92672; color: #ffffff; border: 0px;" onclick="window.open('/users/register', '_parent')">Regístrate Aqui</button>
-				</p>
-				<p>¿Ya eres usuario? <a href="/users/login">¡Conéctate!</a></p>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-	<!-- Intro Ad -->
-
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<script>
@@ -148,21 +130,6 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 			document.getElementById("bannerRight").innerHTML = "";
 			document.getElementById("bannerBottom").innerHTML = "";
 		}
-		$(function(){
-			<?php if (!$hasSeenPopUpAd) { ?>
-			$('#popUpAd').modal('show');
-			<?php } ?>
-
-			$('#popUpAd').on('hidden.bs.modal', function () {
-				$.ajax({
-					type: 'post',
-					url: '/hasSeenPopUpAd',
-					success: function(response){
-
-					}
-				});
-			})
-		});
 	</script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
