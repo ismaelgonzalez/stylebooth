@@ -7,12 +7,17 @@
 			$url = $store['Store']['url'];
 		}
 
-		$rs_has_http = strstr($store['Store']['redes_sociales'], 'http://');
-		if (!$rs_has_http) {
-			$redes_sociales = 'http://' . $store['Store']['redes_sociales'];
+		if (!empty($store['Store']['redes_sociales'])) {
+			$rs_has_http = strstr($store['Store']['redes_sociales'], 'http://');
+			if (!$rs_has_http) {
+				$redes_sociales = 'http://' . $store['Store']['redes_sociales'];
+			} else {
+				$redes_sociales = $store['Store']['redes_sociales'];
+			}
 		} else {
-			$redes_sociales = $store['Store']['redes_sociales'];
+			$redes_sociales = '';
 		}
+
 	?>
 <div class="row" align="left">
 	<div class="col-md-4">
@@ -26,7 +31,9 @@
 		<h5><b><?php echo $store['Store']['name']; ?></b></h5>
 		<?php echo $this->element('store_address', array('store_address' => $store['StoreAddress'][0])); ?>
 		<h5><a href="<?php echo $url; ?>"  target="_blank"><?php echo $url; ?></a> </h5>
+		<?php if (!empty($redes_sociales)) { ?>
 		<h6>Redes Sociales:<br><a href="<?php echo $redes_sociales; ?>"  target="_blank"><?php echo $redes_sociales; ?></a></h6>
+		<?php } ?>
 		<?php echo $store['Store']['google_maps']; ?>
 		<br />
 	</div>
