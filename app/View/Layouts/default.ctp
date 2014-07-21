@@ -148,7 +148,7 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 			document.getElementById("bannerBottom").innerHTML = "";
 		}
 		$(function(){
-			<?php if (!$hasSeenPopUpAd) { ?>
+			<?php if (!$hasSeenPopUpAd &&  $this->params['controller'] == 'stylebooth' && $this->params['action'] == 'index') { ?>
 			$('#popUpAd').modal('show');
 			<?php } ?>
 
