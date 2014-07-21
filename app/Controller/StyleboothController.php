@@ -1,7 +1,7 @@
 <?php
 class StyleboothController extends AppController
 {
-	public $uses = array('Style', 'SkinHairType', 'BodyType', 'Product', 'Outfit', 'OutfitProduct', 'UserStat', 'Wishlist', 'ProductsCategory');
+	public $uses = array('Style', 'SkinHairType', 'BodyType', 'Product', 'Outfit', 'OutfitProduct', 'UserStat', 'Wishlist', 'ProductsCategory', 'Email');
 
 	public $components = array(
 		'Session',
@@ -351,12 +351,12 @@ class StyleboothController extends AppController
 
 		if (!empty($this->data)) {
 			if (!empty($this->data['Stylebooth']['email']) || !empty($this->data['Stylebooth']['nombre']) || !empty($this->data['Stylebooth']['comentarios'])) {
-				App::uses('CakeEmail', 'Network/Email');
-				$Email = new CakeEmail('smtp');
-				$Email->from(array($this->data['Stylebooth']['email'] => $this->data['Stylebooth']['nombre']. ' ' . $this->data['Stylebooth']['email']))
-					->to('correo@promktmoda.com')
-					->subject('Un nuevo email de la forma de contacto de Stylebooth')
-					->send($this->data['Stylebooth']['comentarios']);
+				
+				$to = 'correo@promktmoda.com';
+				$from = 'contacto@stylebooth.mx';
+				$subject = 'Un nuevo email de la forma de contacto de Stylebooth';
+				$content = $this->data['Stylebooth']['nombre']. ' <' . $this->data['Stylebooth']['email'] . '> dice:\n' . $this->data['Stylebooth']['comentarios'];
+				$this->Email->sendEmail($to, $subject, $content, $from);
 
 				$this->Session->setFlash('Se han enviado tus comentarios. Gracias.', 'default', array('class'=>'alert alert-success'));
 				return $this->redirect('/');

@@ -1,7 +1,7 @@
 <?php
 class UsersController extends AppController
 {
-	public $uses = array('User', 'UserCoupon', 'Coupon', 'SkinHairType', 'BodyType', 'UserStat');
+	public $uses = array('User', 'UserCoupon', 'Coupon', 'SkinHairType', 'BodyType', 'UserStat', 'Email');
 
 	public $components = array(
 		'Session',
@@ -220,13 +220,9 @@ class UsersController extends AppController
 				$this->User->save($user);
 
 				$register_email = $this->User->confirmEmail($user);
-
-				App::uses('CakeEmail', 'Network/Email');
-				$Email = new CakeEmail('smtp');
-				$Email->from(array('no-reply@stylebooth.com' => 'Stylebooth'))
-					->to($user['User']['email'])
-					->subject('Confirma tu registro en Stylebooth')
-					->send($register_email);
+				$to = $user['User']['email'];
+				$subject = 'Confirma tu registro en Stylebooth';
+				$this->Email->sendEmail($to, $subject, $register_email);
 
 				$this->Session->setFlash('Tu Usuario ha sido registrado. Sigue las siguientes instrucciones.', 'default', array('class'=>'alert alert-success'));
 
@@ -427,14 +423,11 @@ class UsersController extends AppController
 			));
 
 			if (!empty($user)) {
-				$forgorPasswordEmail = $this->User->forgotPasswordEmail($user);
+				$forgotPasswordEmail = $this->User->forgotPasswordEmail($user);
 
-				App::uses('CakeEmail', 'Network/Email');
-				$Email = new CakeEmail('smtp');
-				$Email->from(array('no-reply@stylebooth.com' => 'Stylebooth'))
-					->to($user['User']['email'])
-					->subject('Recupera tu contraseña de Stylebooth')
-					->send($forgorPasswordEmail);
+				$to = $user['User']['email'];
+				$subject = 'Recupera tu contraseña de Stylebooth';
+				$this->Email->sendEmail($to, $subject, $forgotPasswordEmail);
 
 				$this->Session->setFlash('Se te ha enviado un email para recuperar tu contraseña. Gracias.', 'default', array('class'=>'alert alert-success'));
 			}else {
