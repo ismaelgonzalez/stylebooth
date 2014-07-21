@@ -106,7 +106,6 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 				<div id="bannerBottom"><?php echo $this->element('banner', array('type' => 'D')); ?></div>
 				<h5>
 					<a href="/nosotros">Nosotros</a> &nbsp;&nbsp;
-					<a href="/mision">Misión</a> &nbsp;&nbsp;
 					<a href="/anunciate">Anunciate</a> &nbsp;&nbsp;
 					<a href="/contacto">Contacto</a>
 				</h5>

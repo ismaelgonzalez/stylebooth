@@ -52,6 +52,10 @@ class Product extends AppModel{
 			'className' => 'Coupon',
 			'foreignKey' => 'product_id'
 		),
+		'ProductImage' => array(
+			'className' => 'ProductImage',
+			'foreignKey' => 'product_id'
+		),
 	);
 
 	public $belongsTo = array(

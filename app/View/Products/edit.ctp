@@ -86,6 +86,21 @@ echo $this->Form->input('price', array(
 	'default' => $product['Product']['price'],
 ));
 ?>
+<div class="panel panel-default panel-info">
+	<div class="panel-heading">Imagenes Adicionales</div>
+	<div class="panel-body">
+		<div class="row" style="padding: 10px;">
+			<h5>Productos Existentes</h5>
+			<?php
+				foreach ($product['ProductImage'] as $p) {
+					$this->Product->outfit_product_thumbnail($p, 75);
+				}
+			?>
+			<input type="hidden" name="data[Product][ChosenImages]" id="ProductChosenImages" value="<?php echo implode(",",$product_images); ?>">
+		</div>
+		<p><a id="addAdditionalImage" class="btn btn-success"><i class="icon-plus"></i></a> Agregar Imagen Adicional</p>
+	</div>
+</div>
 <div class="well">
 	<div class="row">
 		<div class="col-md-4">
@@ -187,5 +202,33 @@ echo $this->Form->end();
 				$('.panel-calzado').hide();
 			}
 		});
+
+		var cx = 1;
+		$("#addAdditionalImage").click(function(){
+			$(this).before("<div class='col-lg-12 ai_" + cx + "' style='margin-bottom: 10px'><label for='ProductOtherImage'>Imagen Adicional</label><div class=''><input name='data[Product][OtherImage][]' type='file' id='ProductOtherImage' style='margin-right: 0px; display: inline-block;'><button type='button' class='btn-sm btn-danger' onclick='removeThis(" + cx + ")'>X</button></div></div>");
+			cx++;
+			console.log(cx);
+		});
 	});
+
+	function removeThis(cx_value) {
+		console.log(cx_value);
+		var $image_row = $(".ai_" + cx_value);
+		$image_row.remove();
+	}
+
+	function delProd(prod_id){
+		$("#prod_"+prod_id).remove();
+		var arrProd = $("#ProductChosenImages").val().split(',');
+
+		for (i=0; i<arrProd.length; i++) {
+			if (arrProd[i] == prod_id) {
+				arrProd.splice(i, 1);
+			}
+		}
+
+		$('#ProductChosenImages').val(arrProd.toString());
+
+		rest_budget(prod_id);
+	}
 </script>

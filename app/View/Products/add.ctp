@@ -75,6 +75,12 @@ echo $this->Form->input('price', array(
 	'class' => 'form-control',
 ));
 ?>
+<div class="panel panel-default panel-info">
+	<div class="panel-heading">Imagenes Adicionales</div>
+	<div class="panel-body">
+		<p><a id="addAdditionalImage" class="btn btn-success"><i class="icon-plus"></i></a> Agregar Imagen Adicional</p>
+	</div>
+</div>
 <div class="well">
 	<div class="row">
 		<div class="col-md-4">
@@ -153,6 +159,7 @@ echo $this->Form->end();
 ?>
 <script type="text/javascript">
 	$(function (){
+		var cx = 1;
 		$('#ProductStoreId').chosen({allow_single_deselect: true, autocomplete: true});
 		$('#ProductProductsCategoriesId').change(function() {
 			$category = $(this).val();
@@ -168,5 +175,16 @@ echo $this->Form->end();
 				$('.panel-calzado').hide();
 			}
 		});
+		$("#addAdditionalImage").click(function(){
+			$(this).before("<div class='col-lg-12 ai_" + cx + "' style='margin-bottom: 10px'><label for='ProductOtherImage'>Imagen Adicional</label><div class=''><input name='data[Product][OtherImage][]' type='file' id='ProductOtherImage' style='margin-right: 0px; display: inline-block;'><button type='button' class='btn-sm btn-danger' onclick='removeThis(" + cx + ")'>X</button></div></div>");
+			cx++;
+			console.log(cx);
+		});
 	});
+
+	function removeThis(cx_value) {
+		console.log(cx_value);
+		var $image_row = $(".ai_" + cx_value);
+		$image_row.remove();
+	}
 </script>

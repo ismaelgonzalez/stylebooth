@@ -2,7 +2,8 @@
 class ProductsController extends AppController
 {
 	public $uses = array('Product', 'ProductsCategory', 'Store', 'Style', 'SkinHairType', 'BodyType',
-		'ProductStyle', 'ProductsSkinHairType', 'ProductsBodyType', 'ProductSize', 'Coupon', 'Wishlist', 'Outfit'
+		'ProductStyle', 'ProductsSkinHairType', 'ProductsBodyType', 'ProductSize', 'Coupon', 'Wishlist', 'Outfit',
+		'ProductImage'
 	);
 
 	public $components = array('Session');
@@ -77,6 +78,21 @@ class ProductsController extends AppController
 				$this->Session->setFlash('No se pudo guardar el Producto  :S', 'default', array('class'=>'alert alert-danger'));
 
 				return false;
+			}
+
+			//save all images here
+			if (!empty($this->data['Product']['OtherImage'])) {
+				foreach ($this->data['Product']['OtherImage'] as $image) {
+					$this->ProductImage->create();
+					$this->ProductImage->save(
+						$this->ProductImage->set(
+							array(
+								'product_id' => $this->Product->id,
+								'image' => $image
+							)
+						)
+					);
+				}
 			}
 
 			if (!empty($this->request->data['ProductStyle']['style_id'])) {
@@ -167,6 +183,12 @@ class ProductsController extends AppController
 		$this->set('skin_hair_types', $skin_hair_types);
 		$this->set('body_types', $body_types);
 
+		$product_images = $this->ProductImage->find('list', array(
+			'conditions' => array('ProductImage.product_id' => $id)
+		));
+
+		$this->set('product_images', $product_images);
+
 		if (!empty($this->data)) {
 			if (empty($this->data['Product']['image']['name'])) {
 				unset($this->request->data['Product']['image']);
@@ -176,6 +198,29 @@ class ProductsController extends AppController
 				$this->Session->setFlash('No se pudo guardar el Producto  :S', 'default', array('class'=>'alert alert-danger'));
 
 				return false;
+			}
+
+			//delete what ever images have been chosen.
+			$chosen_images = explode(",", $this->data['Product']['ChosenImages']);
+			foreach ($product_images as $pi) {
+				if (!in_array($pi, $chosen_images)) {
+					$this->ProductImage->delete($pi);
+				}
+			}
+
+			//add new other image here
+			if (!empty($this->data['Product']['OtherImage'])) {
+				foreach ($this->data['Product']['OtherImage'] as $image) {
+					$this->ProductImage->create();
+					$this->ProductImage->save(
+						$this->ProductImage->set(
+							array(
+								'product_id' => $this->Product->id,
+								'image' => $image
+							)
+						)
+					);
+				}
 			}
 
 			if (!empty($this->request->data['ProductStyle']['style_id'])) {

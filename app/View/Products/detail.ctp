@@ -28,6 +28,13 @@
 				<span class="glyphicon glyphicon-heart" style="color: #F92672;"></span> Agregar a mi Booth Personal
 			</button>
 		<?php } ?>
+		<div class="row" style="margin:10px 0px;">
+			<?php foreach ($product['ProductImage'] as $pi) { ?>
+				<a href="#" class="thumbnail col-md-2" style="margin-right: 5px;">
+					<img src="/files/products/<?php echo $pi['image']; ?>" alt="" width="75">
+				</a>
+			<?php } ?>
+		</div>
 		<h4>Tienda Disponible:</h4>
 		<h5><b><a href="/stores/products/<?php echo $product['Store']['id']; ?>"><?php echo $product['Store']['name']; ?></a></b></h5>
 		<?php echo $this->element('store_address', array('get_store_address' => true, 'store_id' => $product['Store']['id'])); ?>
@@ -53,7 +60,17 @@
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
+<div tabindex="-1" class="modal fade" id="myModal" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
 <script type="text/javascript">
 		function addToWishList(product_id){
 			$.ajax({
@@ -74,4 +91,13 @@
 				}
 			});
 		}
-	</script>
+	$(function(){
+		$('.thumbnail').click(function(){
+			$('.modal-body').empty();
+			var src = $(this).find('img').attr('src');
+			var img = '<img src="' + src + '" width="550">'
+			$('.modal-body').append(img);
+			$('#myModal').modal({show:true});
+		});
+	});
+</script>
