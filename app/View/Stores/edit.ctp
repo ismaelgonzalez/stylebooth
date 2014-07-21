@@ -60,6 +60,12 @@ echo $this->Form->input('zone', array(
 	'empty' => array('' => '-- Elige una zona --'),
 	'default' => $store['Store']['zone'],
 ));
+echo $this->Form->input('redes_sociales', array(
+	'label' => array('text' => 'Redes Sociales', 'class' => 'control-label my-label col-lg-2'),
+	'class' => 'form-control',
+	'between' => '<div class="col-lg-6">',
+	'default' => $store['Store']['redes_sociales'],
+));
 ?>
 <div class="panel panel-info">
 	<div class="panel-heading">Dirección de Tienda</div>
