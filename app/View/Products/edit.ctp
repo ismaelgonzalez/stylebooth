@@ -90,10 +90,10 @@ echo $this->Form->input('price', array(
 	<div class="panel-heading">Imagenes Adicionales</div>
 	<div class="panel-body">
 		<div class="row" style="padding: 10px;">
-			<h5>Productos Existentes</h5>
+			<h5>Imagenes del Producto Adicionales</h5>
 			<?php
 				foreach ($product['ProductImage'] as $p) {
-					$this->Product->outfit_product_thumbnail($p, 75);
+					$this->Product->product_images_thumbnail($p, 75);
 				}
 			?>
 			<input type="hidden" name="data[Product][ChosenImages]" id="ProductChosenImages" value="<?php echo implode(",",$product_images); ?>">
