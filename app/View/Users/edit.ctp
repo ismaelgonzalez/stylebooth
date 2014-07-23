@@ -36,8 +36,8 @@ echo $this->Form->input('email', array(
 	'between' => '<div class="col-lg-4">',
 	'default' => array($user['User']['email']),
 ));
-echo $this->Form->input('password', array(
-	'label' => array('text' => 'Cambiar el Password', 'class' => 'control-label my-label col-lg-2'),
+echo $this->Form->input('passwd', array(
+	'label' => array('text' => 'Cambiar el Password@', 'class' => 'control-label my-label col-lg-2'),
 	'class' => 'form-control',
 	'between' => '<div class="col-lg-4">',
 ));
