@@ -28,6 +28,9 @@ class StyleboothController extends AppController
 		return true;
 	}
 
+	private $dress_sizes = array( 'chica', 'mediana', 'grande', 'extra grande', 'cualquier talla' );
+	private $feet_sizes  = array('3', '3.5', '4', '4.5','5', '5.5','6', '6.5','7', '7.5','cualquier talla calzado');
+
 	public function index(){
 		$this->Style->recursive = -1;
 		$styles = $this->Style->find('all');
@@ -117,7 +120,21 @@ class StyleboothController extends AppController
 
 		$budget = $visit['budget'];
 
-		$user = $this->Session->read('Auth.User');
+		$dress = array();
+		$feet  = array();
+		if ($visit['size'] == 'cualquier talla') {
+			$dress = $this->dress_sizes;
+		} else {
+			$dress[] = $visit['size'];
+		}
+		if ($visit['foot_size'] == 'cualquier talla calzado') {
+			$feet = $this->feet_sizes;
+		} else {
+			$feet[] = $visit['foot_size'];
+		}
+
+		$sizes = array_merge($dress, $feet);
+		$user  = $this->Session->read('Auth.User');
 
 		$joins = array(
 			array(
@@ -175,12 +192,12 @@ class StyleboothController extends AppController
 				'joins' => $joins,
 				'conditions' => array(
 					'Product.status' => 1,
-					'Product.price <=' => $budget,
+					//'Product.price <=' => $budget,
 					'ProductStyle.style_id' => $visit['style'],
 					'ProductBodyType.body_type_id' => $visit['body_type'],
 					'ProductSkinHairType.skin_hair_type_id' => $visit['skin_hair_type'],
 					'OR' => array(
-						array('ProductSize.size' => array($visit['size'], $visit['foot_size'])),
+						array('ProductSize.size' => $sizes),
 					),
 				),
 			));
@@ -190,9 +207,9 @@ class StyleboothController extends AppController
 				'joins' => $joins,
 				'conditions' => array(
 					'Product.status' => 1,
-					'Product.price <=' => $budget,
+					//'Product.price <=' => $budget,
 					'ProductStyle.style_id' => $visit['style'],
-					'ProductSize.size' => array($visit['size'], $visit['foot_size']),
+					'ProductSize.size' => $sizes,
 				),
 			));
 		}
@@ -207,6 +224,7 @@ class StyleboothController extends AppController
 		$outfits = $this->Outfit->find('all', array(
 			'conditions' => array(
 				'Outfit.status' => 1,
+				'Outfit.budget <=' => $budget,
 			),
 			'contain' => array(
 				'Product' => array(
