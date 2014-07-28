@@ -136,6 +136,9 @@ class StyleboothController extends AppController
 		$sizes = array_merge($dress, $feet);
 		$user  = $this->Session->read('Auth.User');
 
+		$this->set('sizes', $sizes);
+		$this->set('chosen_style', $visit['style']);
+
 		$joins = array(
 			array(
 				'table' => 'product_styles',
@@ -145,7 +148,7 @@ class StyleboothController extends AppController
 					'ProductStyle.product_id = Product.id',
 				),
 			),
-			array(
+			/*array(
 				'table' => 'products_body_types',
 				'alias' => 'ProductBodyType',
 				'type' => 'left',
@@ -160,7 +163,7 @@ class StyleboothController extends AppController
 				'conditions' => array(
 					'ProductSkinHairType.product_id = Product.id',
 				),
-			),
+			),*/
 			array(
 				'table' => 'product_sizes',
 				'alias' => 'ProductSize',
@@ -192,13 +195,11 @@ class StyleboothController extends AppController
 				'joins' => $joins,
 				'conditions' => array(
 					'Product.status' => 1,
+					'OR' => array('ProductSize.size' => $sizes),
+					'OR' => array('ProductStyle.style_id' => $visit['style']),
 					//'Product.price <=' => $budget,
-					'ProductStyle.style_id' => $visit['style'],
-					'ProductBodyType.body_type_id' => $visit['body_type'],
-					'ProductSkinHairType.skin_hair_type_id' => $visit['skin_hair_type'],
-					'OR' => array(
-						array('ProductSize.size' => $sizes),
-					),
+					//'ProductBodyType.body_type_id' => $visit['body_type'],
+					//'ProductSkinHairType.skin_hair_type_id' => $visit['skin_hair_type'],
 				),
 			));
 		} else {	//no logged in user
@@ -207,9 +208,9 @@ class StyleboothController extends AppController
 				'joins' => $joins,
 				'conditions' => array(
 					'Product.status' => 1,
+					'OR' => array('ProductSize.size' => $sizes),
+					'OR' => array('ProductStyle.style_id' => $visit['style'])
 					//'Product.price <=' => $budget,
-					'ProductStyle.style_id' => $visit['style'],
-					'ProductSize.size' => $sizes,
 				),
 			));
 		}

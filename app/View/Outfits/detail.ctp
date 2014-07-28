@@ -14,12 +14,7 @@
 <!-- Single button -->
 <div class="row">
 	<div class="btn-group">
-		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-			<span class="selection"> Todos los Productos </span><span class="caret"></span>
-		</button>
-		<ul class="dropdown-menu" role="menu">
-			<?php echo $this->element('products_category'); ?>
-		</ul>
+		<?php echo $this->element('products_category'); ?>
 	</div>
 </div>
 <br />
@@ -45,12 +40,25 @@
 </ul>
 <script type="text/javascript">
 	$(function() {
+		/*
 		$(".dropdown-menu li a").click(function(event){
 			event.preventDefault();
 			$(this).parents(".btn-group").find('.selection').text($(this).text());
 			$(this).parents(".btn-group").find('.selection').val($(this).text());
 			$text = $(this).text();
 			$id = $('#outfitID').val();
+			$.ajax({
+				type: 'post',
+				url: '/products/getProductsByOutfit/' + $id + '/' + $text,
+				success: function(html) {
+					filterProducts(html);
+				}
+			});
+		});
+*/
+		$("#productsFilter").change(function(event){
+			$text = $(this).val();
+			$id   = $('#outfitID').val();
 			$.ajax({
 				type: 'post',
 				url: '/products/getProductsByOutfit/' + $id + '/' + $text,
@@ -66,13 +74,12 @@
 		var result = "";
 		var name_store = "";
 		for (i=0; i<obj.Product.length; i++) {
-			name_store = $.getStoreName('/stores/getStoreName/' + obj.Product[i].store_id);
 			result += '<div class="col-md-4">'
 				+ '<div class="thumbnail">'
 				+ '<a href="/products/detail/' + obj.Product[i].id + '"> <img style="min-height:210px;height:210px;" src="/files/products/' + obj.Product[i].image + '" alt="' + obj.Product[i].name + '"></a>'
 				+ '<div class="caption">'
 				+ '<h5><b>' + obj.Product[i].name + '</b></h5>'
-				+ '<h5>' + name_store + '</h5>'
+				+ '<h5>' + obj.Product[i].Store['name'] + '</h5>'
 				+ '<h5>$' + obj.Product[i].price + '</h5>';
 			if (obj.Product[i].Coupon.length > 0){
 				result += '<h5><a href="/products/detail/' + obj.Product[i].id + '">Ve Por Tu Cupon!</a></h5>';

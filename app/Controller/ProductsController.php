@@ -376,10 +376,8 @@ class ProductsController extends AppController
 		$this->set('coupon', $coupon);
 	}
 
-	public function getProductsByFilter($filter){
+	public function getProductsByFilter($filter, $sizes, $style){
 		$this->autoRender = false;
-
-		$visit = $this->Session->read('Visit');
 
 		switch ($filter) {
 			case 'Todos los Productos':
@@ -414,49 +412,37 @@ class ProductsController extends AppController
 				break;
 		}
 
+		$joins = array(
+			array(
+				'table' => 'product_styles',
+				'alias' => 'ProductStyle',
+				'type' => 'left',
+				'conditions' => array(
+					'ProductStyle.product_id = Product.id',
+				),
+			),
+			array(
+				'table' => 'product_sizes',
+				'alias' => 'ProductSize',
+				'type' => 'left',
+				'conditions' => array(
+					'ProductSize.product_id = Product.id',
+				),
+			),
+		);
+
 		$products = $this->Product->find('all', array(
+			'fields' => array('DISTINCT *', 'Store.name'),
+			'joins' => $joins,
 			'conditions' => array(
 				'Product.status' => 1,
 				$product_category,
-			),
-			'contain' => array(
-				'ProductStyle' => array(
-					'conditions' => array(
-						'ProductStyle.style_id' => $visit['style'],
-						'not' => array(
-							'ProductStyle.style_id' => null,
-						),
-					),
-				),
-				'ProductSkinHairType' => array(
-					'conditions' => array(
-						'ProductSkinHairType.skin_hair_type_id' => $visit['skin_hair_type'],
-					),
-				),
-				'ProductsBodyType' => array(
-					'conditions' => array(
-						'ProductsBodyType.body_type_id' => $visit['body_type'],
-					),
-				),
-				'ProductSize' => array(
-					'conditions' => array(
-						'OR' => array(
-							'ProductSize.size' => $visit['size'],
-							'ProductSize.size' => $visit['foot_size'],
-						),
-					),
-				),
-				'Store',
-				'Coupon' => array(
-					'conditions' => array(
-						'Coupon.start_date <=' => date('Y-m-d'),
-						'Coupon.end_date >' => date('Y-m-d'),
-						'Coupon.status' => 1,
-					),
-				),
+				'OR' => array('ProductSize.size' => json_decode($sizes)),
+				'OR' => array('ProductStyle.style_id' => $style)
+				//'Product.price <=' => $budget,
 			),
 		));
-
+		//debug($this->Product->getLastQuery());
 		return json_encode($products);
 	}
 
@@ -539,6 +525,11 @@ class ProductsController extends AppController
 				'Product' => array(
 					'conditions' => array(
 						$product_category,
+					),
+					'Store' => array(
+						'fields' => array(
+							'Store.name'
+						),
 					),
 					'Coupon' => array(
 						'conditions' => array(
