@@ -469,7 +469,7 @@ class UsersController extends AppController
 
 			if(!empty($this->data)){
 				if ($this->data['User']['password'] === $this->data['User']['confirm_password']) {
-					$user['User']['password'] = $this->data['User']['password'];
+					$user['User']['passwd'] = $this->data['User']['password'];
 					if ($this->User->save($user)) {
 						$this->Session->setFlash('¡Se ha actualizado tu contraseña! Inicia sesion con tu nueva contraseña.', 'default', array('class'=>'alert alert-success'));
 

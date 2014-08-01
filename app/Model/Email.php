@@ -13,10 +13,10 @@ class Email extends AppModel
 		} else {
 			$headers = 	'From: Stylebooth <admin@stylebooth.mx>' . "\r\n" .
    					'Reply-To: Stylebooth <admin@stylebooth.mx>' . "\r\n" .
+					'Content-Type: text/html; charset=UTF-8' . "\r\n" .
    					'X-Mailer: PHP/' . phpversion();
 		}
 
-		
 		mail($to, $subject, $message, $headers);
 	}
 }
