@@ -42,12 +42,7 @@
 <!-- Single button -->
 <div class="row">
 	<div class="btn-group">
-		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-			<span class="selection"> Todos los Productos </span><span class="caret"></span>
-		</button>
-		<ul class="dropdown-menu" role="menu">
-			<?php echo $this->element('products_category'); ?>
-		</ul>
+		<?php echo $this->element('products_category'); ?>
 	</div>
 </div>
 <br />
@@ -73,6 +68,7 @@
 </ul>
 <script type="text/javascript">
 	$(function() {
+		/*
 		$(".dropdown-menu li a").click(function(event){
 			event.preventDefault();
 			$(this).parents(".btn-group").find('.selection').text($(this).text());
@@ -80,6 +76,18 @@
 			$text = $(this).text();
 			$id = $('#store_id').val();
 			console.log($text + ' ' + $id);
+			$.ajax({
+				type: 'post',
+				url: '/products/getProductsByStore/' + $id + '/' + $text,
+				success: function(html) {
+					filterProducts(html);
+				}
+			});
+		});
+		*/
+		$("#productsFilter").change(function(event){
+			$text = $(this).val();
+			$id   = $('#store_id').val();
 			$.ajax({
 				type: 'post',
 				url: '/products/getProductsByStore/' + $id + '/' + $text,

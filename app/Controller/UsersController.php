@@ -111,8 +111,8 @@ class UsersController extends AppController
 			if (empty($this->data['User']['image']['name'])) {
 				unset($this->request->data['User']['image']);
 			}
-			if (empty($this->data['User']['password'])) {
-				unset($this->request->data['User']['password']);
+			if (empty($this->data['User']['passwd'])) {
+				unset($this->request->data['User']['passwd']);
 			}
 			if (!$this->User->save($this->data)) {
 				$this->Session->setFlash('No se pudo guardar al Usuario  :S', 'default', array('class'=>'alert alert-danger'));
@@ -305,7 +305,7 @@ class UsersController extends AppController
 
 			if (!empty($this->data['User']['old_password']) && !empty($this->data['User']['new_password'])) {
 				if(AuthComponent::password($this->data['User']['old_password']) == $user['User']['password']) {
-					$this->request->data['User']['password'] = $this->data['User']['new_password'];
+					$this->request->data['User']['passwd'] = $this->data['User']['new_password'];
 				} else {
 					$this->Session->setFlash('No se pudo actualizar su información! Verifica que tu password actual sea la correcta', 'default', array('class'=>'alert alert-danger'));
 					return $this->redirect('/users/profile/' . $user['User']['id']);
@@ -469,7 +469,7 @@ class UsersController extends AppController
 
 			if(!empty($this->data)){
 				if ($this->data['User']['password'] === $this->data['User']['confirm_password']) {
-					$user['User']['password'] = $this->data['User']['password'];
+					$user['User']['passwd'] = $this->data['User']['password'];
 					if ($this->User->save($user)) {
 						$this->Session->setFlash('¡Se ha actualizado tu contraseña! Inicia sesion con tu nueva contraseña.', 'default', array('class'=>'alert alert-success'));
 
