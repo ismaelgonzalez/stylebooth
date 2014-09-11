@@ -173,6 +173,7 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
 		ga('create', 'UA-52868902-1', 'auto');
+		ga('require', 'displayfeatures');
 		ga('send', 'pageview');
 	</script>
 <!-- analytics -->
