@@ -41,6 +41,11 @@ class StoresController extends AppController
 		$this->set('title_for_layout', 'Agregar Tienda');
 
 		if (!empty($this->data)) {
+
+			//magic stuff for google maps
+			$new_google_maps = str_replace(']', '</iframe>', str_replace('[', '<iframe ', $this->data['Store']['google_maps']));
+			$this->request->data['Store']['google_maps'] = $new_google_maps;
+
 			$this->Store->create();
 			if (empty($this->data['Store']['image']['name'])) {
 				unset($this->request->data['Store']['image']);
@@ -65,8 +70,7 @@ class StoresController extends AppController
 		$this->set('title_for_layout', 'Editar Tienda');
 
 		$store = $this->Store->findById($id);
-		//debug($store);
-		//exit();
+
 		if ($store) {
 			$this->set('store', $store);
 		} else {
@@ -76,8 +80,11 @@ class StoresController extends AppController
 		}
 
 		if (!empty($this->data)) {
-			//debug($this->data);
-			//exit();
+
+			//magic stuff for google maps
+			$new_google_maps = str_replace(']', '</iframe>', str_replace('[', '<iframe ', $this->data['Store']['google_maps']));
+			$this->request->data['Store']['google_maps'] = $new_google_maps;
+
 			if (empty($this->data['Store']['image']['name'])) {
 				unset($this->request->data['Store']['image']);
 			}
