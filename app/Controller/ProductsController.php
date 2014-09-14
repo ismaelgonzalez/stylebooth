@@ -610,6 +610,7 @@ class ProductsController extends AppController
 		$outfits = $this->Product->find('all', array(
 			'conditions' => array(
 				'Product.store_id' => $store_id,
+				'Product.status' => 1,
 				$product_category,
 			),
 			'contain' => array('Coupon' => array(

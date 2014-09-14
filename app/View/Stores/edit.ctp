@@ -120,7 +120,16 @@ echo $this->Form->input('redes_sociales', array(
 </div>
 <?php
 echo "<div class='form-group col-lg-5'>";
-echo $this->Form->submit('Enviar', array('formnovalidate' => true, 'class' => 'btn btn-success'));
+echo $this->Form->submit('Enviar', array('formnovalidate' => true, 'class' => 'btn btn-success', 'type' => 'button', 'id'=>'btnSubmit'));
 echo "</div>";
 echo $this->Form->end();
 ?>
+<script type="text/javascript">
+	$('#btnSubmit').click(function() {
+		$gmaps = $('#StoreGoogleMaps').val();
+		var removed_iframe = $gmaps.replace('<iframe ', '[').replace('</iframe>', ']');
+		$('#StoreGoogleMaps').val(removed_iframe);
+
+		$('#StoreEditForm').submit();
+	});
+</script>
