@@ -32,6 +32,7 @@ class StyleboothController extends AppController
 	private $feet_sizes  = array('3', '3.5', '4', '4.5','5', '5.5','6', '6.5','7', '7.5','cualquier talla calzado');
 
 	public function index(){
+		$this->layout = 'home';
 		$this->Style->recursive = -1;
 		$styles = $this->Style->find('all');
 
