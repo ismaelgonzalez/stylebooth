@@ -12,6 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="css/jquery-ui-1.10.4.custom.min.css" />
 	<link rel="stylesheet" type="text/css" href="css/stylebooth.css" />
+	<link rel="stylesheet" type="text/css" href="css/stylebooth02.css" />
 	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript" src="js/jquery-ui-1.10.4.custom.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -40,7 +41,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/"><img src="/img/stylebooth_logo.png" /></a>
+			<a class="navbar-brand" href="/"><img src="/img/stylebooth_logo.png" alt="Stylebooth"/></a>
 		</div>
 		<div class="navbar-collapse collapse" >
 			<ul class="nav navbar-nav" >
@@ -87,11 +88,11 @@
 	</script>
 </div>
 <div class="row" id="js-home-styles">
-	<div align="center">
+	<div>
 		<div id="bannerTop"></div>
 		<div class="row">
 			<p></p>
-			<h1>SELECCIONA TU ESTILO<br/>¨¨¨¨¨¨¨¨¨¨¨¨¨</h1>
+			<h1 class="text-center">SELECCIONA TU ESTILO<br/>¨¨¨¨¨¨¨¨¨¨¨¨¨</h1>
 			<form id="frmStyle" method="post" role="form">
 				<div class="row">
 					<div class="col-md-3">
@@ -158,9 +159,9 @@
 		</div>
 	</div>
 </div>
-<div class="row" align="center" id="js-home-medidas">
+<div class="row text-center" id="js-home-medidas">
 	<div class="col-md-12 style_medidas">
-		<div class="col-md-4"><img src="/img/home_medidas.jpg"/>
+		<div class="col-md-4"><img src="/img/home_medidas.jpg" alt="Estilo a tu medida"/>
 		</div>
 		<div class="col-md-8">
 			<p></p>
@@ -242,13 +243,17 @@
 					</label>
 				</div>
 				<ul class="pager">
-					<li><a href="/" id="home_estilo_back">Anterior <<</a></li> |
-					<li><a id="filter1Continue" href="#">>> Siguiente</a></li>
+					<li><a id="home_estilo_back">Anterior &Lt;</a> |</li>
+					<li><a id="filter1Continue" href="#">&Gt; Siguiente</a></li>
 				</ul>
 			</form>
 
 			<script type="text/javascript">
-				$(function() {
+				$(function()
+					$("#home_estilo_back").click(function() {
+						$('#js-home-medidas').fadeout('slow');
+						$('#js-home-styles').fadein('slow');
+					});
 					$("#filter1Continue").click(function() {
 						$budget    = $(".budget:checked").val();
 						$size      = $(".size:checked").val();
@@ -273,6 +278,7 @@
 		</div>
 	</div>
 </div>
+<!-- STORE LOGOS -->
 <div id="brands" class="row">
 	<div class="col-md-12" id="stores_banner">
 		<img src="files/stores/logo_aguadecoco_small.jpg" alt="DeCoco"/>
@@ -283,13 +289,14 @@
 		<img src="files/stores/logo_stylebooth_small.jpg" alt="Stylebooth"/>
 	</div>
 </div>
+<!-- STORE LOGOS -->
 <div class="row" id="footer">
 	<div class="content">
 		<div><a href="/anunciate">Anunciate</a></div>
 		<div class="social">
-			<a href="#" target="_blank"><img src="/img/footer_instagram.png" border="0" alt="Stylebooth Instagram"/>
-				<a href="#" target="_blank"><img src="/img/footer_facebook.png" border="0" alt="Stylebooth Facebook"/>
-					<a href="#" target="_blank"><img src="/img/footer_twitter.png" border="0" alt="Stylebooth Twitter"/>
+			<a href="http://instagram.com/styleboothmx" target="_blank"><img src="/img/footer_instagram.png" alt="Stylebooth Instagram"/></a>
+			<a href="https://www.facebook.com/stylebooth" target="_blank"><img src="/img/footer_facebook.png" alt="Stylebooth Facebook"/></a>
+			<a href="https://twitter.com/Styleboothmx" target="_blank"><img src="/img/footer_twitter.png" alt="Stylebooth Twitter"/></a>
 		</div>
 		<div><a href="/contacto">Contacto</a></div>
 	</div>
@@ -297,28 +304,6 @@
 	</div>
 </div>
 </div>
-
-
-<!-- Intro Ad -->
-<div id="popUpAd" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h2>Bienvenida a Stylebooth</h2>
-			</div>
-			<div class="modal-body">
-				<p style="font-weight: bold;">¡Obtén cupones de descuento y Asesoría de Imagen <strong>Gratis</strong>!</p>
-				<p style="font-size: 16px; color: #ffffff;">¡Regístrate como usuario!</p>
-				<p>
-					<button style="background: #F92672; color: #ffffff; border: 0px;" onclick="window.open('/users/register', '_parent')">Regístrate Aqui</button>
-				</p>
-				<p>¿Ya eres usuario? <a href="/users/login">¡Conéctate!</a></p>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<!-- Intro Ad -->
 
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
@@ -332,17 +317,6 @@
 		document.getElementById("bannerBottom").innerHTML = "";
 	}
 	$(function(){
-		$('#popUpAd').modal('show');
-
-		$('#popUpAd').on('hidden.bs.modal', function () {
-			$.ajax({
-				type: 'post',
-				url: '/hasSeenPopUpAd',
-				success: function(response){
-
-				}
-			});
-		})
 	});
 </script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->

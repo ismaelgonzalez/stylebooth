@@ -1,24 +1,24 @@
 /*
-Sergio Mireles
-mireles001@gmail.com
-20130222
+ Sergio Mireles
+ mireles001@gmail.com
+ 20130222
 
-Carousel Maker is a simple and hopefuly handy for someone wishing to create a web carousel component on his/her website
+ Carousel Maker is a simple and hopefuly handy for someone wishing to create a web carousel component on his/her website
 
-FIX: 20140209
-Using fade transition won't fadeout the old slide item, it will now wait until the new slide finish fadein
-and the it will be removed. Substitute fadeOut for setTimeout.
-*/
+ FIX: 20140209
+ Using fade transition won't fadeout the old slide item, it will now wait until the new slide finish fadein
+ and the it will be removed. Substitute fadeOut for setTimeout.
+ */
 var carousel = {
 	tweenSpeed  : 1000,
-	tweenHold 	: 3000,
-	tweenType 	: 'slide',
-	labels		: {
-		items	: 'carousel_items',
-		viewer	: 'carousel_viewer',
+	tweenHold   : 3000,
+	tweenType   : 'slide',
+	labels      : {
+		items   : 'carousel_items',
+		viewer  : 'carousel_viewer',
 		button  : 'carousel_btn'
 	},
-	dom 		: [],
+	dom         : [],
 	init : function (_params){
 		if(_params.target != undefined && this.dom[_params.target] == undefined){
 			var targetName = '_'+_params.target;
@@ -31,8 +31,8 @@ var carousel = {
 				doms    = [],
 				buttons = [],
 				index   = 0,
-				w 	    = parseInt(holder.css('width')),
-				h 		= parseInt(holder.css('height')),
+				w       = parseInt(holder.css('width')),
+				h       = parseInt(holder.css('height')),
 				i;
 			items.hide();
 			viewer.css('overflow','hidden').css('width',w+'px').css('height',h+'px').css('position','relative').css('z-index','1');
@@ -41,7 +41,7 @@ var carousel = {
 			}
 			var first = doms[index].clone().css('width',w+'px').css('height',h+'px').css('position','absolute').hide();
 			viewer.append(first);
-			
+
 			/*Add nav buttons*/
 			if(button.length > 0){
 				var buttonLayer  = $('<div></div>').css('position','absolute').css('z-index','10'),
@@ -77,9 +77,9 @@ var carousel = {
 			if(this.dom[targetName].hold <= this.dom[targetName].tween){
 				this.dom[targetName].hold = this.dom[targetName].tween+1;
 			}
-			if(_params.type != undefined && _params.type != this.tweenType){ 
-				this.dom[targetName].type = 'fade'; 
-			}else{ 
+			if(_params.type != undefined && _params.type != this.tweenType){
+				this.dom[targetName].type = 'fade';
+			}else{
 				this.dom[targetName].type = this.tweenType;
 			}
 			this.dom[targetName].viewer = viewer;
@@ -108,7 +108,7 @@ var carousel = {
 	},
 	goTo : function (_params) {
 		var blnAnimate = false;
-		
+
 		if(!_params.auto && carousel.dom[_params.target].index != _params.index && !carousel.dom[_params.target].locked){
 			if(carousel.dom[_params.target].autoscroll){
 				clearInterval(carousel.dom[_params.target].interval);
@@ -128,7 +128,7 @@ var carousel = {
 			if(_params.index > carousel.dom[_params.target].index || _params.auto){
 				direction = -1;
 			}
-			
+
 			carousel.dom[_params.target].locked = true;
 
 			this.turnOnOffButton(carousel.dom[_params.target],false);
@@ -136,8 +136,8 @@ var carousel = {
 			this.turnOnOffButton(carousel.dom[_params.target],true);
 
 			var domNew = carousel.dom[_params.target].items[_params.index].clone().attr('id','new')
-				.css('position','absolute').css('left','0').css('top','0')
-				.css('width',carousel.dom[_params.target].w+'px').css('height',carousel.dom[_params.target].h+'px').hide(),
+					.css('position','absolute').css('left','0').css('top','0')
+					.css('width',carousel.dom[_params.target].w+'px').css('height',carousel.dom[_params.target].h+'px').hide(),
 				domOld = $('#old',carousel.dom[_params.target].viewer);
 			carousel.dom[_params.target].viewer.append(domNew);
 
@@ -146,11 +146,11 @@ var carousel = {
 					$(this).remove();
 				});
 				domNew.show().css('left',carousel.dom[_params.target].w*(-1*direction))
-				.animate({left: '+='+carousel.dom[_params.target].w*direction },carousel.dom[_params.target].tween, 
-				function(){
-					$(this).attr('id','old');
-					carousel.dom['_'+$(this).parent().parent().attr('id')].locked = false;
-				});
+					.animate({left: '+='+carousel.dom[_params.target].w*direction },carousel.dom[_params.target].tween,
+					function(){
+						$(this).attr('id','old');
+						carousel.dom['_'+$(this).parent().parent().attr('id')].locked = false;
+					});
 			}else if(carousel.dom[_params.target].type == 'fade') {
 				setTimeout(function(){ domOld.remove(); },carousel.dom[_params.target].tween);
 				domNew.fadeIn(carousel.dom[_params.target].tween,function(){
