@@ -116,7 +116,7 @@ a:active {color:#833959;}  /* selected link */
 #stores_banner { background:#000; padding:50px 10px 30px 10px; text-align: center; }
 @media (max-width:767px){#stores_banner { padding:30px 5px; }}
 .tiendas_banner { border-color:#000; border-style:solid; border-width: 0 0 20px 0;}
-#stores_banner img { display: inline-table; margin: 27px; }
+#stores_banner img { display: inline-table; margin: 27px 20px; }
 @media (max-width:767px){#stores_banner img { margin:17px; width:21%; }}
 
 #footer { background: url('../img/footer_bg.gif') repeat; height: 143px; padding-top: 35px; border-top: 20px black solid;}
