@@ -1,7 +1,7 @@
 <?php
 class StyleboothController extends AppController
 {
-	public $uses = array('Style', 'SkinHairType', 'BodyType', 'Product', 'Outfit', 'OutfitProduct', 'UserStat', 'Wishlist', 'ProductsCategory', 'Email');
+	public $uses = array('Style', 'SkinHairType', 'BodyType', 'Product', 'Outfit', 'OutfitProduct', 'UserStat', 'Wishlist', 'ProductsCategory', 'Email', 'Store');
 
 	public $components = array(
 		'Session',
@@ -33,15 +33,24 @@ class StyleboothController extends AppController
 
 	public function index(){
 		$this->layout = 'home';
-		$this->Style->recursive = -1;
-		$styles = $this->Style->find('all');
 
-		$this->set('styles', $styles);
+		$this->Store->recursive = -1;
+		$stores = $this->Store->find('all', array(
+			'fields' => array(
+				'id', 'name', 'image'
+			),
+			'conditions' => array(
+				'status' => 1
+			),
+		));
+		$this->set('stores', $stores);
 	}
 
-	public function filter1(){
-		if (!empty($this->data)) {
-			$this->Session->write('Visit.style', $this->data['style_id']);
+	public function filter1($style_id){
+		$this->autoRender = false;
+
+		if (!empty($style_id)) {
+			$this->Session->write('Visit.style', $style_id);
 		}
 	}
 
