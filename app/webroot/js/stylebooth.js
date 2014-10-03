@@ -74,10 +74,10 @@ $(document).ready(function() {
 
 	//GALERIA: Thumbs como pinterest
 	var container = document.querySelector('#productsResults');
-	var msnry = new Masonry( container, {
+	/*var msnry = new Masonry( container, {
 	columnWidth: '25%',
 	itemSelector: '.col-md-3'
-	});
+	});*/
 
 
 	//GALERIAS/RESULTADOS/ETC: para MOUSEOVER y MOUSEOUT en los thumbnails
