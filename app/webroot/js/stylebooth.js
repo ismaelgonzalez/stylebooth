@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
 
 	//MENU: Boton de Signin
@@ -22,7 +23,7 @@ $(document).ready(function() {
 
 
 			} else {
-				$('.navbar-collapse').attr('style', 'position: inherit; margin-top:50px;');
+				$('.navbar-collapse').attr('style', 'position: inherit; margin-top:50px;'); 
 				$('.navbar-brand img').attr('style', 'position:inherit; z-index:9999; margin-top:0; margin-left:inherit;');
 				$('.slider').attr('style', 'margin-top:inherit;');
 			}
@@ -31,7 +32,7 @@ $(document).ready(function() {
 		sticky_navigation();
 
 		$(window).scroll(function() {
-			sticky_navigation();
+			 sticky_navigation();
 		});
 	});
 
@@ -50,26 +51,33 @@ $(document).ready(function() {
 
 	//TIENDAS: Scroll a zonas
 	function scrollToAnchor(aid){
-		var aTag = $("a[name='"+ aid +"']");
-		$('html,body').animate({scrollTop: aTag.offset().top},'slow');
+	var aTag = $("a[name='"+ aid +"']");
+	$('html,body').animate({scrollTop: aTag.offset().top},'slow');
 	}
 
 	$("#btn_norte").click(function() {
-		scrollToAnchor('tiendas_norte');
+	 scrollToAnchor('tiendas_norte');
 	});
 
 	$("#btn_poniente").click(function() {
-		scrollToAnchor('tiendas_poniente');
+	 scrollToAnchor('tiendas_poniente');
 	});
 
 	$("#btn_oriente").click(function() {
-		scrollToAnchor('tiendas_oriente');
+	 scrollToAnchor('tiendas_oriente');
 	});
 
 	$("#btn_sur").click(function() {
-		scrollToAnchor('tiendas_sur');
+	 scrollToAnchor('tiendas_sur');
 	});
 
+
+	//GALERIA: Thumbs como pinterest
+	var container = document.querySelector('#productsResults');
+	var msnry = new Masonry( container, {
+	columnWidth: '25%',
+	itemSelector: '.col-md-3'
+	});
 
 
 	//GALERIAS/RESULTADOS/ETC: para MOUSEOVER y MOUSEOUT en los thumbnails

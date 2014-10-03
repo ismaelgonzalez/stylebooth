@@ -100,7 +100,7 @@
 						</div>
 					</div>
 					<div class="col-md-3">
-						<div class="style_videos">
+						<div class="style_videos romantic">
 							<a onclick="setFilter1(2)">
 								<video autoplay loop poster="/img/stylebooth_logo.png">
 									<source src="files/styles/romanticallypoetic.mp4" type="video/mp4">
@@ -111,7 +111,7 @@
 						</div>
 					</div>
 					<div class="col-md-3">
-						<div class="style_videos">
+						<div class="style_videos rock">
 							<a onclick="setFilter1(3)">
 								<video autoplay loop poster="/img/stylebooth_logo.png">
 									<source src="files/styles/rockinfeeling.mp4" type="video/mp4">
@@ -122,7 +122,7 @@
 						</div>
 					</div>
 					<div class="col-md-3">
-						<div class="style_videos">
+						<div class="style_videos urban">
 							<a onclick="setFilter1(4)">
 								<video autoplay loop poster="/img/stylebooth_logo.png">
 									<source src="files/styles/urbanstatement.mp4" type="video/mp4">

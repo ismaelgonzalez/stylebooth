@@ -116,7 +116,7 @@ a:active {color:#833959;}  /* selected link */
 #stores_banner { background:#000; padding:50px 10px 30px 10px; text-align: center; }
 @media (max-width:767px){#stores_banner { padding:30px 5px; }}
 .tiendas_banner { border-color:#000; border-style:solid; border-width: 0 0 20px 0;}
-#stores_banner img { display: inline-table; margin: 27px 20px; }
+#stores_banner img { display: inline-table; margin: 27px 20px; max-width: 140px; max-height: 70px; }
 @media (max-width:767px){#stores_banner img { margin:17px; width:21%; }}
 
 #footer { background: url('../img/footer_bg.gif') repeat; height: 143px; padding-top: 35px; border-top: 20px black solid;}
@@ -131,8 +131,11 @@ a:active {color:#833959;}  /* selected link */
 #footer .content .social {border-width:0px 1px; border-style: solid; border-color: #fff; }
 
 #frmStyle { margin-bottom: 30px; }
-.style_videos { text-align: center; margin-bottom: 30px; overflow: hidden; width:280px; background: url('../img/home_style_bg.jpg') no-repeat right 2px #e0e0e0;}
-@media (max-width:1199px){.style_videos { width:240px;}}
+.style_videos { text-align: center; margin-bottom: 30px; margin-left: -7px; overflow: hidden; width:280px; background-image: url('../img/home_style_bg.jpg'); background-position: right top; background-color: #e0e0e0; background-repeat: no-repeat;}
+@media (max-width:1199px){.style_videos { width:240px; margin-left: -14px;}}
+.rock { background-image: url('../img/home_style_rockin_bg.jpg'); }
+.urban { background-image: url('../img/home_style_urban_bg.jpg'); }
+.romantic { background-image: url('../img/home_style_romantically_bg.jpg'); }
 .style_videos video { float: left; }
 .style_videos img { position: absolute; z-index: 998; margin-left: -210px; width: 280px;}
 .style_videos > a { cursor: pointer; }
@@ -150,7 +153,7 @@ a:active {color:#833959;}  /* selected link */
 .dotted {border-color: #837f7f; border-style: dotted; border-width: 3px 0px 3px 0px; margin-top: 10px; padding: 8px; font-size: 16px; text-align: left; }
 .dotted_up { margin-top:85px;}
 .dotted a { color: #ad274a; font-weight: 400; }
-#productsResults { padding: 10px;}
+#productsResults { }
 .col_busqueda { padding: 20px 0 0 20px; text-align: left; }
 .col_busqueda a img { margin-left: -10px; width: 100%; }
 .busqueda_left { margin-top: -15px; }
