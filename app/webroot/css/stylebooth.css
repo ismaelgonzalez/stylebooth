@@ -160,7 +160,7 @@ a:active {color:#833959;}  /* selected link */
 .producto_left { margin-left: 20px; }
 .producto_left .thumbnail { margin-left: -0px !important; border:0px;}
 .producto_left a { display: block; padding-bottom: 10px;}
-.outfit_thumb { min-height: 333px; overflow: hidden; }
+.outfit_thumb { min-height: 333px; overflow: hidden; max-height: 400px; }
 .outfit_thumb .caption { position: relative; background:#837f7f; height: 100px; width: 100%; padding: 7px 10px 15px 15px; color: #fff; font-size: 20px; text-align: right; margin-top:-100px;}
 @media (max-width: 1199px){.outfit_thumb .caption {margin-top:-60px;}}
 @media (max-width: 991px){.outfit_thumb .caption {margin-top:-100px;}}
