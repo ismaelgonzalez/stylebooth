@@ -209,18 +209,21 @@ class OutfitsController extends AppController
 		echo $options;
 	}
 
-	public function detail($id) {
-		$this->layout = 'filter4_layout';
-		$outfit = $this->Outfit->findById($id);
+	public function detail ($id) {
+		$this->layout = "filter4_layout";
 
-		if (empty($outfit)) {
+		$outfit = $this->Outfit->find('first', array(
+			'conditions' => array(
+				'id' => $id,
+				'status' => 1
+			)
+		));
+
+		if ( empty($outfit) ) {
 			$this->Session->setFlash('No existe outfit con este ID :(', 'default', array('class'=>'alert alert-danger'));
 
 			return $this->redirect('/');
 		}
-
-		$this->layout = 'default';
-		$this->set('title_for_layout', 'Detalle de ' . $outfit['Outfit']['name']);
 
 		$this->set('outfit', $outfit);
 	}

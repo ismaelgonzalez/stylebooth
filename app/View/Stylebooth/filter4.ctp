@@ -13,12 +13,11 @@
 						<?php echo $o['Outfit']['name']; ?><br/>$<?php echo $o['Outfit']['budget']; ?> MXN
 						<div class="social_thumbs">
 							<img src="/img/social_thumbs_sb.jpg" alt="Stylebooth" border="0"/>
-							<a href="http://instagram.com/styleboothmx"><img src="/img/social_thumbs_inst.jpg" alt="Instagram" border="0"/></a>
-							<a href="https://www.facebook.com/sharer/sharer.php?u=http://stylebooth.mx/outfits/detail/<?php echo $o['Outfit']['id']; ?>"><img src="/img/social_thumbs_fb.jpg" alt="Facebook" border="0"/></a>
-							<a href="https://twitter.com/home?status=Nuevo outfit de Stylebooth http://stylebooth.mx/outfits/detail/<?php echo $o['Outfit']['id']; ?>"><img src="/img/social_thumbs_tw.jpg" alt="Twitter" border="0"/></a>
-							<a href="https://plus.google.com/share?url=http://stylebooth.mx/outfits/detail/<?php echo $o['Outfit']['id']; ?>"><img src="/img/social_thumbs_go.jpg" alt="Google+" border="0"/></a>
-							<a href="https://pinterest.com/pin/create/button/?url=http://stylebooth.mx/outfits/detail/<?php echo $o['Outfit']['id']; ?>&media=http://stylebooth.mx/files/outfits/<?php echo $o['Outfit']['image']; ?>&description=<?php echo $o['Outfit']['name']; ?>"><img src="/img/social_thumbs_pin.jpg" alt="Pinterest" border="0"/></a>
-							<a href="#"><img src="/img/social_thumbs_more.jpg" alt="More" border="0"/></a>
+							<a target="_blank" href="http://instagram.com/styleboothmx"><img src="/img/social_thumbs_inst.jpg" alt="Instagram" border="0"/></a>
+							<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://stylebooth.mx/outfits/detail/<?php echo $o['Outfit']['id']; ?>"><img src="/img/social_thumbs_fb.jpg" alt="Facebook" border="0"/></a>
+							<a target="_blank" href="https://twitter.com/home?status=Nuevo outfit de Stylebooth http://stylebooth.mx/outfits/detail/<?php echo $o['Outfit']['id']; ?>"><img src="/img/social_thumbs_tw.jpg" alt="Twitter" border="0"/></a>
+							<a target="_blank" href="https://plus.google.com/share?url=http://stylebooth.mx/outfits/detail/<?php echo $o['Outfit']['id']; ?>"><img src="/img/social_thumbs_go.jpg" alt="Google+" border="0"/></a>
+							<a target="_blank" href="https://pinterest.com/pin/create/button/?url=http://stylebooth.mx/outfits/detail/<?php echo $o['Outfit']['id']; ?>&media=http://stylebooth.mx/files/outfits/<?php echo $o['Outfit']['image']; ?>&description=<?php echo $o['Outfit']['name']; ?>"><img src="/img/social_thumbs_pin.jpg" alt="Pinterest" border="0"/></a>
 						</div>
 					</div>
 					<a href="/outfits/detail/<?php echo $o['Outfit']['id']; ?>" class="thumb_click"></a>
@@ -45,17 +44,16 @@
 						<?php foreach ($products as $p) { ?>
 						<div class="col-md-3">
 							<div class="thumbnail products-thumb outfit_pieces">
-								<img src="files/products/<?php echo $p['Product']['image']; ?>" alt="<?php echo $p['Product']['name']; ?>">
+								<img src="/files/products/<?php echo $p['Product']['image']; ?>" alt="<?php echo $p['Product']['name']; ?>">
 								<div class="caption">
 									<?php echo $p['Product']['name']; ?>.<br/>$<?php echo $p['Product']['price']; ?>
 									<div class="social_thumbs">
 										<img src="/img/social_thumbs_sb.jpg" alt="Stylebooth" border="0" class="stylebooth_thumb"/>
-										<a href="http://instagram.com/styleboothmx"><img src="/img/social_thumbs_inst.jpg" alt="Instagram" border="0"/></a>
-										<a href="https://www.facebook.com/sharer/sharer.php?u=http://stylebooth.mx/products/detail/<?php echo $p['Product']['id']; ?>"><img src="/img/social_thumbs_fb.jpg" alt="Facebook" border="0"/></a>
-										<a href="https://twitter.com/home?status=Nuevo producto de Stylebooth http://stylebooth.mx/products/detail/<?php echo $p['Product']['id']; ?>"><img src="/img/social_thumbs_tw.jpg" alt="Twitter" border="0"/></a>
-										<a href="https://plus.google.com/share?url=http://stylebooth.mx/products/detail/<?php echo $p['Product']['id']; ?>"><img src="/img/social_thumbs_go.jpg" alt="Google+" border="0"/></a>
-										<a href="https://pinterest.com/pin/create/button/?url=http://stylebooth.mx/products/detail/<?php echo $p['Product']['id']; ?>&media=http://stylebooth.mx/files/products/<?php echo $p['Product']['image']; ?>&description=<?php echo $p['Product']['name']; ?>"><img src="/img/social_thumbs_pin.jpg" alt="Pinterest" border="0"/></a>
-										<a href="#"><img src="/img/social_thumbs_more.jpg" alt="More" border="0"/></a>
+										<a target="_blank" href="http://instagram.com/styleboothmx"><img src="/img/social_thumbs_inst.jpg" alt="Instagram" border="0"/></a>
+										<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://stylebooth.mx/products/detail/<?php echo $p['Product']['id']; ?>"><img src="/img/social_thumbs_fb.jpg" alt="Facebook" border="0"/></a>
+										<a target="_blank" href="https://twitter.com/home?status=Nuevo producto de Stylebooth http://stylebooth.mx/products/detail/<?php echo $p['Product']['id']; ?>"><img src="/img/social_thumbs_tw.jpg" alt="Twitter" border="0"/></a>
+										<a target="_blank" href="https://plus.google.com/share?url=http://stylebooth.mx/products/detail/<?php echo $p['Product']['id']; ?>"><img src="/img/social_thumbs_go.jpg" alt="Google+" border="0"/></a>
+										<a target="_blank" href="https://pinterest.com/pin/create/button/?url=http://stylebooth.mx/products/detail/<?php echo $p['Product']['id']; ?>&media=http://stylebooth.mx/files/products/<?php echo $p['Product']['image']; ?>&description=<?php echo $p['Product']['name']; ?>"><img src="/img/social_thumbs_pin.jpg" alt="Pinterest" border="0"/></a>
 									</div>
 								</div>
 								<a href="/products/detail/<?php echo $p['Product']['id']; ?>" class="thumb_click"></a>

@@ -172,12 +172,13 @@ a:active {color:#833959;}  /* selected link */
 @media (max-width: 1199px){.outfit_thumb>.thumb_click{width:91%; height: 92%; margin-top: 15px;} }
 @media (max-width: 991px){.outfit_thumb>.thumb_click{width:96%; height: 100%; margin-top: 1px;} }
 .social_thumbs { text-align: left; z-index: 998; position: relative; margin-top: 0px; margin-left: -7px;}
-.social_thumbs a {padding: 0 !important; margin: 0 -1px; }
+.social_thumbs a {padding: 0 !important; margin-right: 1px; }
+.galeria_full .social_thumbs a, .outfit_thumb .social_thumbs a {padding: 0 !important; margin-right: -2px; }
 .social_thumbs a img { display: inline-block; vertical-align: bottom;}
-.products-thumb .social_thumbs { position: absolute; bottom:20px; }
+.products-thumb .social_thumbs { position: absolute; bottom:20px; width:140px; }
 @media (max-width: 1199px){.products-thumb .social_thumbs { position: absolute; bottom:8px; }}
 .products-thumb .social_thumbs a img { width: 12%; }
-.products-thumb .social_thumbs .stylebooth_thumb { width: auto; height: 22px; margin: 0 -2px 0 -3px; }
+.products-thumb .social_thumbs .stylebooth_thumb { width: auto; height: 22px; }
 .outfit_specs .social_thumbs { margin-left: 0px !important; }
 .outfit_specs { text-align: left; display: block; font-size: 18px; margin-top:60%; }
 @media (max-width: 991px){.outfit_specs {margin-top:0; padding: 20px;}}

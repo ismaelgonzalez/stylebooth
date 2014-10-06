@@ -1,7 +1,7 @@
 
 .thumbnail {margin:15px !important; border: 1px solid #837f7f; }
 .thumbnail a { padding: 10px ;}
-.thumbnail .caption {display: auto;}
+.thumbnail .caption {display: none;}
 .col-md-3 .products-thumb { margin:9px !important; height: 155px; min-height: 0 !important; overflow: hidden; }
 @media (max-width: 1199px) {.col-md-3 .products-thumb { height: 140px; min-height: 0 !important; }}
 @media (max-width: 1199px) {.col-md-3 .products-thumb.outfit_pieces { height: 119px; min-height: 0 !important; }}

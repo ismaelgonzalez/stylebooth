@@ -350,7 +350,12 @@ class ProductsController extends AppController
 	}
 
 	public function detail($id){
-		$product = $this->Product->findById($id);
+		$product = $this->Product->find('first', array(
+			'conditions' => array(
+				'Product.id' => $id,
+				'Product.status' => 1
+			)
+		));
 
 		if (empty($product)) {
 			$this->Session->setFlash('No existe producto con este ID :(', 'default', array('class'=>'alert alert-danger'));
@@ -370,7 +375,7 @@ class ProductsController extends AppController
 			),
 		));
 
-		$this->layout = 'default';
+		$this->layout = 'filter4_layout';
 		$this->set('title_for_layout', 'Detalle de ' . $product['Product']['name']);
 		$this->set('product', $product);
 		$this->set('coupon', $coupon);

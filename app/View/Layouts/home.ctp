@@ -220,6 +220,7 @@
 			<a href="http://instagram.com/styleboothmx" target="_blank"><img src="/img/footer_instagram.png" alt="Stylebooth Instagram"/></a>
 			<a href="https://www.facebook.com/stylebooth" target="_blank"><img src="/img/footer_facebook.png" alt="Stylebooth Facebook"/></a>
 			<a href="https://twitter.com/Styleboothmx" target="_blank"><img src="/img/footer_twitter.png" alt="Stylebooth Twitter"/></a>
+			<a href="https://plus.google.com/112276086288045773870/posts" target="_blank"><img src="/img/footer_gplus.png" alt="Stylebooth G+"/></a>
 		</div>
 		<div><a href="/contacto">Contacto</a></div>
 	</div>
@@ -238,7 +239,8 @@
 			$('#js-home-medidas').fadeout('slow');
 			$('#js-home-styles').fadein('slow');
 		});
-		$("#filter1Continue").click(function() {
+		$("#filter1Continue").click(function(e) {
+			e.preventDefault();
 			$budget    = $(".budget:checked").val();
 			$size      = $(".size:checked").val();
 			$foot_size = $(".foot_size:checked").val();
@@ -297,6 +299,7 @@
 	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
 	ga('create', 'UA-52868902-1', 'auto');
+	ga('require', 'displayfeatures');
 	ga('send', 'pageview');
 </script>
 <!-- analytics -->
