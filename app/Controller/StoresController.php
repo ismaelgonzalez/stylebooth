@@ -173,6 +173,14 @@ class StoresController extends AppController
 		$stores_poniente = $this->paginate('Store', array('Store.zone' => 'P', 'Store.status' => 1));
 		$stores_oriente  = $this->paginate('Store', array('Store.zone' => 'O', 'Store.status' => 1));
 
+		$stores = $this->Store->find('all', array(
+			'recursive' => -1,
+			'conditions' => array(
+				'status' => 1
+			)
+		));
+
+		$this->set('stores', $stores);
 		$this->set(compact('stores_norte', 'stores_sur', 'stores_poniente', 'stores_oriente'));
 	}
 
