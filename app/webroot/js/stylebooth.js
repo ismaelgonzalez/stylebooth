@@ -102,14 +102,23 @@ $(document).ready(function() {
 		$sizes = $("#sizes").val();
 		$style = $("#style").val();
 		$outfit = $('#outfitID');
+		$hasAllProducts = $('#hasAllProducts');
 
-		if ($outfit.length > 0) {
+		if ($outfit.length > 0 && $hasAllProducts.length !== 0) {
 			$id   = $outfit.val();
 			$.ajax({
 				type: 'post',
 				url: '/products/getProductsByOutfit/' + $id + '/' + $text,
 				success: function(html) {
 					filterProductsWithOutfit(html);
+				}
+			});
+		} else if ($hasAllProducts.length > 0 && $hasAllProducts.val() == 1) {
+			$.ajax({
+				type: 'post',
+				url: '/products/filterAllProducts/' + $text,
+				success: function(html) {
+					filterProducts(html);
 				}
 			});
 		} else {
@@ -130,7 +139,7 @@ function filterProducts(html) {
 	for (i=0; i<obj.length; i++) {
 		result += '<div class="col-md-3">'
 		+ '<div class="thumbnail products-thumb outfit_pieces">'
-		+ '<img src="files/products/' + obj[i].Product.image + '" alt="' + obj[i].Product.name + '">'
+		+ '<img src="/files/products/' + obj[i].Product.image + '" alt="' + obj[i].Product.name + '">'
 		+ '<div class="caption">'
 		+ obj[i].Product.name + '.<br/>$' + obj[i].Product.price;
 		if (obj[i].Coupon.length > 0){

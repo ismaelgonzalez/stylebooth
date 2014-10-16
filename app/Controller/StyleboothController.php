@@ -383,7 +383,14 @@ class StyleboothController extends AppController
 				
 				$to = 'correo@promktmoda.com';
 				$from = 'contacto@stylebooth.mx';
-				$subject = 'Un nuevo email de la forma de contacto de Stylebooth';
+
+				if (empty($this->data['Stylebooth']['subject'])) {
+					$subject = 'Un nuevo email de la forma de contacto de Stylebooth';
+				}else {
+					$subject = $this->data['Stylebooth']['subject'];
+				}
+
+
 				$content = $this->data['Stylebooth']['nombre']. ' <' . $this->data['Stylebooth']['email'] . '> dice:\n' . $this->data['Stylebooth']['comentarios'];
 				$this->Email->sendEmail($to, $subject, $content, $from);
 

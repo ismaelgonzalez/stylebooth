@@ -277,3 +277,6 @@ a.tiendas_btn_sur { background-image: url('../img/tiendas_btn_sur.jpg'); }
 .thumbs_editbooth {border-color: transparent !important;}
 .editbooth_btn { width:260px; float: right; }
 .editbooth_btn input {color: #fff;}
+.link-button { color: #fff; }
+.link-button:visited { color: #fff; }
+.link-button i { color: #fff; }

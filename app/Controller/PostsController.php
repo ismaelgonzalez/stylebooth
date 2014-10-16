@@ -191,6 +191,19 @@ class PostsController extends AppController
 		$this->set('noticia', $noticia);
 	}
 
+	private function add_num_view($post_id, $num_views) {
+		$num_views++;
+
+		$post = array(
+			'Post' => array(
+				'id'        => $post_id,
+				'num_views' => $num_views
+			)
+		);
+
+		$this->Post->save($post);
+	}
+
 	public function blog_lista($id = null) {
 		$this->layout = 'default';
 
@@ -210,6 +223,10 @@ class PostsController extends AppController
 				'Post.id' => 'desc',
 			),
 		));
+
+		if ($main) {
+			$this->add_num_view($id, $main['Post']['num_views']);
+		}
 
 		$this->Paginator->settings = array(
 			'conditions' => array(

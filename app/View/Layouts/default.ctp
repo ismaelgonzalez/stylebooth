@@ -23,7 +23,7 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 		echo $this->Html->script('bootstrap.min');
 		echo $this->Html->script('carousel');
 		echo $this->Html->script('stylebooth');
-		//echo $this->Html->script('masonry.pkgd');
+		echo $this->Html->script('masonry.pkgd');
 	echo $this->fetch('meta');
 	echo $this->fetch('css');
 	echo $this->fetch('script');

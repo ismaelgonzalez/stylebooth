@@ -12,7 +12,7 @@ class Post extends AppModel
 				'message' => 'El Titulo es requerido',
 			),
 		),
-		'text' => array(
+		'post' => array(
 			'required' => array(
 				'rule' => 'notEmpty',
 				'message' => 'El texto es principal',
