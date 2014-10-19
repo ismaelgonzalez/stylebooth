@@ -14,7 +14,11 @@
 				<li><a href="/blogs/lista/">BLOG</a></li>
 				<li><a href="/stores/lista">TIENDAS</a></li>
 				<li><a href="/products/lista" id="header_btngaleria">GALERÍA</a></li>
-				<li><a id="signin_btn">SIGN IN</a></li>
+				<?php if (isset($logged_user)) { ?>
+					<li><a href="/mi_booth/<?php echo $logged_user["id"]; ?>">MI BOOTH</a></li>
+				<?php } else { ?>
+					<li><a id="signin_btn">SIGN IN</a></li>
+				<?php } ?>
 			</ul>
 			<div id="singin_form">
 				<form class="navbar-form navbar-right" role="form" action="/users/login" id="UserLoginForm" method="post">

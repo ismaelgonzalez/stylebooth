@@ -24,7 +24,7 @@ class ProductsController extends AppController
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('lista', 'detail', 'getProductsByFilter', 'addToWishList', 'getProductsByOutfit', 'getNameById', 'getSkinAndBodyType', 'getProductsByStore', 'filterAllProducts');
+		$this->Auth->allow('lista', 'detail', 'getProductsByFilter', 'addToWishList', 'getProductsByOutfit', 'getNameById', 'getSkinAndBodyType', 'getProductsByStore', 'filterAllProducts', 'filterAllProductsFromWishlist');
 	}
 
 	public function getbyid($product_id){
@@ -628,6 +628,36 @@ class ProductsController extends AppController
 		));
 
 		return json_encode($outfits);
+	}
+
+	public function filterAllProductsFromWishlist($filter, $user_id) {
+		$this->autoRender = false;
+		$product_category = $this->filter_product_category($filter);
+
+		$wishlist_products = $this->Wishlist->find('all', array(
+			'conditions' => array(
+				'Wishlist.user_id' => $user_id,
+			),
+			'recursive' => -1
+		));
+
+		$products = array();
+
+		foreach ($wishlist_products as $w) {
+			$product = $this->Product->find('first', array(
+				'conditions' => array(
+					$product_category,
+					'Product.status' => 1,
+					'Product.id' => $w['Wishlist']['product_id']
+				),
+			));
+
+			if ($product) {
+				$products[] = $product;
+			}
+		}
+
+		return json_encode($products);
 	}
 
 	public function filterAllProducts($filter) {

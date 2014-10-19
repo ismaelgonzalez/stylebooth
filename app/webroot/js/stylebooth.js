@@ -103,6 +103,7 @@ $(document).ready(function() {
 		$style = $("#style").val();
 		$outfit = $('#outfitID');
 		$hasAllProducts = $('#hasAllProducts');
+		$user_id = $('#user-id');
 
 		if ($outfit.length > 0 && $hasAllProducts.length !== 0) {
 			$id   = $outfit.val();
@@ -117,6 +118,14 @@ $(document).ready(function() {
 			$.ajax({
 				type: 'post',
 				url: '/products/filterAllProducts/' + $text,
+				success: function(html) {
+					filterProducts(html);
+				}
+			});
+		} else if ($user_id.length > 0 && $user_id.val() !== '') {
+			$.ajax({
+				type: 'post',
+				url: '/products/filterAllProductsFromWishlist/' + $text + '/' + $user_id.val(),
 				success: function(html) {
 					filterProducts(html);
 				}
