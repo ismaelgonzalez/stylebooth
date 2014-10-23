@@ -358,7 +358,7 @@ class ProductsController extends AppController
 		));
 
 		if (empty($product)) {
-			$this->Session->setFlash('No existe producto con este ID :(', 'default', array('class'=>'alert alert-danger'));
+			//$this->Session->setFlash('No existe producto con este ID :(', 'default', array('class'=>'alert alert-danger'));
 
 			return $this->redirect('/');
 		}

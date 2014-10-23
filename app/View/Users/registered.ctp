@@ -1,8 +1,5 @@
-<div class="col-lg-8 col-lg-offset-2">
-	<div class="col-md-2">
-		<img src='http://stylebooth.humantu.com/stylebooth.png' />
-	</div>
-	<div class="col-md-10">
+<div class="col-lg-8 col-lg-offset-2" style="margin-top: 25px;">
+	<div class="col-md-12">
 		<h4>¡Gracias por registrarte en Stylebooth!</h4>
 		<p>Revisa tu email para confirmar tu cuenta de Stylebooth.</p>
 	</div>
