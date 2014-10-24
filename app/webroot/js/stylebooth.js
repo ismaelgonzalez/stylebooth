@@ -89,11 +89,24 @@ $(document).ready(function() {
 		},0);
 	}
 
-	$(".thumb_click").mouseover(function() {
+	/*$(".thumb_click").mouseover(function() {
 		$(this).siblings(".caption").fadeIn(300);
 	}).mouseout(ThumbOut);
 
 	$(".social_thumbs").mouseover(function() {
+		clearTimeout(ThumbOut);
+	});*/
+
+	$(".thumb_click").live('mouseover mouseout', function(event) {
+		if (event.type == 'mouseover') {
+			$(this).siblings(".caption").fadeIn(300);
+		}else {
+			ThumbOut();
+		}
+	});
+
+	$(".social_thumbs").live('mouseover', function(event) {
+		console.log(ThumbOut);
 		clearTimeout(ThumbOut);
 	});
 
@@ -104,8 +117,11 @@ $(document).ready(function() {
 		$outfit = $('#outfitID');
 		$hasAllProducts = $('#hasAllProducts');
 		$user_id = $('#user-id');
-
-		if ($outfit.length > 0 && $hasAllProducts.length !== 0) {
+console.log($outfit);
+		console.log($outfit.length);
+		console.log($hasAllProducts);
+		console.log($hasAllProducts.length);
+		if ($outfit.length > 0 && $hasAllProducts.val() !== 1) {
 			$id   = $outfit.val();
 			$.ajax({
 				type: 'post',
@@ -114,12 +130,12 @@ $(document).ready(function() {
 					filterProductsWithOutfit(html);
 				}
 			});
-		} else if ($hasAllProducts.length > 0 && $hasAllProducts.val() == 1) {
+		} else if ($hasAllProducts.length > 0 && $hasAllProducts.val() == 1) {	//done
 			$.ajax({
 				type: 'post',
 				url: '/products/filterAllProducts/' + $text,
 				success: function(html) {
-					filterProducts(html);
+					filterProducts(html, 'galeria_thumb');
 				}
 			});
 		} else if ($user_id.length > 0 && $user_id.val() !== '') {
@@ -127,42 +143,52 @@ $(document).ready(function() {
 				type: 'post',
 				url: '/products/filterAllProductsFromWishlist/' + $text + '/' + $user_id.val(),
 				success: function(html) {
-					filterProducts(html);
+					filterProducts(html, 'products-thumb outfit_pieces');
 				}
 			});
-		} else {
+		} else {																//done
 			$.ajax({
 				type: 'post',
 				url: '/products/getProductsByFilter/' + $text + '/' + $sizes + '/' + $style,
 				success: function(html) {
-					filterProducts(html);
+					filterProducts(html, 'products-thumb outfit_pieces');
 				}
 			});
 		}
 	});
+
+
 });
 
-function filterProducts(html) {
+function filterProducts(html, type) {
 	var obj = JSON.parse(html);
 	var result = "";
 	for (i=0; i<obj.length; i++) {
 		result += '<div class="col-md-3">'
-		+ '<div class="thumbnail products-thumb outfit_pieces">'
+		+ '<div class="thumbnail '+ type + '">'
 		+ '<img src="/files/products/' + obj[i].Product.image + '" alt="' + obj[i].Product.name + '">'
-		+ '<div class="caption">'
-		+ obj[i].Product.name + '.<br/>$' + obj[i].Product.price;
+		+ '<div class="caption">';
+
+		if (type === 'galeria_thumb') {
+			result += '<div class="galeria_thumb_specs">'
+				+ obj[i].Product.name + '.<br/>$' + obj[i].Product.price
+				+ '</div>';
+		} else {
+			result += obj[i].Product.name + '.<br/>$' + obj[i].Product.price;
+		}
+
 		if (obj[i].Coupon.length > 0){
-		 result += '<h6><a href="/products/detail/' + obj[i].Product.id + '">Ve Por Tu Cupon!</a></h6>';
-		 }
+			result += '<h6><a href="/products/detail/' + obj[i].Product.id + '">Ve Por Tu Cupon!</a></h6>';
+		}
 		result += '<div class="social_thumbs">'
-		+ '<img src="/img/social_thumbs_sb.jpg" alt="Stylebooth" border="0" class="stylebooth_thumb"/>'
-		+ '<a href="http://instagram.com/styleboothmx"><img src="/img/social_thumbs_inst.jpg" alt="Instagram" border="0"/></a>'
-		+ '<a href="https://www.facebook.com/sharer/sharer.php?u=http://stylebooth.mx/products/detail/' + obj[i].Product.id + '"><img src="/img/social_thumbs_fb.jpg" alt="Facebook" border="0"/></a>'
-		+ '<a href="https://twitter.com/home?status=Nuevo producto de Stylebooth http://stylebooth.mx/products/detail/' + obj[i].Product.id + '"><img src="/img/social_thumbs_tw.jpg" alt="Twitter" border="0"/></a>'
-		+ '<a href="https://plus.google.com/share?url=http://stylebooth.mx/products/detail/' + obj[i].Product.id + '"><img src="/img/social_thumbs_go.jpg" alt="Google+" border="0"/></a>'
-		+ '<a href="https://pinterest.com/pin/create/button/?url=http://stylebooth.mx/products/detail/' + obj[i].Product.id + '&media=http://stylebooth.mx/files/products/' + obj[i].Product.image + '&description=' + obj[i].Product.name + '"><img src="/img/social_thumbs_pin.jpg" alt="Pinterest" border="0"/></a>'
-		+ '<a href="#"><img src="/img/social_thumbs_more.jpg" alt="More" border="0"/></a>'
-		+ '</div>'
+				+ '<img src="/img/social_thumbs_sb.jpg" alt="Stylebooth" border="0" class="stylebooth_thumb"/>'
+				+ '<a href="http://instagram.com/styleboothmx"><img src="/img/social_thumbs_inst.jpg" alt="Instagram" border="0"/></a>'
+				+ '<a href="https://www.facebook.com/sharer/sharer.php?u=http://stylebooth.mx/products/detail/' + obj[i].Product.id + '"><img src="/img/social_thumbs_fb.jpg" alt="Facebook" border="0"/></a>'
+				+ '<a href="https://twitter.com/home?status=Nuevo producto de Stylebooth http://stylebooth.mx/products/detail/' + obj[i].Product.id + '"><img src="/img/social_thumbs_tw.jpg" alt="Twitter" border="0"/></a>'
+				+ '<a href="https://plus.google.com/share?url=http://stylebooth.mx/products/detail/' + obj[i].Product.id + '"><img src="/img/social_thumbs_go.jpg" alt="Google+" border="0"/></a>'
+				+ '<a href="https://pinterest.com/pin/create/button/?url=http://stylebooth.mx/products/detail/' + obj[i].Product.id + '&media=http://stylebooth.mx/files/products/' + obj[i].Product.image + '&description=' + obj[i].Product.name + '"><img src="/img/social_thumbs_pin.jpg" alt="Pinterest" border="0"/></a>'
+				+ '<a href="#"><img src="/img/social_thumbs_more.jpg" alt="More" border="0"/></a>'
+			+ '</div>'
 		+ '</div>'
 		+ '<a href="/products/detail/' + obj[i].Product.id + '" class="thumb_click"></a>'
 		+ '</div>'
