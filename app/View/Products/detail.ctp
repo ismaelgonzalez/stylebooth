@@ -27,9 +27,9 @@
 						<?php echo $product['Product']['name']; ?><br/>
 						$<?php echo $product['Product']['price']; ?> MXN
 						<p><?php echo $product['Product']['blurb']; ?></p>
-						<button type="button" class="btn btn-default btn-xs" onclick="javascript:addToWishList(<?php echo $product['Product']['id']; ?>)">
-							<span class="glyphicon glyphicon-heart" style="color: #F92672;"></span> Agregar a mi Booth Personal
-						</button>
+						<p class="wishlist-button-container">
+							<?php echo $this->element('wishlist', array('product_id' => $product['Product']['id'], 'user' => $logged_user)); ?>
+						</p>
 						<div class="social_thumbs">
 							<img src="/img/social_thumbs_sb_w.jpg" alt="Stylebooth" border="0"/>
 							<a target="_blank" href="http://instagram.com/styleboothmx"><img src="/img/social_thumbs_inst_w.jpg" alt="Instagram" border="0"/></a>
@@ -50,9 +50,6 @@
 							<?php } ?>
 						</div>
 					<?php } ?>
-					<div class="alert alert-danger" style="border: 1px dashed;">
-						TEst Cupon															<p><a href="/getcoupon/7">  Genera tu cupón aqui</a></p>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -88,14 +85,19 @@
 				success: function(html) {
 					if (html == 'noUser') {
 						$('.modal-body').append('¡Necesitas iniciar sesion para guardar este producto a tu Booth Personal');
-						$('#errorMessage').dialog({modal:true});
+						$('#errorMessage').modal({modal:true});
 					} else if (html == 'noProduct') {
 						$('.modal-body').append('¡Este producto no es valido para agregar a tu Booth Personal!');
-						$('#errorMessage').dialog({modal:true});
+						$('#errorMessage').modal({modal:true});
 					} else if (html == 'saved') {
 						$('.modal-body').append('¡Este producto se agregó a tu Booth Personal!');
 						$('#errorMessage').modal('show');
-						$('.btn-default').attr('disabled', 'disabled');
+						$('#errorMessage').on('hidden.bs.modal', function () {
+							$('.wishlist-button-container')
+								.empty()
+								.fadeIn(300)
+								.append('<button type="button" class="btn btn-default btn-xs" disabled="disabled"><span class="icon-heart" style="color: limegreen;"></span> Agregado a mi Booth Personal</button>');
+						});
 					}
 				}
 			});

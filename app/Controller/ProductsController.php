@@ -769,4 +769,22 @@ class ProductsController extends AppController
 		$this->Session->setFlash('Se desactivaron los Productos con exito!', 'default', array('class'=>'alert alert-success'));
 		return $this->redirect('/products/');
 	}
+
+	public function check_if_in_wishlist($product_id, $user_id) {
+		$this->autoRender = false;
+
+		$wishlist = $this->Wishlist->find('first', array(
+			'recursive'  => -1,
+			'conditions' => array(
+				'product_id' => $product_id,
+				'user_id'    => $user_id
+			),
+		));
+
+		if (!empty($wishlist)) {
+			return true;
+		}
+
+		return false;
+	}
 }

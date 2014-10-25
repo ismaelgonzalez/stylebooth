@@ -73,7 +73,7 @@
 					<div class="col-md-9" id="productsResults">
 						<?php if (!empty($user['Wishlist'])) {
 							foreach ($products as $p) { ?>
-								<div class="col-md-3">
+								<div class="col-md-3 product_<?php echo $p['Product']['id']; ?>">
 									<div class="thumbnail mibooth_thumb">
 										<?php if(empty($p['Product']['image'])) { ?>
 											<a class="thumb-booth" href="/products/detail/<?php echo $p['Product']['id']; ?>"><img src="/files/products/imagecara.jpg" alt="/products/detail/<?php echo $p['Product']['title']; ?>"/></a>
@@ -87,7 +87,7 @@
 											</div>
 											<a href="/products/detail/<?php echo $p['Product']['id']; ?>">Ver producto</a>
 											<?php if (!empty($logged_user) && $logged_user['id'] == $user['User']['id']) { ?>
-												<a href="#" onclick="deleteFromWishlist(<?php echo $p['Product']['id']; ?>);">Eliminar</a>
+												<a onclick="deleteFromWishlist(<?php echo $p['Product']['id']; ?>);">Eliminar de Wishlist</a>
 											<?php } ?>
 										</div>
 										<a href="/products/detail/<?php echo $p['Product']['id']; ?>" class="thumb_click"></a>
@@ -112,7 +112,7 @@
 				url: '/stylebooth/deleteFromWishlist/' + product_id,
 				success: function(html) {
 					if ( html == 'ok' ) {
-						$('#product_' + product_id).fadeOut('slow');
+						$('.product_' + product_id).fadeOut('slow');
 					}
 				}
 			});

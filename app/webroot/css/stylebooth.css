@@ -191,6 +191,8 @@ iframe { margin-bottom: 50px;}
 @media (max-width: 991px){.producto_specs {margin-top:-35px; padding: 20px;}}
 .producto_specs p { margin: 15px 0;}
 .producto_specs .social_thumbs {margin-top: 5px; }
+.producto_specs .social_thumbs a:hover {opacity:0.6; }
+.social_thumbs a:hover {opacity:0.6; }
 .container .row .titles {border-color: #837f7f; border-style: dotted; border-width: 0 0 3px 0; margin: 50px 18px 10px 18px; padding: 0 0 8px 0; text-align: left; }
 .titles h1 { margin-bottom: 0px;}
 
@@ -264,7 +266,7 @@ a.tiendas_btn_sur { background-image: url('../img/tiendas_btn_sur.jpg'); }
 .mibooth_thumb .caption>.galeria_thumb_specs {width: 110px;}
 @media (max-width: 1199px){.mibooth_thumb .caption>.galeria_thumb_specs {width: 80px; margin-top: 20px}}
 @media (max-width: 990px){.mibooth_thumb .caption>.galeria_thumb_specs {width: 100%;}}
-.mibooth_thumb .caption a { position: absolute; z-index: 998; margin-top: 70px; margin-left: -15px; color:#fff; }
+.mibooth_thumb .caption a { position: absolute; z-index: 998; margin-top: 70px; margin-left: -50px; color:#fff; cursor: pointer; }
 @media (max-width: 1199px){ .mibooth_thumb .caption a { margin-top: 65px; }}
 .mibooth_thumb .caption a:hover { color: #d01d52;}
 .mibooth_thumb .caption a:nth-child(3) { margin-top: 90px; }

@@ -97,16 +97,18 @@ $(document).ready(function() {
 		clearTimeout(ThumbOut);
 	});*/
 
-	$(".thumb_click").live('mouseover mouseout', function(event) {
-		if (event.type == 'mouseover') {
-			$(this).siblings(".caption").fadeIn(300);
-		}else {
-			ThumbOut();
+	$(".col-md-3").live({
+		mouseenter: function() {
+			$caption = $(this).find('.caption');
+			$caption.fadeIn(300);
+		},
+		mouseleave: function() {
+			$caption = $(this).find('.caption');
+			$caption.fadeOut(200);
 		}
 	});
 
 	$(".social_thumbs").live('mouseover', function(event) {
-		console.log(ThumbOut);
 		clearTimeout(ThumbOut);
 	});
 
@@ -117,10 +119,7 @@ $(document).ready(function() {
 		$outfit = $('#outfitID');
 		$hasAllProducts = $('#hasAllProducts');
 		$user_id = $('#user-id');
-console.log($outfit);
-		console.log($outfit.length);
-		console.log($hasAllProducts);
-		console.log($hasAllProducts.length);
+
 		if ($outfit.length > 0 && $hasAllProducts.val() !== 1) {
 			$id   = $outfit.val();
 			$.ajax({
@@ -130,7 +129,7 @@ console.log($outfit);
 					filterProductsWithOutfit(html);
 				}
 			});
-		} else if ($hasAllProducts.length > 0 && $hasAllProducts.val() == 1) {	//done
+		} else if ($hasAllProducts.length > 0 && $hasAllProducts.val() == 1) {
 			$.ajax({
 				type: 'post',
 				url: '/products/filterAllProducts/' + $text,
@@ -143,10 +142,10 @@ console.log($outfit);
 				type: 'post',
 				url: '/products/filterAllProductsFromWishlist/' + $text + '/' + $user_id.val(),
 				success: function(html) {
-					filterProducts(html, 'products-thumb outfit_pieces');
+					filterProductsNoSocialButtons(html);
 				}
 			});
-		} else {																//done
+		} else {
 			$.ajax({
 				type: 'post',
 				url: '/products/getProductsByFilter/' + $text + '/' + $sizes + '/' + $style,
@@ -224,6 +223,30 @@ function filterProductsWithOutfit(html) {
 		+ '<a href="/products/detail/' + obj.Product[i].id + '" class="thumb_click"></a>'
 		+ '</div>'
 		+ '</div>';
+	}
+
+	$('#productsResults').empty()
+		.append(result);
+}
+
+function filterProductsNoSocialButtons(html) {
+	var obj = JSON.parse(html);
+	var result = "";
+
+	for (i=0; i<obj.length; i++) {
+		result += '<div class="col-md-3 product_' + obj[i].Product.id + '">' +
+		'<div class="thumbnail mibooth_thumb">' +
+		'<a class="thumb-booth" href="/products/detail/' + obj[i].Product.id + '"><img src="/files/products/' + obj[i].Product.image + '" alt="' + obj[i].Product.name + '"></a>' +
+			'<div class="caption" style="display: none;">' +
+				'<div class="galeria_thumb_specs">' +
+					obj[i].Product.name + '.<br/>$' + obj[i].Product.price +
+				'</div>' +
+					'<a href="/products/detail/' + obj[i].Product.id + '">Ver producto</a>' +
+					'<a onclick="deleteFromWishlist(' + obj[i].Product.id + ');">Eliminar de Wishlist</a>' +
+				'</div>' +
+					'<a href="/products/detail/' + obj[i].Product.id + '" class="thumb_click"></a>' +
+				'</div>' +
+			'</div>';
 	}
 
 	$('#productsResults').empty()
