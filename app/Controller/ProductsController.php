@@ -24,7 +24,8 @@ class ProductsController extends AppController
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('lista', 'detail', 'getProductsByFilter', 'addToWishList', 'getProductsByOutfit', 'getNameById', 'getSkinAndBodyType', 'getProductsByStore', 'filterAllProducts', 'filterAllProductsFromWishlist');
+		$this->Auth->allow('lista', 'detail', 'getProductsByFilter', 'addToWishList', 'getProductsByOutfit', 'getNameById', 'getSkinAndBodyType', 'getProductsByStore',
+			'filterAllProducts', 'filterAllProductsFromWishlist', 'check_if_in_wishlist');
 	}
 
 	public function getbyid($product_id){

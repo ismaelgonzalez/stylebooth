@@ -317,8 +317,10 @@ class StyleboothController extends AppController
 		if (!empty($user['Wishlist'])) {
 			foreach ($user['Wishlist'] as $w){
 				$this->Product->recursive = -1;
-				$product = $this->Product->findById($w['product_id']);
-				$products[] = $product;
+				$product = $this->Product->findByIdAndStatus($w['product_id'], 1);
+				if (!empty($product)) {
+					$products[] = $product;
+				}
 			}
 		}
 
