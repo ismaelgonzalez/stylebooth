@@ -8,7 +8,6 @@
 			<?php echo $this->element('store_address', array('get_store_address' => true, 'store_id' => $product['Store']['id'])); ?>
 			<a href="<?php echo $product['Store']['url']; ?>"  target="_blank" class="fb_store"><img src="/img/fb_store_icon.png" border="0"/> /<?php echo $product['Store']['name']; ?></a>
 			<a href="/stores/products/<?php echo $product['Store']['id']; ?>">Ver productos Boutique</a>
-			<?php echo $product['Store']['google_maps']; ?>
 		</div>
 	</div>
 	<div class="col-md-8" align="center">
@@ -53,6 +52,9 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	<div class="row col-md-12">
+		<?php echo $product['Store']['google_maps']; ?>
 	</div>
 </div>
 <div id="errorMessage" class="modal fade">
@@ -103,12 +105,15 @@
 			});
 		}
 	$(function(){
+		/*
+		* This part makes a pop up with the store logo
+		* I'm blocking it out
 		$('.thumbnail').click(function(){
 			$('.modal-body').empty();
 			var src = $(this).find('img').attr('src');
 			var img = '<img src="' + src + '" width="550">'
 			$('.modal-body').append(img);
 			$('#myModal').modal({show:true});
-		});
+		});*/
 	});
 </script>

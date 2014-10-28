@@ -11,7 +11,7 @@
 			<input type="hidden" id="hasAllProducts" value="1">
 		</div>
 		<div id="productsResults" class="row galeria_full">
-			<div class="col-md-3">
+			<div class="col-md-3 pull-left">
 				<div class="galeria_banner">
 					<a href="/users/register"><img src="/img/galeria_banner.jpg" alt="Stylebooth" border="0"></a>
 				</div>
