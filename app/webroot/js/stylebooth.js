@@ -119,6 +119,7 @@ $(document).ready(function() {
 		$outfit = $('#outfitID');
 		$hasAllProducts = $('#hasAllProducts');
 		$user_id = $('#user-id');
+		$store_id = $('#store_id');
 
 		if ($outfit.length > 0 && $hasAllProducts.val() !== 1) {
 			$id   = $outfit.val();
@@ -143,6 +144,14 @@ $(document).ready(function() {
 				url: '/products/filterAllProductsFromWishlist/' + $text + '/' + $user_id.val(),
 				success: function(html) {
 					filterProductsNoSocialButtons(html);
+				}
+			});
+		} else if ($store_id.length > 0 && $store_id.val() != '') {
+			$.ajax({
+				type: 'post',
+				url: '/products/filterAllProducts/' + $text,	//TODO: change this url
+				success: function(html) {
+					filterProducts(html, 'galeria_thumb');
 				}
 			});
 		} else {
