@@ -44,6 +44,7 @@
 							<?php echo $coupon['Coupon']['title']; ?>
 							<?php if (empty($logged_user['id'])) { ?>
 								<p><a href="/users/register">  Regístrese para obtener el cupón</a></p>
+								<p><a href="/users/login">&iquest;Ya estas registrado? Inicia Sesion</a></p>
 							<?php } else { ?>
 								<p><a href="/getcoupon/<?php echo $coupon['Coupon']['id']; ?>">  Genera tu cupón aqui</a></p>
 							<?php } ?>

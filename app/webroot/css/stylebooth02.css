@@ -80,4 +80,5 @@ body .navbar-inverse .navbar-collapse,.navbar-inverse .navbar-form{ border:0; }@
 .thumb-booth { padding: 0!important;}
 .alert-danger { background-color: #d01d52; border-color: #eee; color: #fff; }
 .alert-danger a:link { color:#bbb; }
-.alert-danger a:hover { color:#111; }
+.alert-danger a:hover { color:#fff; }
+.alert-danger a:visited { color: #bbb; }

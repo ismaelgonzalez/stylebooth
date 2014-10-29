@@ -149,7 +149,7 @@ $(document).ready(function() {
 		} else if ($store_id.length > 0 && $store_id.val() != '') {
 			$.ajax({
 				type: 'post',
-				url: '/products/filterAllProducts/' + $text,	//TODO: change this url
+				url: '/products/getProductsByStore/' +$store_id.val() + '/' + $text,
 				success: function(html) {
 					filterProducts(html, 'galeria_thumb');
 				}
@@ -185,9 +185,10 @@ function filterProducts(html, type) {
 			result += obj[i].Product.name + '.<br/>$' + obj[i].Product.price;
 		}
 
-		if (obj[i].Coupon.length > 0){
+		/*if (obj[i].Coupon.length > 0){
 			result += '<h6><a href="/products/detail/' + obj[i].Product.id + '">Ve Por Tu Cupon!</a></h6>';
-		}
+		}*/
+
 		result += '<div class="social_thumbs">'
 				+ '<img src="/img/social_thumbs_sb.jpg" alt="Stylebooth" border="0" class="stylebooth_thumb"/>'
 				+ '<a href="http://instagram.com/styleboothmx"><img src="/img/social_thumbs_inst.jpg" alt="Instagram" border="0"/></a>'
@@ -216,9 +217,9 @@ function filterProductsWithOutfit(html) {
 		+ '<img src="/files/products/' + obj.Product[i].image + '" alt="' + obj.Product[i].name + '">'
 		+ '<div class="caption">'
 		+ obj.Product[i].name + '.<br/>$' + obj.Product[i].price;
-		if (obj.Product[i].Coupon.length > 0){
+		/*if (obj.Product[i].Coupon.length > 0){
 			result += '<h6><a href="/products/detail/' + obj.Product[i].id + '">Ve Por Tu Cupon!</a></h6>';
-		}
+		}*/
 		result += '<div class="social_thumbs">'
 		+ '<img src="/img/social_thumbs_sb.jpg" alt="Stylebooth" border="0" class="stylebooth_thumb"/>'
 		+ '<a href="http://instagram.com/styleboothmx"><img src="/img/social_thumbs_inst.jpg" alt="Instagram" border="0"/></a>'

@@ -71,77 +71,8 @@
 				<a href="/products/detail/<?php echo $p['Product']['id']; ?>" class="thumb_click"></a>
 			</div>
 		</div>
-		<?php /*<div class="col-md-4">
-			<div class="thumbnail products-thumb">
-				<a href="/products/detail/<?php echo $p['Product']['id']; ?>"> <img style="min-height:210px;height:210px;" src="/files/products/<?php echo $p['Product']['image']; ?>" alt="<?php echo $p['Product']['name']; ?>"></a>
-				<div class="caption">
-					<h5><b><?php echo $p['Product']['name']; ?></b></h5>
-					<h5><?php echo $store['Store']['name']; ?></h5>
-					<h5>$<?php echo $p['Product']['price']; ?></h5>
-					<?php echo $this->element('coupons', array('product_id' => $p['Product']['id'])); ?>
-				</div>
-			</div>
-		</div>
- <?php */ ?>
 		<?php } ?>
 </div>
 <ul class="pager">
 	<li><a href="/filter4">Anterior</a></li>
 </ul>
-<script type="text/javascript">
-	$(function() {
-		/*
-		$(".dropdown-menu li a").click(function(event){
-			event.preventDefault();
-			$(this).parents(".btn-group").find('.selection').text($(this).text());
-			$(this).parents(".btn-group").find('.selection').val($(this).text());
-			$text = $(this).text();
-			$id = $('#store_id').val();
-			console.log($text + ' ' + $id);
-			$.ajax({
-				type: 'post',
-				url: '/products/getProductsByStore/' + $id + '/' + $text,
-				success: function(html) {
-					filterProducts(html);
-				}
-			});
-		});
-		*
-		$("#productsFilter").change(function(event){
-			$text = $(this).val();
-			$id   = $('#store_id').val();
-			$.ajax({
-				type: 'post',
-				url: '/products/getProductsByStore/' + $id + '/' + $text,
-				success: function(html) {
-					filterProducts(html);
-				}
-			});
-		});*/
-	});
-
-	/*function filterProducts(html) {
-		var obj = JSON.parse(html);
-		var result = "";
-		var name_store = "";
-		$name_store = $('#store_name').val();
-		for (i=0; i<obj.length; i++) {
-			result += '<div class="col-md-4">'
-				+ '<div class="thumbnail">'
-				+ '<a href="/products/detail/' + obj[i].Product.id + '"> <img style="min-height:210px;height:210px;" src="/files/products/' + obj[i].Product.image + '" alt="' + obj[i].Product.name + '"></a>'
-				+ '<div class="caption">'
-				+ '<h5><b>' + obj[i].Product.name + '</b></h5>'
-				+ '<h5>' + $name_store + '</h5>'
-				+ '<h5>$' + obj[i].Product.price + '</h5>';
-			if (obj[i].Coupon.length > 0){
-				result += '<h5><a href="/products/detail/' + obj[i].Product.id + '">Ve Por Tu Cupon!</a></h5>';
-			}
-			result += '</div>'
-				+ '</div>'
-				+ '</div>';
-		}
-
-		$('#productsResults').empty()
-			.append(result);
-	}*/
-</script>
