@@ -11,12 +11,19 @@
 			<input type="hidden" id="hasAllProducts" value="1">
 		</div>
 		<div id="productsResults" class="row galeria_full">
-			<div class="col-md-3 pull-left">
-				<div class="galeria_banner">
-					<a href="/users/register"><img src="/img/galeria_banner.jpg" alt="Stylebooth" border="0"></a>
-				</div>
-			</div>
-			<?php foreach ($products as $p) { ?>
+			<?php
+			$first = true;
+			foreach ($products as $p) {
+				if ($first) { ?>
+					<div class="col-md-3 pull-left">
+						<div class="galeria_banner">
+							<a href="/users/register"><img src="/img/galeria_banner.jpg" alt="Stylebooth" border="0"></a>
+						</div>
+					</div>
+			<?php
+					$first = false;
+				}
+			?>
 				<div class="col-md-3">
 					<div class="thumbnail galeria_thumb">
 						<img src="/files/products/<?php echo $p['Product']['image']; ?>" alt="<?php echo $p['Product']['name']; ?>">
@@ -37,7 +44,6 @@
 					</div>
 				</div>
 			<?php } ?>
-
 		</div>
 	</div>
 </div>

@@ -32,7 +32,7 @@
 			<?php echo $this->element('store_address', array('store_address' => $store['StoreAddress'][0])); ?>
 			<h5><a href="<?php echo $url; ?>"  target="_blank"><?php echo $url; ?></a> </h5>
 			<?php if (!empty($redes_sociales)) { ?>
-				<h6>Redes Sociales:<br><a href="<?php echo $redes_sociales; ?>"  target="_blank"><?php echo $redes_sociales; ?></a></h6>
+				<p><a href="<?php echo $redes_sociales; ?>"  target="_blank" class="fb_store"><img src="/img/fb_store_icon.png" border="0"/> <?php echo $redes_sociales; ?></a></p>
 			<?php } ?>
 			<?php echo $store['Store']['google_maps']; ?>
 			<br />
