@@ -34,10 +34,14 @@
 //Blogs
 	Router::connect('/blogs/index/*', array('controller' => 'posts', 'action' => 'index'));
 	Router::connect('/blogs/lista/*', array('controller' => 'posts', 'action' => 'blog_lista'));
+	Router::connect('/blogs/view/*', array('controller' => 'posts', 'action' => 'view'));
+/*
+ * DEPRECATED
 //Noticias
 	Router::connect('/noticias/index/*', array('controller' => 'posts', 'action' => 'index'));
 	Router::connect('/noticias/lista/*', array('controller' => 'posts', 'action' => 'lista'));
 	Router::connect('/noticias/post/*', array('controller' => 'posts', 'action' => 'noticia_detail'));
+*/
 //admin
 	Router::connect('/admin/*', array('controller' => 'stylebooth', 'action' => 'dashboard'));
 	Router::connect(

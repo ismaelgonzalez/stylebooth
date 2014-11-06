@@ -37,7 +37,7 @@ class PostsController extends AppController
 				'Post.type' => $type,
 			),
 			'order' => array(
-				'Post.id' => 'DESC',
+				'Post.post_date' => 'DESC',
 			),
 		));
 
@@ -204,7 +204,29 @@ class PostsController extends AppController
 		$this->Post->save($post);
 	}
 
-	public function blog_lista($id = null) {
+	public function blog_lista() {
+		$this->layout = 'default';
+
+		$this->Paginator->settings = array(
+			'conditions' => array(
+				'Post.status' => 1,
+				'Post.type' => 'B',
+				'Post.post_date <= ' => date('Y-m-d'),
+			),
+			'order' => array(
+				'Post.post_date' => 'desc',
+			),
+			'limit' => 10,
+		);
+
+		$posts = $this->Paginator->paginate('Post');
+
+		$this->set('title_for_layout', 'Blogs');
+
+		$this->set('posts', $posts);
+	}
+
+	public function view($id) {
 		$this->layout = 'default';
 
 		if (!empty($id)) {

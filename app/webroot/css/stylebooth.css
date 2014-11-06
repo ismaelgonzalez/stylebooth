@@ -236,7 +236,7 @@ a.tiendas_btn_sur { background-image: url('../img/tiendas_btn_sur.jpg'); }
 .blog .datos { font-size: 14px; display: inline-block; margin-right: 10px; }
 .blog .datos img { margin-top: -3px; }
 .blog p.img { text-align: center; font-size: 10px; }
-.blog p.img>img {margin-top:20px;}
+.blog p.img>img {margin:20px 0;}
 .blog_right h5 {border-color: #837f7f; border-style: dotted; border-width: 0 0 3px 0; margin: 0px 0px 5px 0px; padding: 0 3px 8px 3px; text-align: left; }
 .blog_right>a>img { width: 100%; }
 .blog_right a { display: block; color:#d01d52; font-size: 15px; margin: 15px 0; }
@@ -283,3 +283,9 @@ a.tiendas_btn_sur { background-image: url('../img/tiendas_btn_sur.jpg'); }
 .link-button:visited { color: #fff; }
 .link-button i { color: #fff; }
 th { font-weight: bold;}
+
+.blog-preview { border-color: #837f7f; border-style: dotted; border-width: 0px 0px 3px 0px; padding-bottom: 30px; margin-bottom: 30px; font-size: 15px; }
+.blog_img_thumb { display: block; height: 200px; overflow: hidden; padding:0; }
+.blog_img_thumb img {width: 100%;}
+a.blog-mas { display: block; width: 100px; padding: 5px; text-align: center; background: #303235; color:#fff; margin-top: 30px; }
+.paging span { margin: 0 5px; }
