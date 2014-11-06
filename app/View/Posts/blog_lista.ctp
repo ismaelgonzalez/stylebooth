@@ -17,7 +17,7 @@
 						<?php if ( !empty($p['Post']['image']) ) { ?>
 						<img src="/files/posts/<?php echo $p['Post']['image']; ?>" alt="<?php echo $p['Post']['title']; ?>">
 						<?php } else { ?>
-						<img src="/files/stores/logo_stylebooth_small.jpg" alt="<?php echo $p['Post']['title']; ?>">
+						<img src="/files/posts/stylebooth-logo-blog.jpg" alt="<?php echo $p['Post']['title']; ?>">
 						<?php } ?>
 					</div>
 					<div class="col-md-7">
