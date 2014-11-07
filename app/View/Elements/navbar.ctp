@@ -11,7 +11,7 @@
 		</div>
 		<div class="navbar-collapse collapse" >
 			<ul class="nav navbar-nav" >
-				<li><a href="/blogs/lista/">BLOG</a></li>
+				<li><a href="/blogdemoda">BLOG</a></li>
 				<li><a href="/stores/lista">TIENDAS</a></li>
 				<li><a href="/products/lista" id="header_btngaleria">GALERÍA</a></li>
 				<?php if (isset($logged_user)) { ?>

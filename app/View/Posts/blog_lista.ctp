@@ -11,7 +11,7 @@
 						<h3><?php echo $p['Post']['title']; ?></h3>
 						<div class="datos"><img src="/img/blog_date.png" alt="Fecha"><?php echo date('d M, Y', strtotime($p['Post']['post_date'])); ?></div>
 						<div class="datos"><img src="/img//blog_views.png" alt="Views"> <?php echo $p['Post']['num_views']; ?> vistas</div>
-						<div class="datos"><a href="/blogs/view/<?php echo $p['Post']['id']; ?>#comentarios"><img src="/img/blog_comments.png" alt="Comments"> <?php echo sizeof($p['PostComment']); ?> comentarios</a></div>
+						<div class="datos"><a href="/blogdemoda/<?php echo $p['Post']['id']; ?>/<?php echo $p['Post']['slug']; ?>#comentarios"><img src="/img/blog_comments.png" alt="Comments"> <?php echo sizeof($p['PostComment']); ?> comentarios</a></div>
 					</div>
 					<div class="col-md-5 blog_img_thumb">
 						<?php if ( !empty($p['Post']['image']) ) { ?>
@@ -22,7 +22,7 @@
 					</div>
 					<div class="col-md-7">
 						<p><?php echo $p['Post']['blurb']; ?></p>
-						<a href="/blogs/view/<?php echo $p['Post']['id']; ?>" class="blog-mas">Leer más</a>
+						<a href="/blogdemoda/<?php echo $p['Post']['id']; ?>/<?php echo $p['Post']['slug']; ?>" class="blog-mas">Leer más</a>
 					</div>
 				</div>
 				<?php } ?>
@@ -39,7 +39,7 @@
 					<a href="/users/register"><img src="/img/banner_registrate.jpg" alt="¡Regístrate!" border="0" /></a>
 					<h5>Ultimas Publicaciones:</h5>
 					<?php foreach ($posts as $p) { ?>
-					<p><a href="/blogs/view/<?php echo $p['Post']['id']; ?>"><?php echo $p['Post']['title']; ?></a></p>
+					<p><a href="/blogdemoda/<?php echo $p['Post']['id']; ?>/<?php echo $p['Post']['slug']; ?>"><?php echo $p['Post']['title']; ?></a></p>
 					<?php } ?>
 				</div>
 			</div>

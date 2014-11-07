@@ -63,8 +63,11 @@ class StyleboothController extends AppController
 			$this->Session->write('Visit.foot_size', str_replace('_', ' ', $this->data['foot_size']));
 		}
 
+		$seo = $this->get_seo_filter_data($this->Session->read('Visit.style'));
+
 		if (empty($user)) {
-			return $this->redirect('/filter4');
+			//return $this->redirect('/filter4');
+			return $this->redirect($seo[1]);
 		}
 
 		$us = $this->UserStat->find('first', array(
@@ -78,7 +81,8 @@ class StyleboothController extends AppController
 		));
 
 		if (!empty($us)) {
-			return $this->redirect('/filter4');
+			//return $this->redirect('/filter4');
+			return $this->redirect($seo[1]);
 		}
 
 		$this->SkinHairType->recursive = -1;
@@ -116,6 +120,17 @@ class StyleboothController extends AppController
 		$body_types = $this->BodyType->find('all');
 
 		$this->set('body_types', $body_types);
+	}
+
+	private function get_seo_filter_data($style_id) {
+		$style_seo = array(
+			1 => array('Ropa Casual','/outfitsyropacasual','Oufits y Ropa casual a la moda','Ropa casual: Outfits,Blusas, vestidos largos y cortos, pantalones, camisetas, zapatos, faldas para la vida diaria o trabajar en tallas chicas a extragrandes.'),
+			2 => array('Ropa femenina de moda','/outfitsyropafemenina','Outfits y ropa femenina a la moda','Ropa femenina:outfits. Blusas, vestidos largos y cortos, pantalones, camisetas, zapatos, faldas para salir de fiesta o a cenar en tallas chicas a extragrandes '),
+			3 => array('Ropa rockera','/outfitsyroparockeraalternativa','Outfits y ropa rockera o alternativa','Ropa rockera: Outfits, Camisetas, pantalones, faldas, zapatos, vestidos largos y cortos para un look alternativo en tallas chicas a extragrandes.'),
+			4 => array('Ropa urbana','/outfitsyropaurbana','Outfits y ropa urbana o streetwear a la moda ','Ropa urbana: Outfits,Camisetas, pantalones, faldas, zapatos, vestidos largos y cortos para un look alternativo en tallas chicas a extragrandes.')
+		);
+
+		return $style_seo[$style_id];
 	}
 
 	public function filter4(){
@@ -290,6 +305,11 @@ class StyleboothController extends AppController
 
 			$this->UserStat->save($userStat);
 		}
+
+		$seo = $this->get_seo_filter_data($visit['style']);
+		$this->set('seo_keyword', $seo[0]);
+		$this->set('seo_title', $seo[2]);
+		$this->set('seo_description', $seo[3]);
 	}
 
 	public function dashboard(){

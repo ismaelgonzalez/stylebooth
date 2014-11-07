@@ -32,9 +32,12 @@
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 
 //Blogs
-	Router::connect('/blogs/index/*', array('controller' => 'posts', 'action' => 'index'));
-	Router::connect('/blogs/lista/*', array('controller' => 'posts', 'action' => 'blog_lista'));
-	Router::connect('/blogs/view/*', array('controller' => 'posts', 'action' => 'view'));
+	Router::connect('/blogs/index/*', array('controller' => 'posts', 'action' => 'index')); //for admin do not change
+	Router::connect('/blogdemoda', array('controller' => 'posts', 'action' => 'blog_lista'));
+	Router::connect('/blogdemoda/:id/:slug',
+		array('controller' => 'posts', 'action' => 'view'),
+		array('pass' => array('id', 'slug'))
+	);
 /*
  * DEPRECATED
 //Noticias
@@ -67,6 +70,11 @@
 	Router::connect('/filter2/*', array('controller' => 'stylebooth', 'action' => 'filter2'));
 	Router::connect('/filter3/*', array('controller' => 'stylebooth', 'action' => 'filter3'));
 	Router::connect('/filter4/*', array('controller' => 'stylebooth', 'action' => 'filter4'));
+
+	Router::connect('/outfitsyropacasual',             array('controller' => 'stylebooth', 'action' => 'filter4'));
+	Router::connect('/outfitsyropafemenina',           array('controller' => 'stylebooth', 'action' => 'filter4'));
+	Router::connect('/outfitsyropaurbana',             array('controller' => 'stylebooth', 'action' => 'filter4'));
+	Router::connect('/outfitsyroparockeraalternativa', array('controller' => 'stylebooth', 'action' => 'filter4'));
 
 //edit skin, hair & body types
 	Router::connect('/editSkinHairType/*', array('controller' => 'user', 'action' => 'editSkinHairType'));

@@ -38,6 +38,7 @@ class PostsController extends AppController
 			),
 			'order' => array(
 				'Post.post_date' => 'DESC',
+				'Post.id'        => 'DESC'
 			),
 		));
 
@@ -131,7 +132,7 @@ class PostsController extends AppController
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('lista', 'noticia_detail', 'blog_lista', 'blog_detail', 'addComment', 'delComment');
+		$this->Auth->allow('lista', 'noticia_detail', 'blog_lista', 'blog_detail', 'addComment', 'delComment', 'view');
 	}
 
 	public function lista() {
@@ -196,8 +197,9 @@ class PostsController extends AppController
 
 		$post = array(
 			'Post' => array(
-				'id'        => $post_id,
-				'num_views' => $num_views
+				'id'           => $post_id,
+				'num_views'    => $num_views,
+				'update_count' => true
 			)
 		);
 
@@ -215,6 +217,7 @@ class PostsController extends AppController
 			),
 			'order' => array(
 				'Post.post_date' => 'desc',
+				'Post.id' => 'desc',
 			),
 			'limit' => 10,
 		);
@@ -224,6 +227,13 @@ class PostsController extends AppController
 		$this->set('title_for_layout', 'Blogs');
 
 		$this->set('posts', $posts);
+		$this->get_seo_values();
+	}
+
+	private function get_seo_values() {
+		$this->set('seo_keyword', 'blog de moda');
+		$this->set('seo_title', 'Blog de moda, consejos, outfits, colorimetría, historia de la moda');
+		$this->set('seo_description', 'Blog de moda donde hablamos de temas como consejos de vestir, sugerencias de outfits o looks, colorimetría, asesoría de imagen e historia de la moda');
 	}
 
 	public function view($id) {
@@ -268,6 +278,9 @@ class PostsController extends AppController
 
 		$this->set('posts', $posts);
 		$this->set('main', $main);
+		$this->set('seo_title', $main['Post']['title']);
+		$this->set('seo_keyword', $main['Post']['title']);
+		$this->set('seo_description', $main['Post']['blurb']);
 	}
 
 	public function addComment() {

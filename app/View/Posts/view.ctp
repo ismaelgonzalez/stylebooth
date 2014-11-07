@@ -70,7 +70,7 @@
 						<a href="/users/register"><img src="/img/banner_registrate.jpg" alt="¡Regístrate!" border="0" /></a>
 						<h5>Ultimas Publicaciones:</h5>
 						<?php foreach($posts as $p) { ?>
-							<p><a href="/blogs/lista/<?php echo $p['Post']['id']; ?>"><?php echo $p['Post']['title']; ?></a></p>
+							<p><a href="/blogdemoda/<?php echo $p['Post']['id']; ?>/<?php echo $p['Post']['slug']; ?>"><?php echo $p['Post']['title']; ?></a></p>
 						<?php } ?>
 
 						<ul class="pager" style="font-size: 10px;">
