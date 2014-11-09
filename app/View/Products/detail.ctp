@@ -1,13 +1,13 @@
 <div class="row" style="margin-top: 50px;">
 	<div id="bannerLeft" class="col-md-3">
 		<div class="row producto_left">
-			<a class="thumbnail" href="/stores/products/<?php echo $product['Store']['id']; ?>">
+			<a class="thumbnail" href="/stores/products/<?php echo $product['Store']['id']; ?>/<?php echo $product['Store']['name']; ?>">
 				<img src="/files/stores/<?php echo $product['Store']['image']; ?>" alt="<?php echo $product['Product']['name']; ?>"/>
 			</a>
 			<h5><?php echo $product['Store']['name']; ?></h5>
 			<?php echo $this->element('store_address', array('get_store_address' => true, 'store_id' => $product['Store']['id'])); ?>
 			<a href="<?php echo $product['Store']['url']; ?>"  target="_blank" class="fb_store"><img src="/img/fb_store_icon.png" border="0"/> /<?php echo $product['Store']['name']; ?></a>
-			<a href="/stores/products/<?php echo $product['Store']['id']; ?>">Ver productos Boutique</a>
+			<a href="/stores/products/<?php echo $product['Store']['id']; ?>/<?php echo $product['Store']['name']; ?>">Ver productos Boutique</a>
 		</div>
 	</div>
 	<div class="col-md-8" align="center">

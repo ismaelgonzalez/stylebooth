@@ -200,7 +200,7 @@
 <div id="brands" class="row">
 	<div class="col-md-12" id="stores_banner">
 		<?php foreach ($stores as $s) { ?>
-		<a href="/stores/products/<?php echo $s['Store']['id']; ?>"><img src="files/stores/<?php echo $s['Store']['image']; ?>" width="150px" alt="<?php echo $s['Store']['name']; ?>"/></a>
+		<a href="/tiendasderopa/<?php echo $s['Store']['id']; ?>/<?php echo $s['Store']['name']; ?>"><img src="files/stores/<?php echo $s['Store']['image']; ?>" width="150px" alt="<?php echo $s['Store']['name']; ?>"/></a>
 		<?php } ?>
 		<?php if (sizeof($stores) < 6 ) {
 			$stores_left = 6 - sizeof($stores);

@@ -182,6 +182,9 @@ class StoresController extends AppController
 
 		$this->set('stores', $stores);
 		$this->set(compact('stores_norte', 'stores_sur', 'stores_poniente', 'stores_oriente'));
+		$this->set('seo_keyword', 'Tiendas de Ropa');
+		$this->set('seo_title', 'Tiendas de ropa, accesorios y zapaterías para mujer en Hermosillo');
+		$this->set('seo_description', 'Directorio de tiendas de ropa ,accesorios y zapaterías para mujer en Hermosillo, Sonora.');
 	}
 
 	public function products($id){
@@ -199,6 +202,9 @@ class StoresController extends AppController
 		$products = $this->Product->find('all', array('conditions' => array('Product.store_id' => $id, 'Product.status' => 1)));
 
 		$this->set(compact('products', 'store'));
+		$this->set('seo_keyword', 'Tiendas de Ropa');
+		$this->set('seo_title', $store['Store']['name']);
+		$this->set('seo_description', $store['Store']['name']);
 	}
 
 	public function getStoreNameByProductId($product_id){

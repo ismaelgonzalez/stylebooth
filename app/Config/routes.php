@@ -76,6 +76,10 @@
 	Router::connect('/outfitsyropaurbana',             array('controller' => 'stylebooth', 'action' => 'filter4'));
 	Router::connect('/outfitsyroparockeraalternativa', array('controller' => 'stylebooth', 'action' => 'filter4'));
 
+//Tiendas
+	Router::connect('/tiendasderopa', array('controller' => 'stores', 'action' => 'lista'));
+	Router::connect('/tiendasderopa/:id/:name', array('controller' => 'stores', 'action' => 'products'),array('pass' => array('id', 'name')));
+
 //edit skin, hair & body types
 	Router::connect('/editSkinHairType/*', array('controller' => 'user', 'action' => 'editSkinHairType'));
 	Router::connect('/editBodyType/*', array('controller' => 'user', 'action' => 'editBodyType'));

@@ -12,7 +12,7 @@
 <div id="brands" class="row">
 	<div class="col-md-12 tiendas_banner" id="stores_banner">
 		<?php foreach ($stores as $s) { ?>
-			<a href="/stores/products/<?php echo $s['Store']['id']; ?>"><img src="/files/stores/<?php echo $s['Store']['image']; ?>" width="150px" alt="<?php echo $s['Store']['name']; ?>"/></a>
+			<a href="/tiendasderopa/<?php echo $s['Store']['id']; ?>/<?php echo $s['Store']['name']; ?>"><img src="/files/stores/<?php echo $s['Store']['image']; ?>" width="150px" alt="<?php echo $s['Store']['name']; ?>"/></a>
 		<?php } ?>
 		<?php if (sizeof($stores) < 6 ) {
 			$stores_left = 6 - sizeof($stores);
@@ -41,7 +41,7 @@
 			<h3>¨¨¨¨¨¨¨¨¨¨¨¨¨</h3>
 			<div id="bannerLeft" class="col-md-3">
 				<div class="row">
-					<a class="thumbnail" href="/stores/products/<?php echo $s['Store']['id']; ?>">
+					<a class="thumbnail" href="/tiendasderopa/<?php echo $s['Store']['id']; ?>/<?php echo $s['Store']['name']; ?>">
 						<img src="/files/stores/<?php echo $s['Store']['image']; ?>" alt="<?php echo $s['Store']['name']; ?>"/>
 					</a>
 				</div>
@@ -50,7 +50,7 @@
 				<h5><?php echo $s['Store']['name']; ?></h5>
 				<?php echo $this->element('store_address', array('store_address' => $s['StoreAddress'][0])); ?>
 				<a href="<?php echo $url; ?>"  target="_blank" class="fb_store"><img src="/img/fb_store_icon.png" border="0"/> /<?php echo $s['Store']['name']; ?></a>
-				<br><a href="/stores/products/<?php echo $s['Store']['id']; ?>">Ver productos Boutique</a>
+				<br><a href="/tiendasderopa/<?php echo $s['Store']['id']; ?>/<?php echo $s['Store']['name']; ?>">Ver productos Boutique</a>
 			</div>
 			<div class="col-md-6">
 				<?php echo $s['Store']['google_maps']; ?>
@@ -73,7 +73,7 @@
 				<h3>¨¨¨¨¨¨¨¨¨¨¨¨¨</h3>
 				<div id="bannerLeft" class="col-md-3">
 					<div class="row">
-						<a class="thumbnail" href="/stores/products/<?php echo $s['Store']['id']; ?>">
+						<a class="thumbnail" href="/tiendasderopa/<?php echo $s['Store']['id']; ?>/<?php echo $s['Store']['name']; ?>">
 							<img src="/files/stores/<?php echo $s['Store']['image']; ?>" alt="<?php echo $s['Store']['name']; ?>"/>
 						</a>
 					</div>
@@ -82,7 +82,7 @@
 					<h5><?php echo $s['Store']['name']; ?></h5>
 					<?php echo $this->element('store_address', array('store_address' => $s['StoreAddress'][0])); ?>
 					<a href="<?php echo $url; ?>"  target="_blank" class="fb_store"><img src="/img/fb_store_icon.png" border="0"/> /<?php echo $s['Store']['name']; ?></a>
-					<br><a href="/stores/products/<?php echo $s['Store']['id']; ?>">Ver productos Boutique</a>
+					<br><a href="/tiendasderopa/<?php echo $s['Store']['id']; ?>/<?php echo $s['Store']['name']; ?>">Ver productos Boutique</a>
 				</div>
 				<div class="col-md-6">
 					<?php echo $s['Store']['google_maps']; ?>
@@ -105,7 +105,7 @@
 				<h3>¨¨¨¨¨¨¨¨¨¨¨¨¨</h3>
 				<div id="bannerLeft" class="col-md-3">
 					<div class="row">
-						<a class="thumbnail" href="/stores/products/<?php echo $s['Store']['id']; ?>">
+						<a class="thumbnail" href="/tiendasderopa/<?php echo $s['Store']['id']; ?>/<?php echo $s['Store']['name']; ?>">
 							<img src="/files/stores/<?php echo $s['Store']['image']; ?>" alt="<?php echo $s['Store']['name']; ?>"/>
 						</a>
 					</div>
@@ -114,7 +114,7 @@
 					<h5><?php echo $s['Store']['name']; ?></h5>
 					<?php echo $this->element('store_address', array('store_address' => $s['StoreAddress'][0])); ?>
 					<a href="<?php echo $url; ?>"  target="_blank" class="fb_store"><img src="/img/fb_store_icon.png" border="0"/> /<?php echo $s['Store']['name']; ?></a>
-					<br><a href="/stores/products/<?php echo $s['Store']['id']; ?>">Ver productos Boutique</a>
+					<br><a href="/tiendasderopa/<?php echo $s['Store']['id']; ?>/<?php echo $s['Store']['name']; ?>">Ver productos Boutique</a>
 				</div>
 				<div class="col-md-6">
 					<?php echo $s['Store']['google_maps']; ?>
@@ -137,7 +137,7 @@
 				<h3>¨¨¨¨¨¨¨¨¨¨¨¨¨</h3>
 				<div id="bannerLeft" class="col-md-3">
 					<div class="row">
-						<a class="thumbnail" href="/stores/products/<?php echo $s['Store']['id']; ?>">
+						<a class="thumbnail" href="/tiendasderopa/<?php echo $s['Store']['id']; ?>/<?php echo $s['Store']['name']; ?>">
 							<img src="/files/stores/<?php echo $s['Store']['image']; ?>" alt="<?php echo $s['Store']['name']; ?>"/>
 						</a>
 					</div>
@@ -146,7 +146,7 @@
 					<h5><?php echo $s['Store']['name']; ?></h5>
 					<?php echo $this->element('store_address', array('store_address' => $s['StoreAddress'][0])); ?>
 					<a href="<?php echo $url; ?>"  target="_blank" class="fb_store"><img src="/img/fb_store_icon.png" border="0"/> /<?php echo $s['Store']['name']; ?></a>
-					<br><a href="/stores/products/<?php echo $s['Store']['id']; ?>">Ver productos Boutique</a>
+					<br><a href="/tiendasderopa/<?php echo $s['Store']['id']; ?>/<?php echo $s['Store']['name']; ?>">Ver productos Boutique</a>
 				</div>
 				<div class="col-md-6">
 					<?php echo $s['Store']['google_maps']; ?>

@@ -12,7 +12,7 @@
 		<div class="navbar-collapse collapse" >
 			<ul class="nav navbar-nav" >
 				<li><a href="/blogdemoda">BLOG</a></li>
-				<li><a href="/stores/lista">TIENDAS</a></li>
+				<li><a href="/tiendasderopa">TIENDAS</a></li>
 				<li><a href="/products/lista" id="header_btngaleria">GALERÍA</a></li>
 				<?php if (isset($logged_user)) { ?>
 					<li><a href="/mi_booth/<?php echo $logged_user["id"]; ?>">MI BOOTH</a></li>
