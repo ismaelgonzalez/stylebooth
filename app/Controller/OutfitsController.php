@@ -96,7 +96,7 @@ class OutfitsController extends AppController
 			$outfit_products = implode(',', $outfit_products);
 			$this->set('outfit_products', $outfit_products);
 		} else {
-			$this->Session->setFlash('No existe outfit con este ID :(', 'default', array('class'=>'alert alert-danger'));
+			$this->Session->setFlash('No existe outfit con este ID :(2', 'default', array('class'=>'alert alert-danger'));
 
 			return $this->redirect('/outfits/index');
 		}
@@ -160,7 +160,7 @@ class OutfitsController extends AppController
 
 			return $this->redirect('/outfits/index');
 		} else {
-			$this->Session->setFlash('No existe outfit con este ID :(', 'default', array('class'=>'alert alert-danger'));
+			$this->Session->setFlash('No existe outfit con este ID :(3', 'default', array('class'=>'alert alert-danger'));
 
 			return $this->redirect('/outfits/index');
 		}
@@ -220,12 +220,15 @@ class OutfitsController extends AppController
 		));
 
 		if ( empty($outfit) ) {
-			$this->Session->setFlash('No existe outfit con este ID :(', 'default', array('class'=>'alert alert-danger'));
+			$this->Session->setFlash('No existe outfit con este ID :(1', 'default', array('class'=>'alert alert-danger'));
 
 			return $this->redirect('/');
 		}
 
 		$this->set('outfit', $outfit);
+		$this->set('seo_keyword', 'Outfits');
+		$this->set('seo_title', $outfit['Outfit']['name']);
+		$this->set('seo_description', $outfit['Outfit']['name']);
 	}
 
 	public function getOutfitTotalPrice($id){

@@ -82,7 +82,7 @@
 
 //Productos
 	Router::connect('/productosyaccesoriosdemoda', array('controller' => 'products', 'action' => 'lista'));
-	Router::connect('/productosyaccesoriosdemoda/:id/:name', array('controller' => 'products', 'action' => 'lista'),array('pass' => array('id', 'name')));
+	Router::connect('/productosyaccesoriosdemoda/:id/:name', array('controller' => 'products', 'action' => 'detail'),array('pass' => array('id', 'name')));
 
 //edit skin, hair & body types
 	Router::connect('/editSkinHairType/*', array('controller' => 'user', 'action' => 'editSkinHairType'));
