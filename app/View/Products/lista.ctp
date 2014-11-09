@@ -34,13 +34,13 @@
 							<div class="social_thumbs">
 								<img src="/img/social_thumbs_sb.jpg" alt="Stylebooth" border="0" class="stylebooth_thumb"/>
 								<a target="_blank" href="http://instagram.com/styleboothmx"><img src="/img/social_thumbs_inst.jpg" alt="Instagram" border="0"/></a>
-								<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://stylebooth.mx/products/detail/<?php echo $p['Product']['id']; ?>"><img src="/img/social_thumbs_fb.jpg" alt="Facebook" border="0"/></a>
-								<a target="_blank" href="https://twitter.com/home?status=Nuevo producto de Stylebooth http://stylebooth.mx/products/detail/<?php echo $p['Product']['id']; ?>"><img src="/img/social_thumbs_tw.jpg" alt="Twitter" border="0"/></a>
-								<a target="_blank" href="https://plus.google.com/share?url=http://stylebooth.mx/products/detail/<?php echo $p['Product']['id']; ?>"><img src="/img/social_thumbs_go.jpg" alt="Google+" border="0"/></a>
-								<a target="_blank" href="https://pinterest.com/pin/create/button/?url=http://stylebooth.mx/products/detail/<?php echo $p['Product']['id']; ?>&media=http://stylebooth.mx/files/products/<?php echo $p['Product']['image']; ?>&description=<?php echo $p['Product']['name']; ?>"><img src="/img/social_thumbs_pin.jpg" alt="Pinterest" border="0"/></a>
+								<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://stylebooth.mx/productosyaccesoriosdemoda/<?php echo $p['Product']['id']; ?>/<?php echo $p['Product']['name']; ?>"><img src="/img/social_thumbs_fb.jpg" alt="Facebook" border="0"/></a>
+								<a target="_blank" href="https://twitter.com/home?status=Nuevo producto de Stylebooth http://stylebooth.mx/productosyaccesoriosdemoda/<?php echo $p['Product']['id']; ?>/<?php echo $p['Product']['name']; ?>"><img src="/img/social_thumbs_tw.jpg" alt="Twitter" border="0"/></a>
+								<a target="_blank" href="https://plus.google.com/share?url=http://stylebooth.mx/productosyaccesoriosdemoda/<?php echo $p['Product']['id']; ?>/<?php echo $p['Product']['name']; ?>"><img src="/img/social_thumbs_go.jpg" alt="Google+" border="0"/></a>
+								<a target="_blank" href="https://pinterest.com/pin/create/button/?url=http://stylebooth.mx/productosyaccesoriosdemoda/<?php echo $p['Product']['id']; ?>/<?php echo $p['Product']['name']; ?>&media=http://stylebooth.mx/files/products/<?php echo $p['Product']['image']; ?>&description=<?php echo $p['Product']['name']; ?>"><img src="/img/social_thumbs_pin.jpg" alt="Pinterest" border="0"/></a>
 							</div>
 						</div>
-						<a href="/products/detail/<?php echo $p['Product']['id']; ?>" class="thumb_click"></a>
+						<a href="/productosyaccesoriosdemoda/<?php echo $p['Product']['id']; ?>/<?php echo $p['Product']['name']; ?>" class="thumb_click"></a>
 					</div>
 				</div>
 			<?php } ?>

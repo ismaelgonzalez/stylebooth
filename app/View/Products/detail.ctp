@@ -32,7 +32,7 @@
 						<div class="social_thumbs">
 							<img src="/img/social_thumbs_sb_w.jpg" alt="Stylebooth" border="0"/>
 							<a target="_blank" href="http://instagram.com/styleboothmx"><img src="/img/social_thumbs_inst_w.jpg" alt="Instagram" border="0"/></a>
-							<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://stylebooth.mx/products/detail/<?php echo $product['Product']['id']; ?>"><img src="/img/social_thumbs_fb_w.jpg" alt="Facebook" border="0"/></a>
+							<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://stylebooth.mx/products/detail/<?php echo $product['Product']['id']; ?>/<?php echo $product['Product']['name']; ?>"><img src="/img/social_thumbs_fb_w.jpg" alt="Facebook" border="0"/></a>
 							<a target="_blank" href="https://twitter.com/home?status=Nuevo producto de Stylebooth http://stylebooth.mx/outfits/detail/<?php echo $product['Product']['id']; ?>"><img src="/img/social_thumbs_tw_w.jpg" alt="Twitter" border="0"/></a>
 							<a target="_blank" href="https://plus.google.com/share?url=http://stylebooth.mx/outfits/detail/<?php echo $product['Product']['id']; ?>"><img src="/img/social_thumbs_go_w.jpg" alt="Google+" border="0"/></a>
 							<a target="_blank" href="https://pinterest.com/pin/create/button/?url=http://stylebooth.mx/outfits/detail/<?php echo $product['Product']['id']; ?>&media=http://stylebooth.mx/files/outfits/<?php echo $product['Product']['image']; ?>&description=<?php echo $product['Product']['name']; ?>"><img src="/img/social_thumbs_pin_w.jpg" alt="Pinterest" border="0"/></a>

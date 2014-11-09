@@ -76,27 +76,27 @@
 								<div class="col-md-3 product_<?php echo $p['Product']['id']; ?>">
 									<div class="thumbnail mibooth_thumb">
 										<?php if(empty($p['Product']['image'])) { ?>
-											<a class="thumb-booth" href="/products/detail/<?php echo $p['Product']['id']; ?>"><img src="/files/products/imagecara.jpg" alt="/products/detail/<?php echo $p['Product']['title']; ?>"/></a>
+											<a class="thumb-booth" href="/productosyaccesoriosdemoda/<?php echo $p['Product']['id']; ?>/<?php echo $p['Product']['name']; ?>"><img src="/files/products/imagecara.jpg" alt="/products/detail/<?php echo $p['Product']['title']; ?>"/></a>
 										<?php } else { ?>
-											<a class="thumb-booth" href="/products/detail/<?php echo $p['Product']['id']; ?>"><img src="/files/products/<?php echo $p['Product']['image']; ?>" alt="<?php echo $p['Product']['title']; ?>"/></a>
+											<a class="thumb-booth" href="/productosyaccesoriosdemoda/<?php echo $p['Product']['id']; ?>/<?php echo $p['Product']['name']; ?>"><img src="/files/products/<?php echo $p['Product']['image']; ?>" alt="<?php echo $p['Product']['title']; ?>"/></a>
 										<?php }
 										?>
 										<div class="caption">
 											<div class="galeria_thumb_specs">
 												<?php echo $p['Product']['name']; ?>.<br/>$<?php echo $p['Product']['price']; ?><br/>
 											</div>
-											<a href="/products/detail/<?php echo $p['Product']['id']; ?>">Ver producto</a>
+											<a href="/productosyaccesoriosdemoda/<?php echo $p['Product']['id']; ?>/<?php echo $p['Product']['name']; ?>">Ver producto</a>
 											<?php if (!empty($logged_user) && $logged_user['id'] == $user['User']['id']) { ?>
 												<a onclick="deleteFromWishlist(<?php echo $p['Product']['id']; ?>);">Eliminar de Wishlist</a>
 											<?php } ?>
 										</div>
-										<a href="/products/detail/<?php echo $p['Product']['id']; ?>" class="thumb_click"></a>
+										<a href="/productosyaccesoriosdemoda/<?php echo $p['Product']['id']; ?>/<?php echo $p['Product']['name']; ?>" class="thumb_click"></a>
 
 									</div>
 								</div>
 							<?php } ?>
 						<?php } else { ?>
-							<h6>Por el momento no tienes nada agregado a tu Wishlist. Te invitamos a ver los <a href="/products/lista">productos disponibles</a>.</h6>
+							<h6>Por el momento no tienes nada agregado a tu Wishlist. Te invitamos a ver los <a href="/productosyaccesoriosdemoda">productos disponibles</a>.</h6>
 						<?php } ?>
 					</div>
 				</div>

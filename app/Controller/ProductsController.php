@@ -348,6 +348,9 @@ class ProductsController extends AppController
 		));
 
 		$this->set('products', $products);
+		$this->set('seo_keyword', 'Accesorios de moda');
+		$this->set('seo_title', 'Nuestra lista general de ropa y accesorios de moda.');
+		$this->set('seo_description', 'Encuentra aquí la ropa y accesorios de moda de algunas de las tiendas de ropa en Hermosillo.');
 	}
 
 	public function detail($id){
@@ -380,6 +383,9 @@ class ProductsController extends AppController
 		$this->set('title_for_layout', 'Detalle de ' . $product['Product']['name']);
 		$this->set('product', $product);
 		$this->set('coupon', $coupon);
+		$this->set('seo_keyword', 'Accesorios de moda');
+		$this->set('seo_title', $product['Product']['name']);
+		$this->set('seo_description', empty($product['Product']['blurb']) ? $product['Product']['name'] : $product['Product']['blurb']);
 	}
 
 	public function getProductsByFilter($filter, $sizes, $style){
