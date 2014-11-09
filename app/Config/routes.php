@@ -32,12 +32,19 @@
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 
 //Blogs
-	Router::connect('/blogs/index/*', array('controller' => 'posts', 'action' => 'index'));
-	Router::connect('/blogs/lista/*', array('controller' => 'posts', 'action' => 'blog_lista'));
+	Router::connect('/blogs/index/*', array('controller' => 'posts', 'action' => 'index')); //for admin do not change
+	Router::connect('/blogdemoda', array('controller' => 'posts', 'action' => 'blog_lista'));
+	Router::connect('/blogdemoda/:id/:slug',
+		array('controller' => 'posts', 'action' => 'view'),
+		array('pass' => array('id', 'slug'))
+	);
+/*
+ * DEPRECATED
 //Noticias
 	Router::connect('/noticias/index/*', array('controller' => 'posts', 'action' => 'index'));
 	Router::connect('/noticias/lista/*', array('controller' => 'posts', 'action' => 'lista'));
 	Router::connect('/noticias/post/*', array('controller' => 'posts', 'action' => 'noticia_detail'));
+*/
 //admin
 	Router::connect('/admin/*', array('controller' => 'stylebooth', 'action' => 'dashboard'));
 	Router::connect(
@@ -63,6 +70,19 @@
 	Router::connect('/filter2/*', array('controller' => 'stylebooth', 'action' => 'filter2'));
 	Router::connect('/filter3/*', array('controller' => 'stylebooth', 'action' => 'filter3'));
 	Router::connect('/filter4/*', array('controller' => 'stylebooth', 'action' => 'filter4'));
+
+	Router::connect('/outfitsyropacasual',             array('controller' => 'stylebooth', 'action' => 'filter4'));
+	Router::connect('/outfitsyropafemenina',           array('controller' => 'stylebooth', 'action' => 'filter4'));
+	Router::connect('/outfitsyropaurbana',             array('controller' => 'stylebooth', 'action' => 'filter4'));
+	Router::connect('/outfitsyroparockeraalternativa', array('controller' => 'stylebooth', 'action' => 'filter4'));
+
+//Tiendas
+	Router::connect('/tiendasderopa', array('controller' => 'stores', 'action' => 'lista'));
+	Router::connect('/tiendasderopa/:id/:name', array('controller' => 'stores', 'action' => 'products'),array('pass' => array('id', 'name')));
+
+//Productos
+	Router::connect('/productosyaccesoriosdemoda', array('controller' => 'products', 'action' => 'lista'));
+	Router::connect('/productosyaccesoriosdemoda/:id/:name', array('controller' => 'products', 'action' => 'detail'),array('pass' => array('id', 'name')));
 
 //edit skin, hair & body types
 	Router::connect('/editSkinHairType/*', array('controller' => 'user', 'action' => 'editSkinHairType'));

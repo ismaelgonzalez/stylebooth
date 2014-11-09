@@ -152,7 +152,7 @@ class UsersController extends AppController
 	}
 
 	public function login(){
-		$this->layout = 'login';
+		$this->layout = 'default';
 
 		if($this->request->is('post')) {
 			if ($this->Auth->login()) {
@@ -214,6 +214,14 @@ class UsersController extends AppController
 
 					return false;
 				}
+
+				$dia = $this->data['dia'];
+				$mes = $this->data['mes'];
+				$ano = $this->data['ano'];
+				$bday = date('Y', strtotime($dia.'-'.$mes.'-'.$ano));
+				$age = date('Y') - $bday;
+
+				$user['User']['age'] = $age;
 
 				$user = $this->User->findById($this->User->getInsertID());
 				$salt        = Configure::read('Security.salt');
@@ -414,7 +422,7 @@ class UsersController extends AppController
 	}
 
 	public function forgotPassword(){
-		$this->layout = 'login';
+		$this->layout = 'default';
 
 		if (!empty($this->data)) {
 			$user = $this->User->find('first', array(

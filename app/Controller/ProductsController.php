@@ -24,7 +24,8 @@ class ProductsController extends AppController
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('lista', 'detail', 'getProductsByFilter', 'addToWishList', 'getProductsByOutfit', 'getNameById', 'getSkinAndBodyType', 'getProductsByStore');
+		$this->Auth->allow('lista', 'detail', 'getProductsByFilter', 'addToWishList', 'getProductsByOutfit', 'getNameById', 'getSkinAndBodyType', 'getProductsByStore',
+			'filterAllProducts', 'filterAllProductsFromWishlist', 'check_if_in_wishlist');
 	}
 
 	public function getbyid($product_id){
@@ -347,13 +348,21 @@ class ProductsController extends AppController
 		));
 
 		$this->set('products', $products);
+		$this->set('seo_keyword', 'Accesorios de moda');
+		$this->set('seo_title', 'Nuestra lista general de ropa y accesorios de moda.');
+		$this->set('seo_description', 'Encuentra aquí la ropa y accesorios de moda de algunas de las tiendas de ropa en Hermosillo.');
 	}
 
 	public function detail($id){
-		$product = $this->Product->findById($id);
+		$product = $this->Product->find('first', array(
+			'conditions' => array(
+				'Product.id' => $id,
+				'Product.status' => 1
+			)
+		));
 
 		if (empty($product)) {
-			$this->Session->setFlash('No existe producto con este ID :(', 'default', array('class'=>'alert alert-danger'));
+			//$this->Session->setFlash('No existe producto con este ID :(', 'default', array('class'=>'alert alert-danger'));
 
 			return $this->redirect('/');
 		}
@@ -370,10 +379,13 @@ class ProductsController extends AppController
 			),
 		));
 
-		$this->layout = 'default';
+		$this->layout = 'filter4_layout';
 		$this->set('title_for_layout', 'Detalle de ' . $product['Product']['name']);
 		$this->set('product', $product);
 		$this->set('coupon', $coupon);
+		$this->set('seo_keyword', 'Accesorios de moda');
+		$this->set('seo_title', $product['Product']['name']);
+		$this->set('seo_description', empty($product['Product']['blurb']) ? $product['Product']['name'] : $product['Product']['blurb']);
 	}
 
 	public function getProductsByFilter($filter, $sizes, $style){
@@ -625,6 +637,87 @@ class ProductsController extends AppController
 		return json_encode($outfits);
 	}
 
+	public function filterAllProductsFromWishlist($filter, $user_id) {
+		$this->autoRender = false;
+		$product_category = $this->filter_product_category($filter);
+
+		$wishlist_products = $this->Wishlist->find('all', array(
+			'conditions' => array(
+				'Wishlist.user_id' => $user_id,
+			),
+			'recursive' => -1
+		));
+
+		$products = array();
+
+		foreach ($wishlist_products as $w) {
+			$product = $this->Product->find('first', array(
+				'conditions' => array(
+					$product_category,
+					'Product.status' => 1,
+					'Product.id' => $w['Wishlist']['product_id']
+				),
+			));
+
+			if ($product) {
+				$products[] = $product;
+			}
+		}
+
+		return json_encode($products);
+	}
+
+	public function filterAllProducts($filter) {
+		$this->autoRender = false;
+		$product_category = $this->filter_product_category($filter);
+
+		$products = $this->Product->find('all', array(
+			'conditions' => array(
+				'Product.status' => 1,
+				$product_category,
+			),
+		));
+
+		return json_encode($products);
+	}
+
+	private function filter_product_category($filter) {
+		switch ($filter) {
+			case 'Todos los Productos':
+				$product_category = '';
+				break;
+			case 'Solo Blusas':
+				$product_category = 'Product.products_categories_id = 1';
+				break;
+			case 'Solo Pantalones':
+				$product_category = 'Product.products_categories_id = 2';
+				break;
+			case 'Solo Faldas':
+				$product_category = 'Product.products_categories_id = 3';
+				break;
+			case 'Solo Vestidos':
+				$product_category = 'Product.products_categories_id = 4';
+				break;
+			case 'Solo Accesorios y Bolsas':
+				$product_category = 'Product.products_categories_id = 5';
+				break;
+			case 'Solo Calzado':
+				$product_category = 'Product.products_categories_id = 6';
+				break;
+			case 'Solo Prendas íntimas':
+				$product_category = 'Product.products_categories_id = 7';
+				break;
+			case 'Solo Vestidos de noche':
+				$product_category = 'Product.products_categories_id = 8';
+				break;
+			case 'Solo Trajes de baño':
+				$product_category = 'Product.products_categories_id = 9';
+				break;
+		}
+
+		return $product_category;
+	}
+
 	public function getPriceById($id){
 		$this->autoRender = false;
 		$price = $this->Product->find('first', array(
@@ -682,5 +775,23 @@ class ProductsController extends AppController
 
 		$this->Session->setFlash('Se desactivaron los Productos con exito!', 'default', array('class'=>'alert alert-success'));
 		return $this->redirect('/products/');
+	}
+
+	public function check_if_in_wishlist($product_id, $user_id) {
+		$this->autoRender = false;
+
+		$wishlist = $this->Wishlist->find('first', array(
+			'recursive'  => -1,
+			'conditions' => array(
+				'product_id' => $product_id,
+				'user_id'    => $user_id
+			),
+		));
+
+		if (!empty($wishlist)) {
+			return true;
+		}
+
+		return false;
 	}
 }

@@ -1,110 +1,69 @@
-<h3><?php echo $style['Style']['name']; ?></h3>
-<h4><b>Sugerencias de Outfits</b></h4>
-<div class="row" >
-	<?php
-	if (empty($outfits)) {
-		echo "<div class='row'>No hay outfits con estas características</div> ";
-	} else {
-	foreach ($outfits as $o) { ?>
-	<div class="col-md-4">
-		<div class="thumbnail">
-			<a href="/outfits/detail/<?php echo $o['Outfit']['id']; ?>"> <img style="min-height:286px;height:286px;" src="/files/outfits/<?php echo $o['Outfit']['image']; ?>" alt="<?php echo $o['Outfit']['name']; ?>"></a>
-			<div class="caption">
-				<h5><b><?php echo $o['Outfit']['name']; ?>: <?php echo $this->element('outfit_price', array('id' => $o['Outfit']['id'])); ?> MXN</b></h5>
+<div class="row">
+	<div class="col-md-12 text-center">
+		<div class="col-mod-12 styleheader">
+			<img src="/files/styles/<?php echo $style['Style']['image'] ?>" alt="<?php echo $style['Style']['name'] ?>"/>
+		</div>
+		<h4>Sugerencias de Outfits</h4>
+		<div class="row" >
+			<?php foreach ($outfits as $o) { ?>
+			<div class="col-md-4">
+				<div class="thumbnail outfit_thumb">
+					<img src="/files/outfits/<?php echo $o['Outfit']['image']; ?>" alt="<?php echo $o['Outfit']['name']; ?>">
+					<div class="caption" style="display: none">
+						<?php echo $o['Outfit']['name']; ?><br/>$<?php echo $o['Outfit']['budget']; ?> MXN
+						<div class="social_thumbs">
+							<img src="/img/social_thumbs_sb.jpg" alt="Stylebooth" border="0"/>
+							<a target="_blank" href="http://instagram.com/styleboothmx"><img src="/img/social_thumbs_inst.jpg" alt="Instagram" border="0"/></a>
+							<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://stylebooth.mx/outfits/detail/<?php echo $o['Outfit']['id']; ?>"><img src="/img/social_thumbs_fb.jpg" alt="Facebook" border="0"/></a>
+							<a target="_blank" href="https://twitter.com/home?status=Nuevo outfit de Stylebooth http://stylebooth.mx/outfits/detail/<?php echo $o['Outfit']['id']; ?>"><img src="/img/social_thumbs_tw.jpg" alt="Twitter" border="0"/></a>
+							<a target="_blank" href="https://plus.google.com/share?url=http://stylebooth.mx/outfits/detail/<?php echo $o['Outfit']['id']; ?>"><img src="/img/social_thumbs_go.jpg" alt="Google+" border="0"/></a>
+							<a target="_blank" href="https://pinterest.com/pin/create/button/?url=http://stylebooth.mx/outfits/detail/<?php echo $o['Outfit']['id']; ?>&media=http://stylebooth.mx/files/outfits/<?php echo $o['Outfit']['image']; ?>&description=<?php echo $o['Outfit']['name']; ?>"><img src="/img/social_thumbs_pin.jpg" alt="Pinterest" border="0"/></a>
+						</div>
+					</div>
+					<a href="/outfits/detail/<?php echo $o['Outfit']['id']; ?>" class="thumb_click"></a>
+				</div>
+			</div>
+			<?php } ?>
+			<div class="clearfix"></div>
+			<h4>Resultados de Productos</h4>
+			<div class="dotted">
+				<?php echo $this->Breadcrumbs->getBreadcrumbs($style['Style']['name'], $this->Session->read('Visit.budget'), $this->Session->read('Visit.size'), $this->Session->read('Visit.foot_size'), $skin['SkinHairType']['name'], $body['BodyType']['name']); ?>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col_busqueda">
+					<h5>BÚSQUEDA DE <br/>PRODUCTOS</h5>
+					<div class="btn-group">
+						<?php echo $this->element('products_category'); ?>
+						<input type="hidden" id="sizes" value='<?php echo json_encode($sizes); ?>'>
+						<input type="hidden" id="style" value="<?php echo $chosen_style; ?>">
+						<a href="/users/register" class="col-mod-12"><img src="files/banners/banner_registrate.jpg" alt="¡Regístrate!" border="0" /></a>
+					</div>
+				</div>
+				<div class="col-md-8">
+					<div id="productsResults" class="row">
+						<?php foreach ($products as $p) { ?>
+						<div class="col-md-3">
+							<div class="thumbnail products-thumb outfit_pieces">
+								<img src="/files/products/<?php echo $p['Product']['image']; ?>" alt="<?php echo $p['Product']['name']; ?>">
+								<div class="caption">
+									<?php echo $p['Product']['name']; ?>.<br/>$<?php echo $p['Product']['price']; ?>
+									<div class="social_thumbs">
+										<img src="/img/social_thumbs_sb.jpg" alt="Stylebooth" border="0" class="stylebooth_thumb"/>
+										<a target="_blank" href="http://instagram.com/styleboothmx"><img src="/img/social_thumbs_inst.jpg" alt="Instagram" border="0"/></a>
+										<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://stylebooth.mx/productosyaccesoriosdemoda/<?php echo $p['Product']['id']; ?>/<?php echo $p['Product']['name']; ?>"><img src="/img/social_thumbs_fb.jpg" alt="Facebook" border="0"/></a>
+										<a target="_blank" href="https://twitter.com/home?status=Nuevo producto de Stylebooth http://stylebooth.mx/productosyaccesoriosdemoda/<?php echo $p['Product']['id']; ?>/<?php echo $p['Product']['name']; ?>"><img src="/img/social_thumbs_tw.jpg" alt="Twitter" border="0"/></a>
+										<a target="_blank" href="https://plus.google.com/share?url=http://stylebooth.mx/productosyaccesoriosdemoda/<?php echo $p['Product']['id']; ?>/<?php echo $p['Product']['name']; ?>"><img src="/img/social_thumbs_go.jpg" alt="Google+" border="0"/></a>
+										<a target="_blank" href="https://pinterest.com/pin/create/button/?url=http://stylebooth.mx/productosyaccesoriosdemoda/<?php echo $p['Product']['id']; ?>/<?php echo $p['Product']['name']; ?>&media=http://stylebooth.mx/files/products/<?php echo $p['Product']['image']; ?>&description=<?php echo $p['Product']['name']; ?>"><img src="/img/social_thumbs_pin.jpg" alt="Pinterest" border="0"/></a>
+									</div>
+								</div>
+								<a href="/productosyaccesoriosdemoda/<?php echo $p['Product']['id']; ?>/<?php echo $p['Product']['name']; ?>" class="thumb_click"></a>
+							</div>
+						</div>
+						<?php } ?>
+					</div>
+				</div>
+				<div class="col-md-1"></div>
 			</div>
 		</div>
 	</div>
-	<?php } } ?>
 </div>
-<h4><b>Resultados de Productos</b></h4>
-	<?php echo $this->Breadcrumbs->getBreadcrumbs($style['Style']['name'], $this->Session->read('Visit.budget'), $this->Session->read('Visit.size'), $this->Session->read('Visit.foot_size'), $skin['SkinHairType']['name'], $body['BodyType']['name']); ?>
-<!-- Single button -->
-<!--<div class="btn-group">
-	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-		<span class="selection"> Todos los Productos </span><span class="caret"></span>
-	</button>
-	<ul class="dropdown-menu" role="menu">
-	show element here
-	</ul>
-</div>-->
-<div class="btn-group">
-	<?php echo $this->element('products_category'); ?>
-	<input type="hidden" id="sizes" value='<?php echo json_encode($sizes); ?>'>
-	<input type="hidden" id="style" value="<?php echo $chosen_style; ?>">
-</div>
-<br />
-<div id="productsResults" class="row">
-	<?php
-	foreach ($products as $p) {
-	?>
-	<div class="col-md-4">
-		<div class="thumbnail products-thumb">
-			<a href="/products/detail/<?php echo $p['Product']['id']; ?>"> <img style="min-height:210px;height:210px;" src="/files/products/<?php echo $p['Product']['image']; ?>" alt="<?php echo $p['Product']['name']; ?>"></a>
-			<div class="caption">
-				<h5><b><?php echo $p['Product']['name']; ?></b></h5>
-				<h5><?php echo $p['Store']['name']; ?></h5>
-				<h5>$<?php echo $p['Product']['price']; ?></h5>
-				<?php echo $this->element('coupons', array('product_id' => $p['Product']['id'])); ?>
-			</div>
-		</div>
-	</div>
-	<?php } ?>
-</div>
-<ul class="pager">
-	<li><a href="/filter1">Anterior</a></li>
-</ul>
-	<script type="text/javascript">
-		$(function() {
-			/*
-			$(".dropdown-menu li a").click(function(event){
-				event.preventDefault();
-				$(this).parents(".btn-group").find('.selection').text($(this).text());
-				$(this).parents(".btn-group").find('.selection').val($(this).text());
-				$text = $(this).text();
-				$.ajax({
-					type: 'post',
-					url: '/products/getProductsByFilter/' + $text,
-					success: function(html) {
-						filterProducts(html);
-					}
-				});
-			});
-			*/
-
-			$("#productsFilter").change(function(event){
-				$text = $(this).val();
-				$sizes = $("#sizes").val();
-				$style = $("#style").val();
-				$.ajax({
-					type: 'post',
-					url: '/products/getProductsByFilter/' + $text + '/' + $sizes + '/' + $style,
-					success: function(html) {
-						filterProducts(html);
-					}
-				});
-			});
-		});
-
-		function filterProducts(html) {
-			var obj = JSON.parse(html);
-			var result = "";
-			for (i=0; i<obj.length; i++) {
-				result += '<div class="col-md-4">'
-					+ '<div class="thumbnail">'
-					+ '<a href="/products/detail/' + obj[i].Product.id + '"> <img style="min-height:210px;height:210px;" src="/files/products/' + obj[i].Product.image + '" alt="' + obj[i].Product.name + '"></a>'
-					+ '<div class="caption">'
-					+ '<h5><b>' + obj[i].Product.name + '</b></h5>'
-					+ '<h5>' + obj[i].Store.name + '</h5>'
-					+ '<h5>$' + obj[i].Product.price + '</h5>';
-				if (obj[i].Coupon.length > 0){
-					result += '<h5><a href="/products/detail/' + obj[i].Product.id + '">Ve Por Tu Cupon!</a></h5>';
-				}
-				result += '</div>'
-					+ '</div>'
-					+ '</div>';
-			}
-
-			$('#productsResults').empty()
-				.append(result);
-		}
-	</script>

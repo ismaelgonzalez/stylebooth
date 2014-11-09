@@ -22,16 +22,18 @@ if ($get_store_address) {
 	$store_name = $this->requestAction('/stores/getStoreNameByProductId/' . $product_id);
 	echo $store_name['Store']['name'];
 } else {
-	echo "<h5>" . $store_address['address1'];
+	if (!empty($store_address['address1'])) {
+		echo "<h5>" . $store_address['address1'];
 
-	if (!empty($store_address['address2'])) {
-		echo " <br/>" . $store_address['address2'];
-	}
-	if (!empty($store_address['zip'])) {
-		echo "<br/>C.P. " . $store_address['zip'];
-	}
+		if (!empty($store_address['address2'])) {
+			echo " <br/>" . $store_address['address2'];
+		}
+		if (!empty($store_address['zip'])) {
+			echo "<br/>C.P. " . $store_address['zip'];
+		}
 
-	echo "<br/>" . $store_address['city'] . ", "
-		. $store_address['state']
-		. ". " . $store_address['country'] . "</h5>";
+		echo "<br/>" . $store_address['city'] . ", "
+			. $store_address['state']
+			. ". " . $store_address['country'] . "</h5>";
+	}
 }
