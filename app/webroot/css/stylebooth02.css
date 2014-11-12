@@ -82,3 +82,6 @@ body .navbar-inverse .navbar-collapse,.navbar-inverse .navbar-form{ border:0; }@
 .alert-danger a:link { color:#bbb; }
 .alert-danger a:hover { color:#fff; }
 .alert-danger a:visited { color: #bbb; }
+.product-more-thumb .img-thumbnail:hover {
+	border: 1px solid deepskyblue;
+}

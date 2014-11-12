@@ -1,4 +1,4 @@
-<div class="row" style="margin-top: 50px;">
+<div class="row" style="margin-top: 50px; margin-bottom: 15px;">
 	<div id="bannerLeft" class="col-md-3">
 		<div class="row producto_left">
 			<a class="thumbnail" href="/stores/products/<?php echo $product['Store']['id']; ?>/<?php echo $product['Store']['name']; ?>">
@@ -14,8 +14,8 @@
 		<div class="row">
 			<div class="row">
 				<div class="col-md-6">
-					<div class="thumbnail">
-						<img src="/files/products/<?php echo $product['Product']['image']; ?>" alt="<?php echo $product['Product']['name']; ?>">
+					<div>
+						<img class="img-thumbnail" src="/files/products/<?php echo $product['Product']['image']; ?>" alt="<?php echo $product['Product']['name']; ?>">
 					</div>
 				</div>
 				<div class="col-md-6" align="left">
@@ -54,6 +54,22 @@
 			</div>
 		</div>
 	</div>
+	<div class="col-md-8 offset4">
+		<?php if (!empty($product['ProductImage'])) { ?>
+			<h5>Imagenes Adicionales</h5>
+			<?php foreach ($product['ProductImage'] as $pi) { ?>
+				<div class="col-md-3 product-more-container">
+					<a class="product-more-thumb" href="#">
+						<div class="anchor-thumb">
+							<img class="img-thumbnail" src="/files/products/<?php echo $pi['image']; ?>" alt="<?php echo $product['Product']['name']; ?>">
+						</div>
+					</a>
+				</div>
+			<?php } ?>
+		<?php } ?>
+	</div>
+</div>
+<div class="row">
 	<div class="row col-md-12">
 		<?php echo $product['Store']['google_maps']; ?>
 	</div>
@@ -106,15 +122,12 @@
 			});
 		}
 	$(function(){
-		/*
-		* This part makes a pop up with the store logo
-		* I'm blocking it out
-		$('.thumbnail').click(function(){
+		$('.img-thumbnail').click(function(){
 			$('.modal-body').empty();
-			var src = $(this).find('img').attr('src');
+			var src = $(this).attr('src');
 			var img = '<img src="' + src + '" width="550">'
 			$('.modal-body').append(img);
 			$('#myModal').modal({show:true});
-		});*/
+		});
 	});
 </script>

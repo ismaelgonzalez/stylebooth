@@ -2,7 +2,9 @@
 	<div class="row titles">
 		<h1>MI BOOTH PERSONAL</h1>
 		<div class="user_name_singout">
-			Hola <?php echo $user['User']['first_name'] . ' ' . $user['User']['last_name']; ?> | <a href="/users/logout">SALIR</a>
+			Hola <?php echo $user['User']['first_name'] . ' ' . $user['User']['last_name']; ?>
+			<?php if ($user['User']['role'] == 'admin') { echo ' | <a href="/admin">Ir al Admin</a>'; } ?>
+			| <a href="/users/logout">SALIR</a>
 		</div>
 	</div>
 </div>
