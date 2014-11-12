@@ -107,3 +107,10 @@ body {
 .panel-calzado {
 	display: none;
 }
+.icon-3 {
+	font-size: 5em;
+}
+.huge {
+	font-size: 40px;
+	line-height: normal;
+}
