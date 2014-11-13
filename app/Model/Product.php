@@ -56,6 +56,7 @@ class Product extends AppModel{
 			'className' => 'ProductImage',
 			'foreignKey' => 'product_id'
 		),
+		'Wishlist'
 	);
 
 	public $belongsTo = array(

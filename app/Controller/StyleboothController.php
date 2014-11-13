@@ -1,7 +1,7 @@
 <?php
 class StyleboothController extends AppController
 {
-	public $uses = array('Style', 'SkinHairType', 'BodyType', 'Product', 'Outfit', 'OutfitProduct', 'UserStat', 'Wishlist', 'ProductsCategory', 'Email', 'Store');
+	public $uses = array('Style', 'SkinHairType', 'BodyType', 'Product', 'Outfit', 'OutfitProduct', 'UserStat', 'Wishlist', 'ProductsCategory', 'Email', 'Store', 'Coupon');
 
 	public $components = array(
 		'Session',
@@ -317,6 +317,83 @@ class StyleboothController extends AppController
 		$this->set('title_for_layout', 'Administrador de Stylebooth');
 		$this->set('pageHeader', 'Dashboard');
 		$this->set('sectionTitle', 'Dashboard');
+
+		$total_products = $this->Product->find('count', array('status' => 1));
+		$total_coupons  = $this->Coupon->find('count', array('status' => 1));
+		$total_users    = $this->User->find('count', array('status' => 1, 'role' => 'user'));
+
+		$this->set('total_products', $total_products);
+		$this->set('total_coupons', $total_coupons);
+		$this->set('total_users', $total_users);
+
+		$most_viewed_prods = $this->Product->find('all', array(
+			'conditions' => array(
+				'Product.status' => 1,
+			),
+			'order' => array(
+				'Product.num_views' => 'DESC'
+			),
+			'limit' => 8
+		));
+
+		$latest_coupons = $this->Coupon->find('all', array(
+			'conditions' => array(
+				'Coupon.status' => 1
+			),
+			'order' => array(
+				'Coupon.id' => 'DESC'
+			),
+			'limit' => 8
+		));
+
+		$latest_users = $this->User->find('all', array(
+			'conditions' => array(
+				'User.status' => 1,
+				'User.role'   => 'user'
+			),
+			'order' => array(
+				'User.id' => 'DESC'
+			),
+			'limit' => 8
+		));
+
+		$stores = $this->Store->find('all', array(
+			'conditions' => array(
+				'Store.status' => 1
+			),
+			'recursive' => -1
+		));
+
+		$stores_and_products = array();
+
+		foreach ($stores as $s) {
+			$num_prods = $this->Product->find('count', array(
+				'conditions' => array(
+					'Product.status' => 1,
+					'Product.store_id' => $s['Store']['id']
+				)
+			));
+
+			$s['Store']['num_prods'] = $num_prods;
+			$stores_and_products[] = $s['Store'];
+		}
+
+		usort($stores_and_products, function($a, $b) {
+			return $b['num_prods'] - $a['num_prods'];
+		});
+
+		$wishlists = $this->Wishlist->find('all', array(
+			'order' => array(
+				'Wishlist.id' => 'DESC',
+			),
+			'limit' => 8
+		));
+
+		$this->set('most_viewed_prods', $most_viewed_prods);
+		$this->set('latest_coupons', $latest_coupons);
+		$this->set('latest_users', $latest_users);
+		$this->set('stores_and_products', $stores_and_products);
+		$this->set('wishlists', $wishlists);
 	}
 
 	public function my_booth($user_id){

@@ -31,6 +31,10 @@ class Store extends AppModel
 			'className' => 'StoreAddress',
 			'foreignKey' => 'store_id'
 		),
+		'Product' => array(
+			'className' => 'Product',
+			'foreignKey' => 'store_id',
+		)
 	);
 
 	public function beforeSave() {

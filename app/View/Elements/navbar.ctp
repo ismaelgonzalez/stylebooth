@@ -7,7 +7,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/"><img src="/img/stylebooth_logo.png" alt="Stylebooth"/></a>
+			<div class="navbar-brand"><a href="index.php"><img src="img/stylebooth_logo.png" alt="Stylebooth" style="position:inherit; z-index:9999; margin-top:0; margin-left:inherit;"></a></div>
 		</div>
 		<div class="navbar-collapse collapse" >
 			<ul class="nav navbar-nav" >

@@ -52,6 +52,8 @@ a:active {color:#833959;}  /* selected link */
 }
 
 .navbar-header, .navbar-nav, .navbar-collapse { background: #000; }
+.navbar-brand>a >img { position:fixed; cursor:pointer; margin-left: -35px; }
+@media (max-width:767px) {.navbar-brand>a>img { position:relative; cursor:pointer; margin-left: 0px; }}
 #signin_btn { cursor: pointer;}
 
 #singin_form { display: none; position: absolute; width:325px; margin:79px 0 0 0; padding:20px; height: 100px; background: #000; left:63%; }
@@ -71,7 +73,7 @@ a:active {color:#833959;}  /* selected link */
 .container_header { background: none !important;}
 .slider { height: 797px; background: #ddd; position: static; }
 @media (max-width:1199px){.slider { height:647px;}}
-@media (max-width:767px){.container .row.slider { width: auto !important; height:498px; margin-top: 100px;}}
+@media (max-width:767px){.container .row.slider { width: auto !important; height:215px; margin-top: 154px !important;}}
 @media (max-width:550px){.slider { width: auto !important; height:367px; margin-top: 0px;}}
 @media (max-width:360px){.slider { width: auto !important; height:215px; margin-top: 0px;}}
 @media (max-width:320px){.slider { width: auto !important; height:215px; margin-top: 0px;}}
@@ -131,17 +133,19 @@ a:active {color:#833959;}  /* selected link */
 #footer .content .social {border-width:0px 1px; border-style: solid; border-color: #fff; }
 
 #frmStyle { margin-bottom: 30px; }
-.style_videos { text-align: center; margin-bottom: 30px; margin-left: -7px; overflow: hidden; width:280px; background-image: url('../img/home_style_bg.jpg'); background-position: right top; background-color: #e0e0e0; background-repeat: no-repeat;}
+.style_videos { text-align: center; margin-bottom: 30px; margin-left: -7px; overflow: hidden; width:280px; height:280px; background-image: url('/files/styles/home_style_casual_bg.jpg'); background-position: center top; background-color: #e0e0e0; background-repeat: no-repeat;}
 @media (max-width:1199px){.style_videos { width:240px; margin-left: -14px;}}
-.rock { background-image: url('../img/home_style_rockin_bg.jpg'); }
-.urban { background-image: url('../img/home_style_urban_bg.jpg'); }
-.romantic { background-image: url('../img/home_style_romantically_bg.jpg'); }
+@media (max-width:991px){.style_videos { width:240px; margin: 15px auto;}}
+.rock { background-image: url('/files/styles/home_style_rockin_bg.jpg'); }
+.urban { background-image: url('/files/styles/home_style_urban_bg.jpg'); }
+.romantic { background-image: url('/files/styles/home_style_romantic_bg.jpg'); }
 .style_videos video { float: left; }
 .style_videos img { position: absolute; z-index: 998; margin-left: -210px; width: 280px;}
 .style_videos > a { cursor: pointer; }
 @media (max-width:1199px){.style_videos img { width: 250px; margin-left: -207px; }}
 
 .style_medidas { padding:20px 0; position: relative; margin-top: -460px; background: #fff; z-index: 999; display: none; }
+@media (max-width:1199px){ .style_medidas { margin-top:-1410px; height: 1410px; }}
 .style_medidas h3 { text-transform: uppercase;}
 #frmFilter1 { text-align: left; padding: 0 30px;}
 #frmFilter1 input {font-family: 'Muli', san-serif;}
@@ -240,7 +244,7 @@ a.tiendas_btn_sur { background-image: url('../img/tiendas_btn_sur.jpg'); }
 .blog_right h5 {border-color: #837f7f; border-style: dotted; border-width: 0 0 3px 0; margin: 0px 0px 5px 0px; padding: 0 3px 8px 3px; text-align: left; }
 .blog_right>a>img { width: 100%; }
 .blog_right a { display: block; color:#d01d52; font-size: 15px; margin: 15px 0; }
-.blog_right a:visited {color:#833959;} 
+.blog_right a:visited {color:#833959;}
 .blog_right a:hover {color:#833959; text-decoration: none;}
 .blog_right a:active {color:#d01d52;}
 .user_img { border-color: transparent !important; }
@@ -288,4 +292,4 @@ th { font-weight: bold;}
 .blog_img_thumb { display: block; height: 200px; overflow: hidden; padding:0; }
 .blog_img_thumb img {width: 100%;}
 a.blog-mas { display: block; width: 100px; padding: 5px; text-align: center; background: #303235; color:#fff; margin-top: 30px; }
-.paging span { margin: 0 5px; }
+.paging span { margin: 20px 5px; display: inline-block; }

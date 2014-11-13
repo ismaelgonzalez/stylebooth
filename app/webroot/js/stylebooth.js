@@ -18,13 +18,13 @@ $(document).ready(function() {
 
 			if (scroll_top > sticky_navigation_offset_top) {
 				$('.navbar-collapse').attr('style', 'position:fixed; margin-top:0; width:inherit !important');
-				$('.navbar-brand img').attr('style', 'position:fixed; z-index:9999; margin-top:-10px; margin-left:-30px; width:63px;');
+				$('.navbar-brand a img').attr('style', 'z-index:9999; margin-top:-10px; margin-left:0px; width:13%; max-width:63px;');
 				$('.slider').attr('style', 'margin-top:inherit;');
 
 
 			} else {
-				$('.navbar-collapse').attr('style', 'position: inherit; margin-top:50px;'); 
-				$('.navbar-brand img').attr('style', 'position:inherit; z-index:9999; margin-top:0; margin-left:inherit;');
+				$('.navbar-collapse').attr('style', 'position: inherit; margin-top:50px;');
+				$('.navbar-brand a img').attr('style', 'z-index:9999; margin-top:0;');
 				$('.slider').attr('style', 'margin-top:inherit;');
 			}
 		};
@@ -32,7 +32,7 @@ $(document).ready(function() {
 		sticky_navigation();
 
 		$(window).scroll(function() {
-			 sticky_navigation();
+			sticky_navigation();
 		});
 	});
 
@@ -51,24 +51,24 @@ $(document).ready(function() {
 
 	//TIENDAS: Scroll a zonas
 	function scrollToAnchor(aid){
-	var aTag = $("a[name='"+ aid +"']");
-	$('html,body').animate({scrollTop: aTag.offset().top},'slow');
+		var aTag = $("a[name='"+ aid +"']");
+		$('html,body').animate({scrollTop: aTag.offset().top},'slow');
 	}
 
 	$("#btn_norte").click(function() {
-	 scrollToAnchor('tiendas_norte');
+		scrollToAnchor('tiendas_norte');
 	});
 
 	$("#btn_poniente").click(function() {
-	 scrollToAnchor('tiendas_poniente');
+		scrollToAnchor('tiendas_poniente');
 	});
 
 	$("#btn_oriente").click(function() {
-	 scrollToAnchor('tiendas_oriente');
+		scrollToAnchor('tiendas_oriente');
 	});
 
 	$("#btn_sur").click(function() {
-	 scrollToAnchor('tiendas_sur');
+		scrollToAnchor('tiendas_sur');
 	});
 
 
@@ -90,12 +90,12 @@ $(document).ready(function() {
 	}
 
 	/*$(".thumb_click").mouseover(function() {
-		$(this).siblings(".caption").fadeIn(300);
-	}).mouseout(ThumbOut);
+	 $(this).siblings(".caption").fadeIn(300);
+	 }).mouseout(ThumbOut);
 
-	$(".social_thumbs").mouseover(function() {
-		clearTimeout(ThumbOut);
-	});*/
+	 $(".social_thumbs").mouseover(function() {
+	 clearTimeout(ThumbOut);
+	 });*/
 
 	$(".col-md-3").live({
 		mouseenter: function() {
@@ -179,25 +179,25 @@ function filterProducts(html, type) {
 
 		if (type === 'galeria_thumb') {
 			result += '<div class="galeria_thumb_specs">'
-				+ obj[i].Product.name + '.<br/>$' + obj[i].Product.price
-				+ '</div>';
+			+ obj[i].Product.name + '.<br/>$' + obj[i].Product.price
+			+ '</div>';
 		} else {
 			result += obj[i].Product.name + '.<br/>$' + obj[i].Product.price;
 		}
 
 		/*if (obj[i].Coupon.length > 0){
-			result += '<h6><a href="/products/detail/' + obj[i].Product.id + '">Ve Por Tu Cupon!</a></h6>';
-		}*/
+		 result += '<h6><a href="/products/detail/' + obj[i].Product.id + '">Ve Por Tu Cupon!</a></h6>';
+		 }*/
 
 		result += '<div class="social_thumbs">'
-				+ '<img src="/img/social_thumbs_sb.jpg" alt="Stylebooth" border="0" class="stylebooth_thumb"/>'
-				+ '<a href="http://instagram.com/styleboothmx"><img src="/img/social_thumbs_inst.jpg" alt="Instagram" border="0"/></a>'
-				+ '<a href="https://www.facebook.com/sharer/sharer.php?u=http://stylebooth.mx/products/detail/' + obj[i].Product.id + '"><img src="/img/social_thumbs_fb.jpg" alt="Facebook" border="0"/></a>'
-				+ '<a href="https://twitter.com/home?status=Nuevo producto de Stylebooth http://stylebooth.mx/products/detail/' + obj[i].Product.id + '"><img src="/img/social_thumbs_tw.jpg" alt="Twitter" border="0"/></a>'
-				+ '<a href="https://plus.google.com/share?url=http://stylebooth.mx/products/detail/' + obj[i].Product.id + '"><img src="/img/social_thumbs_go.jpg" alt="Google+" border="0"/></a>'
-				+ '<a href="https://pinterest.com/pin/create/button/?url=http://stylebooth.mx/products/detail/' + obj[i].Product.id + '&media=http://stylebooth.mx/files/products/' + obj[i].Product.image + '&description=' + obj[i].Product.name + '"><img src="/img/social_thumbs_pin.jpg" alt="Pinterest" border="0"/></a>'
-				+ '<a href="#"><img src="/img/social_thumbs_more.jpg" alt="More" border="0"/></a>'
-			+ '</div>'
+		+ '<img src="/img/social_thumbs_sb.jpg" alt="Stylebooth" border="0" class="stylebooth_thumb"/>'
+		+ '<a href="http://instagram.com/styleboothmx"><img src="/img/social_thumbs_inst.jpg" alt="Instagram" border="0"/></a>'
+		+ '<a href="https://www.facebook.com/sharer/sharer.php?u=http://stylebooth.mx/products/detail/' + obj[i].Product.id + '"><img src="/img/social_thumbs_fb.jpg" alt="Facebook" border="0"/></a>'
+		+ '<a href="https://twitter.com/home?status=Nuevo producto de Stylebooth http://stylebooth.mx/products/detail/' + obj[i].Product.id + '"><img src="/img/social_thumbs_tw.jpg" alt="Twitter" border="0"/></a>'
+		+ '<a href="https://plus.google.com/share?url=http://stylebooth.mx/products/detail/' + obj[i].Product.id + '"><img src="/img/social_thumbs_go.jpg" alt="Google+" border="0"/></a>'
+		+ '<a href="https://pinterest.com/pin/create/button/?url=http://stylebooth.mx/products/detail/' + obj[i].Product.id + '&media=http://stylebooth.mx/files/products/' + obj[i].Product.image + '&description=' + obj[i].Product.name + '"><img src="/img/social_thumbs_pin.jpg" alt="Pinterest" border="0"/></a>'
+		+ '<a href="#"><img src="/img/social_thumbs_more.jpg" alt="More" border="0"/></a>'
+		+ '</div>'
 		+ '</div>'
 		+ '<a href="/products/detail/' + obj[i].Product.id + '" class="thumb_click"></a>'
 		+ '</div>'
@@ -218,8 +218,8 @@ function filterProductsWithOutfit(html) {
 		+ '<div class="caption">'
 		+ obj.Product[i].name + '.<br/>$' + obj.Product[i].price;
 		/*if (obj.Product[i].Coupon.length > 0){
-			result += '<h6><a href="/products/detail/' + obj.Product[i].id + '">Ve Por Tu Cupon!</a></h6>';
-		}*/
+		 result += '<h6><a href="/products/detail/' + obj.Product[i].id + '">Ve Por Tu Cupon!</a></h6>';
+		 }*/
 		result += '<div class="social_thumbs">'
 		+ '<img src="/img/social_thumbs_sb.jpg" alt="Stylebooth" border="0" class="stylebooth_thumb"/>'
 		+ '<a href="http://instagram.com/styleboothmx"><img src="/img/social_thumbs_inst.jpg" alt="Instagram" border="0"/></a>'
@@ -247,16 +247,16 @@ function filterProductsNoSocialButtons(html) {
 		result += '<div class="col-md-3 product_' + obj[i].Product.id + '">' +
 		'<div class="thumbnail mibooth_thumb">' +
 		'<a class="thumb-booth" href="/products/detail/' + obj[i].Product.id + '"><img src="/files/products/' + obj[i].Product.image + '" alt="' + obj[i].Product.name + '"></a>' +
-			'<div class="caption" style="display: none;">' +
-				'<div class="galeria_thumb_specs">' +
-					obj[i].Product.name + '.<br/>$' + obj[i].Product.price +
-				'</div>' +
-					'<a href="/products/detail/' + obj[i].Product.id + '">Ver producto</a>' +
-					'<a onclick="deleteFromWishlist(' + obj[i].Product.id + ');">Eliminar de Wishlist</a>' +
-				'</div>' +
-					'<a href="/products/detail/' + obj[i].Product.id + '" class="thumb_click"></a>' +
-				'</div>' +
-			'</div>';
+		'<div class="caption" style="display: none;">' +
+		'<div class="galeria_thumb_specs">' +
+		obj[i].Product.name + '.<br/>$' + obj[i].Product.price +
+		'</div>' +
+		'<a href="/products/detail/' + obj[i].Product.id + '">Ver producto</a>' +
+		'<a onclick="deleteFromWishlist(' + obj[i].Product.id + ');">Eliminar de Wishlist</a>' +
+		'</div>' +
+		'<a href="/products/detail/' + obj[i].Product.id + '" class="thumb_click"></a>' +
+		'</div>' +
+		'</div>';
 	}
 
 	$('#productsResults').empty()
