@@ -52,6 +52,7 @@ a:active {color:#833959;}  /* selected link */
 }
 
 .navbar-header, .navbar-nav, .navbar-collapse { background: #000; }
+.navbar-brand>a { position:relative; cursor:pointer; }
 #signin_btn { cursor: pointer;}
 
 #singin_form { display: none; position: absolute; width:325px; margin:79px 0 0 0; padding:20px; height: 100px; background: #000; left:63%; }
@@ -71,8 +72,8 @@ a:active {color:#833959;}  /* selected link */
 .container_header { background: none !important;}
 .slider { height: 797px; background: #ddd; position: static; }
 @media (max-width:1199px){.slider { height:647px;}}
-@media (max-width:767px){.container .row.slider { width: auto !important; height:498px; margin-top: 100px;}}
-@media (max-width:550px){.slider { width: auto !important; height:367px; margin-top: 0px;}}
+@media (max-width:767px){.slider { width: auto !important; height:550px; margin-top: 100px;}}
+@media (max-width:550px){.slider { width: auto !important; margin-top: 0px; height:500px;}}
 @media (max-width:360px){.slider { width: auto !important; height:215px; margin-top: 0px;}}
 @media (max-width:320px){.slider { width: auto !important; height:215px; margin-top: 0px;}}
 .holder { width:100%; height:100%; overflow:hidden; margin:0px auto 20px;}
@@ -81,8 +82,8 @@ a:active {color:#833959;}  /* selected link */
 #carousel_viewer img { width: 1185px; height:797px;}
 @media (min-width:1200px){#carousel_viewer img { width: 1185px !important; height:797px !important;}}
 @media (max-width:1199px){#carousel_viewer img { width: 970px !important ; height:647px !important;}}
-@media (max-width:767px){#carousel_viewer img { max-width:767px !important; height: auto !important;}}
-@media (max-width:550px){#carousel_viewer img { max-width:550px !important; height: auto !important; margin-left: -10px;}}
+@media (max-width:767px){#carousel_viewer img { max-width:767px !important; height: auto !important; margin-top: 100px;}}
+@media (max-width:550px){#carousel_viewer img { max-width:550px !important; height: auto !important; margin-left: -10px; margin-top: 150px;}}
 @media (max-width:360px){#carousel_viewer img { max-width:360px !important; height: auto !important; margin-left: 0px;}}
 @media (max-width:320px){#carousel_viewer img { max-width:322px !important; height: auto !important; margin-left: 0px;}}
 .btn_slider { width:10px; height:10px; margin: 0 2px; background:#fff; float: left; border-radius: 10px; }
@@ -197,20 +198,16 @@ iframe { margin-bottom: 50px;}
 .titles h1 { margin-bottom: 0px;}
 
 .col-md-12 .busqueda_top { padding: 5px 20px; text-align: right; }
-.galeria_banner { border: 1px solid #837f7f; width: 100%; }
+.galeria_banner { margin:15px; border: 1px solid #837f7f; width: 100%; }
 .galeria_banner a img { height: auto !important; width: 100%; border: 0;  }
 .galeria_full .col-md-3 .products-thumb { height: 270px; }
 .galeria_thumb { height: 265px; overflow: hidden; }
 @media (max-width: 1199px){.galeria_thumb { height: 208px; overflow: hidden; }}
-.galeria_thumb .caption { position: absolute; background:#837f7f; height: 110px; width: 258px; padding: 7px 10px 15px 15px; color: #fff; font-size: 15px; text-align: right; top: 170px;}
-@media (max-width: 1199px){ .galeria_thumb .caption { width: 205px; top:112px; } }
-@media (max-width: 991px){ .galeria_thumb .caption { width: 273px; top:180px; } }
-
-.galeria_thumb .caption .social_thumbs { width:70px; position: static; float: left;}
+.galeria_thumb .caption { position: relative; background:#837f7f; height: 120px; width: 100%; padding: 7px 10px 15px 15px; color: #fff; font-size: 15px; text-align: right; margin-top:-100px;}
+.galeria_thumb .caption .social_thumbs { width:70px; margin-top: 12px;}
 .galeria_thumb .caption .social_thumbs .stylebooth_thumb { display: block; margin-left:6px; margin-bottom: -1px;}
 .galeria_thumb_specs { display: block; width: 170px; float: right; color: #fff;}
 @media (max-width: 1199px){.galeria_thumb_specs { width: 115px; float: right;}}
-@media (max-width: 991px){.galeria_thumb_specs { width: 175px; float: right;}}
 .site_txts { margin: 0px 30px; min-height: 700px; }
 .site_txts p { margin:20px 0 !important; text-align: left;}
 .contact_btn input { float: right !important; background: #837f7f; padding: 10px 50px !important; border: 0px; text-transform: uppercase; margin-right: 15px; }
