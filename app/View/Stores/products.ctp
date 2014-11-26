@@ -1,3 +1,10 @@
+<div class="row">
+	<div class="col-md-12 text-center">
+		<div class="row titles">
+			<h1>TIENDAS</h1>
+		</div>
+	</div>
+</div>
 <div class="row col-md-12">
 	<h3><?php echo $store['Store']['name']; ?></h3>
 	<?php

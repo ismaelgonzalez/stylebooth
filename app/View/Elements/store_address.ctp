@@ -2,7 +2,7 @@
 if ($get_store_address) {
 	$store_address = $this->requestAction('/stores/getStoreAddress/' . $store_id);
 
-	echo "<h5>" . $store_address['StoreAddress']['address1'];
+	echo $store_address['StoreAddress']['address1'];
 
 	if (!empty($store_address['StoreAddress']['address2'])) {
 		echo " <br/>" . $store_address['StoreAddress']['address2'];
@@ -13,7 +13,7 @@ if ($get_store_address) {
 
 	echo "<br/>" . $store_address['StoreAddress']['city'] . ", "
 		. $store_address['StoreAddress']['state']
-		. ". " . $store_address['StoreAddress']['country'] . "</h5>";
+		. ". " . $store_address['StoreAddress']['country'];
 
 } elseif ($get_store_name) {
 	$store_name = $this->requestAction('/stores/getStoreName/' . $store_id);
@@ -23,7 +23,7 @@ if ($get_store_address) {
 	echo $store_name['Store']['name'];
 } else {
 	if (!empty($store_address['address1'])) {
-		echo "<h5>" . $store_address['address1'];
+		echo $store_address['address1'];
 
 		if (!empty($store_address['address2'])) {
 			echo " <br/>" . $store_address['address2'];
@@ -34,6 +34,6 @@ if ($get_store_address) {
 
 		echo "<br/>" . $store_address['city'] . ", "
 			. $store_address['state']
-			. ". " . $store_address['country'] . "</h5>";
+			. ". " . $store_address['country'];
 	}
 }

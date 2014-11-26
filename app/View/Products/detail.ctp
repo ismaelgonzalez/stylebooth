@@ -1,3 +1,8 @@
+<div class="row">
+	<div class="row titles">
+		<h1>Productos</h1>
+	</div>
+</div>
 <div class="row" style="margin-top: 50px; margin-bottom: 15px;">
 	<div id="bannerLeft" class="col-md-3">
 		<div class="row producto_left">
@@ -8,6 +13,9 @@
 			<?php echo $this->element('store_address', array('get_store_address' => true, 'store_id' => $product['Store']['id'])); ?>
 			<a href="<?php echo $product['Store']['url']; ?>"  target="_blank" class="fb_store"><img src="/img/fb_store_icon.png" border="0"/> /<?php echo $product['Store']['name']; ?></a>
 			<a href="/stores/products/<?php echo $product['Store']['id']; ?>/<?php echo $product['Store']['name']; ?>">Ver productos Boutique</a>
+			<div class="row">
+				<?php echo $product['Store']['google_maps']; ?>
+			</div>
 		</div>
 	</div>
 	<div class="col-md-8" align="center">
@@ -23,7 +31,7 @@
 						<li><a href="javascript:history.back();">VOLVER << </a></a></li>
 					</ul>
 					<div class="producto_specs">
-						<?php echo $product['Product']['name']; ?><br/>
+						<h5><?php echo $product['Product']['name']; ?></h5>
 						$<?php echo $product['Product']['price']; ?> MXN
 						<p><?php echo $product['Product']['blurb']; ?></p>
 						<p class="wishlist-button-container">
@@ -71,7 +79,7 @@
 </div>
 <div class="row">
 	<div class="row col-md-12">
-		<?php echo $product['Store']['google_maps']; ?>
+		<?php //echo $product['Store']['google_maps']; ?>
 	</div>
 </div>
 <div id="errorMessage" class="modal fade">

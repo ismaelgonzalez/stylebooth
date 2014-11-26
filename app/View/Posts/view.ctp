@@ -1,6 +1,10 @@
-<div class="row titles">
-	<h1>BLOG</h1>
+<div class="row blog">
+<div class="col-md-12" align="center">
+	<div class="row titles">
+		<h1>BLOG</h1>
+	</div>
 </div>
+	</div>
 <div class="row blog">
 	<div class="col-md-12" align="center">
 		<div class="row">

@@ -82,3 +82,4 @@ body .navbar-inverse .navbar-collapse,.navbar-inverse .navbar-form{ border:0; }@
 .alert-danger a:link { color:#bbb; }
 .alert-danger a:hover { color:#fff; }
 .alert-danger a:visited { color: #bbb; }
+iframe { width: 100%; height: 250px; }
