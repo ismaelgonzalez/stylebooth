@@ -56,7 +56,7 @@
 <div class="container">
 	<div class="row" id="footer">
 		<div class="content">
-			<div><a href="/anunciate">Anunciate</a></div>
+			<div><a href="/anunciate">Anúnciate</a></div>
 			<div class="social">
 				<a href="http://instagram.com/styleboothmx" target="_blank"><img src="/img/footer_instagram.png" alt="Stylebooth Instagram"/></a>
 				<a href="https://www.facebook.com/stylebooth" target="_blank"><img src="/img/footer_facebook.png" alt="Stylebooth Facebook"/></a>

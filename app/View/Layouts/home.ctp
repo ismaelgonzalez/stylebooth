@@ -58,7 +58,7 @@
 					<div class="col-md-3">
 						<div class="style_videos">
 							<a onclick="setFilter1(1)">
-								<video autoplay loop poster="/files/styles/home_style_casual_bg.jpg">
+								<video autoplay loop poster="/img/videos.png">
 									<source src="files/styles/casualsunday.mp4" type="video/mp4">
 									<source src="files/styles/casualsunday.webm" type="video/webm">
 								</video>
@@ -69,7 +69,7 @@
 					<div class="col-md-3">
 						<div class="style_videos romantic">
 							<a onclick="setFilter1(2)">
-								<video autoplay loop poster="/files/styles/home_style_romantic_bg.jpg">
+								<video autoplay loop poster="/img/videos.png">
 									<source src="files/styles/romanticallypoetic.mp4" type="video/mp4">
 									<source src="files/styles/romanticallypoetic.webm" type="video/webm">
 								</video>
@@ -80,7 +80,7 @@
 					<div class="col-md-3">
 						<div class="style_videos rock">
 							<a onclick="setFilter1(3)">
-								<video autoplay loop poster="/files/styles/home_style_rockin_bg.jpg">
+								<video autoplay loop poster="/img/videos.png">
 									<source src="files/styles/rockinfeeling.mp4" type="video/mp4">
 									<source src="files/styles/rockinfeeling.webm" type="video/webm">
 								</video>
@@ -91,7 +91,7 @@
 					<div class="col-md-3">
 						<div class="style_videos urban">
 							<a onclick="setFilter1(4)">
-								<video autoplay loop poster="/files/styles/home_style_urban_bg.jpg">
+								<video autoplay loop poster="/img/videos.png">
 									<source src="files/styles/urbanstatement.mp4" type="video/mp4">
 									<source src="files/styles/urbanstatement.webm" type="video/webm">
 								</video>
@@ -216,7 +216,7 @@
 <!-- STORE LOGOS -->
 <div class="row" id="footer">
 	<div class="content">
-		<div><a href="/anunciate">Anunciate</a></div>
+		<div><a href="/anunciate">Anúnciate</a></div>
 		<div class="social">
 			<a href="http://instagram.com/styleboothmx" target="_blank"><img src="/img/footer_instagram.png" alt="Stylebooth Instagram"/></a>
 			<a href="https://www.facebook.com/stylebooth" target="_blank"><img src="/img/footer_facebook.png" alt="Stylebooth Facebook"/></a>
