@@ -151,7 +151,7 @@ $(document).ready(function() {
 				type: 'post',
 				url: '/products/getProductsByStore/' +$store_id.val() + '/' + $text,
 				success: function(html) {
-					filterProducts(html, 'galeria_thumb');
+					filterProducts(html, 'products-thumb outfit_pieces');
 				}
 			});
 		} else {

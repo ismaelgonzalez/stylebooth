@@ -422,6 +422,9 @@ class StyleboothController extends AppController
 		}
 
 		$this->set(compact('user', 'style', 'products'));
+		$this->set('seo_keyword', 'Mi booth personal');
+		$this->set('seo_title', 'Booth Personal de ' . $user['User']['first_name'] . ' ' . $user['User']['last_name']);
+		$this->set('seo_description', 'Booth Personal de Estilos y productos en Stylebooth');
 
 	}
 

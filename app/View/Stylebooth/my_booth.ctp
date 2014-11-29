@@ -22,7 +22,7 @@
 			</div>
 			<div class="col-md-10" align="left">
 				<div class="row">
-					<div class="col-md-12 mi_booth_cards left">
+					<div class="col-md-12 mi_booth_cards">
 						<h5>ASESORÍA DE IMAGEN<br/>¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨</h5>
 						<div class="row">
 							<?php echo $this->element('product_name', array('get_skin_body_types' => true, 'skin_hair_type_id' => $user['UserStat'][0]['products_skin_hair_types'], 'body_type_id' => $user['UserStat'][0]['products_body_types'])); ?>
