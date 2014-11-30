@@ -6,7 +6,8 @@ $(document).ready(function() {
 		$( "#singin_form" ).toggle(0);
 	});
 
-
+	//agregar la clase stores al google maps de /tiendas
+	$('.store-map').find('iframe').addClass('stores');
 
 	//MENU: Para que el menu se reacomode al scrollear
 	$(function() {
@@ -18,7 +19,7 @@ $(document).ready(function() {
 
 			if (scroll_top > sticky_navigation_offset_top) {
 				$('.navbar-collapse').attr('style', 'position:fixed; margin-top:0; width:inherit !important');
-				$('.navbar-brand a img').attr('style', 'z-index:9999; margin-top:-10px; margin-left:0px; width:13%; max-width:63px;');
+				$('.navbar-brand a img').attr('style', 'z-index:9999; margin-top:-10px; margin-left:-30px; width:13%; max-width:63px;');
 				$('.slider').attr('style', 'margin-top:inherit;');
 
 
