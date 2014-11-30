@@ -378,6 +378,8 @@ class ProductsController extends AppController
 				),
 			),
 		));
+		error_log(__CLASS__ . ' ' . __FUNCTION__);
+		$this->add_num_view($product['Product']['id'], $product['Product']['num_views']);
 
 		$this->layout = 'filter4_layout';
 		$this->set('title_for_layout', 'Detalle de ' . $product['Product']['name']);
@@ -386,6 +388,21 @@ class ProductsController extends AppController
 		$this->set('seo_keyword', 'Accesorios de moda');
 		$this->set('seo_title', $product['Product']['name']);
 		$this->set('seo_description', empty($product['Product']['blurb']) ? $product['Product']['name'] : $product['Product']['blurb']);
+	}
+
+	private function add_num_view($product_id, $num_views) {
+		error_log(__CLASS__ . ' ' . __FUNCTION__);
+		$num_views++;
+
+		$product = array(
+			'Product' => array(
+				'id'           => $product_id,
+				'num_views'    => $num_views,
+				'update_count' => true
+			)
+		);
+
+		$this->Product->save($product);
 	}
 
 	public function getProductsByFilter($filter, $sizes, $style){

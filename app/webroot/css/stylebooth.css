@@ -310,4 +310,4 @@ a.blog-mas { display: block; width: 100px; padding: 5px; text-align: center; bac
 .paging span { margin: 20px 5px; display: inline-block; }
 iframe.stores { width: 70%;}
 @media (max-width: 991px){ iframe.stores { width: inherit;}}
-
+.product-store-map > iframe { width: 100%; }

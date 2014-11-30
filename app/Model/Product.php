@@ -83,11 +83,13 @@ class Product extends AppModel{
 	public function beforeSave() {
 		parent::beforeSave();
 
-		$this->data[$this->alias]['status'] = isset($this->data[$this->alias]['status']) ? $this->data[$this->alias]['status'] : 1;
+		if (empty($this->data[$this->alias]['update_count'])) {
+			$this->data[$this->alias]['status'] = isset($this->data[$this->alias]['status']) ? $this->data[$this->alias]['status'] : 1;
 
-		if(!empty($this->data[$this->alias]['image']['name'])){
-			$image_name = $this->uploadPic('products');
-			$this->data[$this->alias]['image'] = $image_name;
+			if(!empty($this->data[$this->alias]['image']['name'])){
+				$image_name = $this->uploadPic('products');
+				$this->data[$this->alias]['image'] = $image_name;
+			}
 		}
 
 		return true;
@@ -101,5 +103,9 @@ class Product extends AppModel{
 		));
 
 		return $price['Product']['price'];
+	}
+
+	public function add_num_views($product) {
+
 	}
 }

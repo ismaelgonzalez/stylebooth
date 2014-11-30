@@ -7,8 +7,6 @@
 	<meta name="description" content="Ropa de moda para mujer, outfits blog de moda y tiendas de moda en Hermosillo, adaptados a tu estilo, talla (chicas a extragrandes) y dinero.">
 	<meta name="keywords" content="ropa de moda">
 	<title>Outfits y ropa de moda en Hermosillo a la moda</title>
-	<link href="favicon.ico" type="image/x-icon" rel="icon" />
-	<link href="favicon.ico" type="image/x-icon" rel="shortcut icon" />
 	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="/css/jquery-ui-1.10.4.custom.min.css" />
 	<link rel="stylesheet" type="text/css" href="/css/stylebooth.css" />

@@ -13,7 +13,7 @@
 			<?php echo $this->element('store_address', array('get_store_address' => true, 'store_id' => $product['Store']['id'])); ?>
 			<a href="<?php echo $product['Store']['url']; ?>"  target="_blank" class="fb_store"><img src="/img/fb_store_icon.png" border="0"/> /<?php echo $product['Store']['name']; ?></a>
 			<a href="/stores/products/<?php echo $product['Store']['id']; ?>/<?php echo $product['Store']['name']; ?>">Ver productos Boutique</a>
-			<div class="row">
+			<div class="row product-store-map">
 				<?php echo $product['Store']['google_maps']; ?>
 			</div>
 		</div>
