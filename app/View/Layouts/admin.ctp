@@ -63,7 +63,6 @@ $cakeDescription = __d('cake_dev', 'Stylebooth');
 				<li <?php if ($this->params['controller'] == 'coupons') { echo "class='active'"; } ?>><a href="/coupons">Cupones</a></li>
 				<li <?php if ($this->params['controller'] == 'outfits') { echo "class='active'"; } ?>><a href="/outfits">Outfits</a></li>
 				<li <?php if ($this->params['controller'] == 'posts' && lcfirst($type) == 'b') { echo "class='active'"; } ?>><a href="/blogs/index/b">Blogs</a></li>
-				<li <?php if ($this->params['controller'] == 'posts' && lcfirst($type) == 'n') { echo "class='active'"; } ?>><a href="/noticias/index/n">Noticias</a></li>
 				<li <?php if ($this->params['controller'] == 'products') { echo "class='active'"; } ?>><a href="/products">Productos</a></li>
 				<li <?php if ($this->params['controller'] == 'stores') { echo "class='active'"; } ?>><a href="/stores">Tiendas</a></li>
 				<li <?php if ($this->params['controller'] == 'users') { echo "class='active'"; } ?>><a href="/users">Usuarios</a></li>

@@ -4,7 +4,29 @@ if (sizeof($stores) < 1) {
 	echo "<h4>Por el momento no tenemos tiendas en el sistema.</h4>";
 } else {
 	?>
-
+<div class="row" style="margin-bottom: 20px; padding: 10px;">
+	<form class="form-inline" role="form">
+		<div class="form-group">
+			<div class="input-group">
+				<label class="sr-only" for="StoreName">Nombre de la Tienda</label>
+				<input type="text" class="form-control" id="StoreName" name="StoreName" placeholder="Nombre de la Tienda">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="sr-only" for="StoreZone">Zona</label>
+			<select id="StoreZone" name="StoreZone" class="form-control">
+				<option>-- Seleccionar Zona --</option>
+				<option value="N" <?php if ($zone === 'N') { echo 'selected="selected"'; } ?>>Norte</option>
+				<option value="O" <?php if ($zone === 'O') { echo 'selected="selected"'; } ?>>Oriente</option>
+				<option value="S" <?php if ($zone === 'S') { echo 'selected="selected"'; } ?>>Sur</option>
+				<option value="P" <?php if ($zone === 'P') { echo 'selected="selected"'; } ?>>Poniente</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<button type="submit" class="btn btn-default">Filtrar</button>
+		</div>
+	</form>
+</div>
 <div class="table-responsive">
 	<table class="table table-striped table-hover">
 		<thead>

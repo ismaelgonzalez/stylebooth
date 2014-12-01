@@ -378,7 +378,7 @@ class ProductsController extends AppController
 				),
 			),
 		));
-		error_log(__CLASS__ . ' ' . __FUNCTION__);
+
 		$this->add_num_view($product['Product']['id'], $product['Product']['num_views']);
 
 		$this->layout = 'filter4_layout';
@@ -391,7 +391,6 @@ class ProductsController extends AppController
 	}
 
 	private function add_num_view($product_id, $num_views) {
-		error_log(__CLASS__ . ' ' . __FUNCTION__);
 		$num_views++;
 
 		$product = array(
