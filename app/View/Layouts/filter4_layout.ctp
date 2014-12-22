@@ -37,8 +37,13 @@
 	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
 	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+	<?php if (!empty( $product['Product']['image'] )) { ?>
+	<meta property="og:image" content="http://stylebooth/files/products/<?php echo $product['Product']['image']; ?>"/>
+	<meta property="og:image:secure_url" content="http://stylebooth/files/products/<?php echo $product['Product']['image']; ?>" />
+	<?php } ?>
 </head>
-<body>
+<body><?php var_dump($_SERVER); exit(); ?>
 <!-- navbar -->
 <?php echo $this->element('navbar'); ?>
 <!-- navbar -->

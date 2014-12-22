@@ -214,7 +214,8 @@ iframe { margin-bottom: 50px;}
 .galeria_full .col-md-3 .products-thumb { height: 270px; }
 .galeria_thumb { height: 265px; overflow: hidden; }
 @media (max-width: 1199px){.galeria_thumb { height: 208px; overflow: hidden; }}
-.galeria_thumb .caption { position: absolute; background:#837f7f; height: 110px; width: 258px; padding: 7px 10px 15px 15px; color: #fff; font-size: 15px; text-align: right; top: 170px;}
+.galeria_thumb .caption { position: absolute; background:#837f7f; height: 110px; width: 258px; padding: 7px 10px 15px 15px; color: #fff; font-size: 15px; text-align: right; top: 170px;
+	z-index: 2;}
 @media (max-width: 1199px){.galeria_thumb .caption { width: 203px; height: 90px; font-size: 13px; top: 133px; }}
 @media (max-width: 991px){.galeria_thumb .caption { width: 305px; height: 90px; font-size: 15px; top: 133px; }}
 .galeria_thumb .caption .social_thumbs { width:70px; position: static; float: left; }
