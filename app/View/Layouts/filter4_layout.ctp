@@ -39,11 +39,11 @@
 	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
 	<?php if (!empty( $product['Product']['image'] )) { ?>
-	<meta property="og:image" content="http://stylebooth/files/products/<?php echo $product['Product']['image']; ?>"/>
-	<meta property="og:image:secure_url" content="http://stylebooth/files/products/<?php echo $product['Product']['image']; ?>" />
+	<meta property="og:image" content="http://<?php echo $_SERVER['SERVER_NAME']; ?>/files/products/<?php echo $product['Product']['image']; ?>"/>
+	<meta property="og:image:secure_url" content="http://<?php echo $_SERVER['SERVER_NAME']; ?>/files/products/<?php echo $product['Product']['image']; ?>" />
 	<?php } ?>
 </head>
-<body><?php var_dump($_SERVER); exit(); ?>
+<body>
 <!-- navbar -->
 <?php echo $this->element('navbar'); ?>
 <!-- navbar -->
