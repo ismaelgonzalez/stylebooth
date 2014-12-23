@@ -585,12 +585,18 @@ class ProductsController extends AppController
 		}
 	}
 
-	public function getSkinAndBodyType($skin_hair_type_id, $body_type_id){
+	public function getSkinAndBodyType($skin_hair_type_id = null, $body_type_id = null){
 		$this->autoRender = false;
-		$this->SkinHairType->recursive = -1;
-		$sht = $this->SkinHairType->findById($skin_hair_type_id);
-		$this->BodyType->recursive = -1;
-		$bt = $this->BodyType->findById($body_type_id);
+		$sht = array();
+		$bt  = array();
+
+		if (!empty($skin_hair_type_id) || !empty($body_type_id)) {
+			$this->SkinHairType->recursive = -1;
+			$sht = $this->SkinHairType->findById($skin_hair_type_id);
+			$this->BodyType->recursive = -1;
+			$bt = $this->BodyType->findById($body_type_id);
+		}
+
 
 		$result = array($sht, $bt);
 

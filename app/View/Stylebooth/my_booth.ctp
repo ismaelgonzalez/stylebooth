@@ -25,7 +25,11 @@
 					<div class="col-md-12 mi_booth_cards">
 						<h5>ASESORÍA DE IMAGEN<br/>¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨</h5>
 						<div class="row">
-							<?php echo $this->element('product_name', array('get_skin_body_types' => true, 'skin_hair_type_id' => $user['UserStat'][0]['products_skin_hair_types'], 'body_type_id' => $user['UserStat'][0]['products_body_types'])); ?>
+							<?php
+							$skin_hair_type = !empty($user['UserStat'][0]['products_skin_hair_types']) ? $user['UserStat'][0]['products_skin_hair_types'] : null;
+							$body_type      = !empty($user['UserStat'][0]['products_body_types']) ? $user['UserStat'][0]['products_body_types'] : null;
+							?>
+							<?php echo $this->element('product_name', array('get_skin_body_types' => true, 'skin_hair_type_id' => $skin_hair_type, 'body_type_id' => $body_type)); ?>
 						</div>
 					</div>
 
@@ -63,7 +67,17 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12 misgustos">
-				<div class="dotted">MIS GUSTOS</div>
+				<div class="dotted">
+					MIS GUSTOS | COMPARTIR:
+					<div class="social_thumbs social_thumbs_inline">
+						<img src="/img/social_thumbs_sb_w.jpg" alt="Stylebooth" border="0"/>
+						<a target="_blank" href="http://instagram.com/styleboothmx"><img src="/img/social_thumbs_inst_w.jpg" alt="Instagram" border="0"/></a>
+						<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://stylebooth.mx/mi_booth/<?php echo $user['User']['id']; ?>"><img src="/img/social_thumbs_fb_w.jpg" alt="Facebook" border="0"/></a>
+						<a target="_blank" href="https://twitter.com/home?status=Checa mi booth personal en Stylebooth http://stylebooth.mx/mi_booth/<?php echo $user['User']['id']; ?>"><img src="/img/social_thumbs_tw_w.jpg" alt="Twitter" border="0"/></a>
+						<a target="_blank" href="https://plus.google.com/share?url=http://stylebooth.mx/mi_booth/<?php echo $user['User']['id']; ?>"><img src="/img/social_thumbs_go_w.jpg" alt="Google+" border="0"/></a>
+						<a target="_blank" href="https://pinterest.com/pin/create/button/?url=http://stylebooth.mx/mi_booth/<?php echo $user['User']['id']; ?>&media=http://stylebooth.mx/img/stylebooth_logo.png&description=checa mi booth personal de stylebooth"><img src="/img/social_thumbs_pin_w.jpg" alt="Pinterest" border="0"/></a>
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-md-3">
 						<h5>BÚSQUEDA DE PRODUCTOS</h5>
