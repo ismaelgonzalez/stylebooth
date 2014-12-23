@@ -1,11 +1,6 @@
 <h3><a href="/stores/add/">Agregar Tiendas</a></h3>
-<?php
-if (sizeof($stores) < 1) {
-	echo "<h4>Por el momento no tenemos tiendas en el sistema.</h4>";
-} else {
-	?>
 <div class="row" style="margin-bottom: 20px; padding: 10px;">
-	<form class="form-inline" role="form">
+	<form class="form-inline" role="form" method="post">
 		<div class="form-group">
 			<div class="input-group">
 				<label class="sr-only" for="StoreName">Nombre de la Tienda</label>
@@ -15,7 +10,7 @@ if (sizeof($stores) < 1) {
 		<div class="form-group">
 			<label class="sr-only" for="StoreZone">Zona</label>
 			<select id="StoreZone" name="StoreZone" class="form-control">
-				<option>-- Seleccionar Zona --</option>
+				<option value="">-- Seleccionar Zona --</option>
 				<option value="N" <?php if ($zone === 'N') { echo 'selected="selected"'; } ?>>Norte</option>
 				<option value="O" <?php if ($zone === 'O') { echo 'selected="selected"'; } ?>>Oriente</option>
 				<option value="S" <?php if ($zone === 'S') { echo 'selected="selected"'; } ?>>Sur</option>
@@ -27,14 +22,19 @@ if (sizeof($stores) < 1) {
 		</div>
 	</form>
 </div>
+<?php
+if (sizeof($stores) < 1) {
+	echo "<h4>Por el momento no tenemos tiendas en el sistema.</h4>";
+} else {
+	?>
 <div class="table-responsive">
 	<table class="table table-striped table-hover">
 		<thead>
 		<tr>
-			<th>NombreTitulo</th>
-			<th>URL</th>
-			<th>Zona</th>
-			<th>Status</th>
+			<th><?php echo $this->Paginator->sort('name', 'Nombre'); ?></th>
+			<th><?php echo $this->Paginator->sort('url', 'URL'); ?></th>
+			<th><?php echo $this->Paginator->sort('zone', 'Zona'); ?></th>
+			<th><?php echo $this->Paginator->sort('status'); ?></th>
 			<th></th>
 			<th></th>
 		</tr>

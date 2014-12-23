@@ -24,10 +24,22 @@ class StoresController extends AppController
 		$this->set('pageHeader', 'Tiendas');
 		$this->set('sectionTitle', 'Lista de Tiendas');
 
+		$conditions = array(
+			'Store.status' => 1,
+		);
+
+		if (!empty($this->data)){
+			if (!empty($this->data['StoreName'])) {
+				$conditions[] = array('Store.name LIKE' => "%" . $this->data['StoreName'] . "%");
+			}
+
+			if (!empty($this->data['StoreZone'])) {
+				$conditions[] = array('Store.zone' => $this->data['StoreZone']);
+			}
+		}
+
 		$this->Paginator->settings= array(
-			'conditions' => array(
-				'Store.status' => 1,
-			),
+			'conditions' => $conditions,
 			'order' => array(
 				'Store.id' => 'DESC',
 			),
